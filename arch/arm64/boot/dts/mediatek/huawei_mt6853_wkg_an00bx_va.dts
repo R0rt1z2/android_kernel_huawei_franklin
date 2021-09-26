@@ -1,0 +1,19 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/pinctrl/mt6853-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6853_wkg_an00bx_va/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 0 0 3>;
+    mtk,board_name = "WKG_AN00BX_VA";
+    mtk,product_name = "WKG-AN00BX";
+    hardware_version = "";
+};
+
+#include <k6853v1_64/cust.dtsi>
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/
+

@@ -1,0 +1,10 @@
+config HUAWEI_CHARGER
+        bool "huawei charger"
+        default n
+config FCP_CHARGER
+        bool "fcp charger"
+        default n
+
+config MT6873_USCP_ADC
+	bool "mt6873_uscp_adc"
+	default n

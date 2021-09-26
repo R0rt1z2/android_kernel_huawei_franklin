@@ -1,0 +1,37 @@
+&i2c3 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	nfc@28 {
+		compatible = "mediatek,nq-pn544";
+		status = "okay";
+		reg = <0x28>;
+		nxp,nfc_int = <&pio 11 0x00>;
+		nxp,nfc_ven = <&pio 71 0x00>;
+		nxp,nfc_firm = <&pio 10 0x00>;
+		nfc_nxp_conf_name = "libnfc-nxp-sn110.conf";
+		nfc_brcm_conf_name = "libnfc-brcm-sn110.conf";
+		nfc_card_num = <0x2>;
+		nfc_chip_type = "nfc_sz";
+		nfc_ese_type = "p61";
+		nfc_single_channel = "false";
+		nfc_ese_num = <0x1>;
+		pinctrl-names = "nfc_default","srclkenai";
+		pinctrl-0 = <&nfc_default>;
+		pinctrl-1 = <&srclkenai>;
+	};
+};
+&pio {
+	nfc_default: nfc_default {
+	};
+
+	srclkenai: srclkenai {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO17__FUNC_SRCLKENAI0>;
+			slew-rate = <0>;
+		};
+	};
+};
+&nfc_exist {
+	nfc_exist_flag = "1";
+	status = "ok";
+};

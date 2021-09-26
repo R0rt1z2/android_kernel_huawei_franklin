@@ -1,0 +1,10 @@
+&huawei_sensor_info {
+	compatible = "huawei,huawei_sensor_info";
+	huawei_virt_prox = <1>;
+	product_number = <5>;
+	status = "okay";
+};
+
+&motion {
+	supported_motions_type = <0x1f>;
+};

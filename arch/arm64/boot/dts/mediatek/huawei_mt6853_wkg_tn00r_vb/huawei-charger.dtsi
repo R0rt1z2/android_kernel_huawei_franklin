@@ -1,0 +1,9 @@
+#include "../huawei_charger/mt6853_wkg_huawei_charger.dtsi"
+
+&charger {
+	vdpm_buf_limit = <78>;
+};
+
+&bat_gm30 {
+	CAR_TUNE_VALUE = <(78)>;
+};

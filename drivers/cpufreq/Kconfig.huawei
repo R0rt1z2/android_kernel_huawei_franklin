@@ -1,0 +1,20 @@
+config CPU_FREQ_POWER_STAT
+	bool "Estimation of task power consumption"
+	depends on CPU_FREQ_STAT
+	select CPU_FREQ_TIMES
+	default n
+	help
+	  Keep track of amount of power each task consumes and report power per uid
+
+config HUAWEI_FREQ_STATS_COUNTING_IDLE
+	bool "time in state seperate active and idle time"
+	depends on CPU_FREQ_STAT && CPU_IDLE
+	default n
+	help
+	  Account active and idle time in different frequencies.
+
+config HUAWEI_FREQ_LINK
+	bool "cpu and devices freq link switch"
+	default n
+	help
+	  Cpu and dev freq link switch.

@@ -1,0 +1,27 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/spmi/spmi.h>
+#include <dt-bindings/pinctrl/mt6885-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6885_mrr_w00_vc/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 2 0 5>;
+    mtk,board_name = "MRR_W00_VC";
+    mtk,product_name = "MRR-W00";
+    hardware_version = "SH0MRR5GLM";
+};
+
+&dev_detect{
+	compass = <3>;
+	g_sensor = <3>;
+	gyroscope = <3>;
+	l_sensor = <2>;
+	status = "ok";
+};
+
+#include <huawei_mt6885_mrr/cust.dtsi>
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/

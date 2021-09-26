@@ -1,0 +1,5 @@
+#include "../huawei_mt6853_camera_ntn.dtsi"
+&product_name_camera {
+	product-name = "Ntn40m";
+	cam-isp-dsm-enabled = <1>;
+};

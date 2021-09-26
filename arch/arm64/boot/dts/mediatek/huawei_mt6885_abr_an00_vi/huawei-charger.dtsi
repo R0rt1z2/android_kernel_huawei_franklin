@@ -1,0 +1,45 @@
+#include "../huawei_charger/mt6885_abr_huawei_charger.dtsi"
+
+&i2c7 {
+	bq25970@65 {
+		ic_role = <1>;
+	};
+
+	rt9426_battery@55{
+		status = "disabled";
+	};
+
+	bq27z561_fg@55 {
+		reg = <0x55>;
+		compatible = "huawei,bq27z561";
+		status = "ok";
+	};
+
+	sm5450@6F {
+		status = "disabled";
+	};
+
+	hi6526_charger@6B{
+		status = "ok";
+	};
+};
+
+&direct_charge_ic {
+	ic_para1 =
+		"0", "0", "0", "0", "0";
+};
+
+&direct_charger_sc {
+	single_ic_ibat_th = <8000>;
+	current_ratio =
+		"3", "5", "20", "2", "-1",
+		"3", "5", "20", "1", "8000",
+		"0", "5", "20", "0", "0";
+};
+
+&battery_fault {
+	vol_cutoff_normal = <2900>;
+	vol_cutoff_sleep = <3100>;
+	vol_cutoff_low_temp = <2800>;
+	status = "ok";
+};

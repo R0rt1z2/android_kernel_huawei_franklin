@@ -1,0 +1,28 @@
+config CONTEXTHUB
+	bool "Sensor CONTEXTHUB driver"
+	default n
+	help
+	Sensor CONTEXTHUB driver.
+
+config CONTEXTHUB_SHMEM
+	bool "Sensor CONTEXTHUB SHMEM driver"
+	depends on INPUTHUB || INPUTHUB_20
+	default y
+	help
+	Say yes here if you want to configure contexthub share memory
+
+config CONTEXTHUB_UNIFIED_TRANSFER
+	bool "Sensor CONTEXTHUB unified transfer feature"
+	default n
+	help
+	Say yes here if you want to use unified transfer feature
+
+config HUAWEI_SOFTTIMER
+	bool "HUAWEI SOFTTIMER support"
+	depends on CONTEXTHUB
+	default n
+	---help---
+	  Enable support for softtimer driver
+
+source "drivers/uni_drivers/contexthub/flp/Kconfig"
+source "drivers/uni_drivers/contexthub/ar/Kconfig"

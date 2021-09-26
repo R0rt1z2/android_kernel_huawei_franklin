@@ -1,0 +1,43 @@
+#include "../huawei_mt6853_camera_ntn.dtsi"
+&product_name_camera {
+	product-name = "Ntn40mV4";
+	cam-isp-dsm-enabled = <1>;
+};
+
+/* CAMERA GPIO standardization */
+
+&cam4_mclk_off {
+	pins_cmd_dat {
+		pinmux = <PINMUX_GPIO50__FUNC_GPIO50>;
+		drive-strength = <1>;
+	};
+};
+
+&cam4_mclk_2ma {
+	pins_cmd_dat {
+		pinmux = <PINMUX_GPIO50__FUNC_CMMCLK1>;
+		drive-strength = <0>;
+	};
+};
+
+&cam4_mclk_4ma {
+	pins_cmd_dat {
+		pinmux = <PINMUX_GPIO50__FUNC_CMMCLK1>;
+		drive-strength = <1>;
+	};
+};
+
+&cam4_mclk_6ma {
+	pins_cmd_dat {
+		pinmux = <PINMUX_GPIO50__FUNC_CMMCLK1>;
+		drive-strength = <2>;
+	};
+};
+
+&cam4_mclk_8ma {
+	pins_cmd_dat {
+		pinmux = <PINMUX_GPIO50__FUNC_CMMCLK1>;
+		drive-strength = <3>;
+	};
+};
+/* Main4(macro) Cam: cam4 GPIOs end */

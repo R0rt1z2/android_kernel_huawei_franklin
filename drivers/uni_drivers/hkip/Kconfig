@@ -1,0 +1,52 @@
+config HUAWEI_HKIP
+	bool "HUAWEI HKIP support"
+	default n
+	help
+	  Say yes here to support the HUAWEI HKIP
+
+config HKIP_MODULE_ALLOC
+	bool "HKIP overload module_alloc"
+	depends on HUAWEI_HKIP
+	default n
+	help
+	  Say yes when overload is needed
+
+config HUAWEI_HKIP_DEBUG
+	bool "HUAWEI HKIP test support"
+	depends on !UBSAN && !KCOV && !KASAN
+	depends on HUAWEI_HKIP
+	default n
+	help
+	  Say yes here to support the HKIP debug
+
+config HKIP_PRMEM
+	bool "Write protect critical data not requiring high write speed."
+	default n
+	help
+	  Selected data can be tagged/allocated in such a way that it
+	  becomes read-only, with the option of allowing for modifications
+	  through specific API. Run-time allocation must also use such API.
+	  Saying No here will revert to basic kernel vmalloc.
+
+config HKIP_PRMEM_BYPASS
+	bool "Let the allocator active, but do not protect the memory"
+	depends on HKIP_PRMEM
+	default n
+	help
+	  Useful for debugging or for testing existing code while it is
+	  being converted to the prmem API.
+	  Saying Yes here will not write protect the allocations.
+
+config DEBUG_HKIP_PRMEM
+	bool "Run self test for protected memory (prmem)"
+	depends on HKIP_PRMEM
+	default n
+	help
+	  Verifies that the protected memory interface works correctly.
+
+config HKIP_USING_IPI
+	bool "HKIP Using IPI interrupt"
+	depends on HUAWEI_HKIP
+	default n
+	help
+	  Say yes here to support using IPI not GIC

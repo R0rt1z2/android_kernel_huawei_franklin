@@ -1,0 +1,8 @@
+#
+# Misc strange devices
+#
+config CS35LXX
+	bool "Cirrus CS35LXX smartpa misc driver"
+    default n
+
+

@@ -1,0 +1,47 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/pinctrl/mt6853-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6853_hjc_an00_vk/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 4 6 6>;
+    mtk,board_name = "HJC_AN00_VK";
+    mtk,product_name = "HJC-AN00";
+    mtk,platformid = "001";
+    hardware_version = "HN1JSCM";
+};
+
+&dev_detect{
+    touch_panel = <2>;
+	nfc = <1>;
+    status = "ok";
+};
+
+&antenna_cable_detect {
+	pinctrl-names = "default", "id0";
+	pinctrl-0 = <&ant_cable_det_default>;
+	pinctrl-1 = <&ant_cable_det_id0>;
+	gpios = <&pio 12 0 >;
+	gpio_count = <1>;
+};
+
+&pio {
+	ant_cable_det_default: ant_cable_det_default {
+	};
+
+	ant_cable_det_id0: ant_cable_det_id0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO12__FUNC_GPIO12>;
+			slew-rate = <0>;
+			bias-pull-up = <11>;
+		};
+	};
+};
+
+#include <k6853v1_64/cust.dtsi>
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/
+

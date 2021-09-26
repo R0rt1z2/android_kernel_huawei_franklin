@@ -1,0 +1,9 @@
+config HW_CHARGE_TIME
+	depends on HW_PLAT_POWER
+	bool "huawei charge time"
+	default n
+
+config HW_CHARGE_TIME_DEBUG
+	depends on HW_CHARGE_TIME
+	bool "huawei charge time debug"
+	default n

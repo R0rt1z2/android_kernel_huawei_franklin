@@ -1,0 +1,79 @@
+&charger {
+	ac_charger_current = <2695000>;
+	ac_charger_input_current = <2300000>;
+	non_std_ac_charger_current = <1200000>;
+	dpm_enable;
+	dynamic_cv_en;
+	battery_cv = <4410000>;
+	iterm = <150000>;
+	jeita_temp_t2_to_t3_cv = <4410000>;
+	jeita_temp_t1_to_t2_cv = <4410000>;
+	jeita_temp_t0_to_t1_cv = <4410000>;
+	jeita_temp_t2_to_t3_cur = <2695000>;
+	vdpm_buf_limit = <100>;
+	vdpm_para =
+			"-32767", "4000", "4300", "50",
+			"4000", "4200", "4500", "50",
+			"4200", "32767", "4600", "50";
+};
+
+&huawei_charger {
+	compatible = "huawei,charger";
+	status = "okay";
+};
+
+&huawei_battery {
+	compatible = "huawei,battery";
+	voltage_max_design = <4410000>;
+	status = "okay";
+};
+
+
+&lk_charger{
+	ac_charger_current = <1050000>;
+	ac_charger_input_current = <1050000>;
+	non_std_ac_charger_current = <1050000>;
+	is_power_path;
+};
+
+&bat_gm30 {
+	bat_para =
+		"SwdAtl", "830000", "960000",
+		"DesayGy", "400000", "510000",
+		"DesayMurata", "590000", "690000",
+		"NvtAtl", "250000", "350000";
+	min_fcc = <3500000>;
+	max_fcc = <5000000>;
+	dlpt_optimization;
+	CAR_TUNE_VALUE = <(78)>;
+	#include "sunwoda_atl_4v41_3900mah_ext.dtsi"
+	#include "desay_gy_4v41_3900mah_ext.dtsi"
+	#include "desay_murata_4v41_3900mah_ext.dtsi"
+	#include "nvt_atl_4v41_3900mah_ext.dtsi"
+};
+
+&usb_c_pinctrl {
+	status = "disabled";
+};
+
+&mt6360_pmu {
+	mt6360,intr_gpio_num = <24>; /* direct defined GPIO num */
+	mt6360,intr_gpio = <&pio 24 0x0>;
+};
+
+&mt6360_typec {
+	mt6360pd,intr_gpio_num = <25>; /* direct defined GPIO num */
+	mt6360pd,intr_gpio = <&pio 25 0x0>;
+};
+
+&direct_charge_ps {
+	status = "disabled";
+};
+
+&direct_charger {
+	status = "disabled";
+};
+
+&direct_charger_sc {
+	status = "disabled";
+};

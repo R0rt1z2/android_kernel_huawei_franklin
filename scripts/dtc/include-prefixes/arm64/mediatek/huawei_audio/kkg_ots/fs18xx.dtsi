@@ -1,0 +1,7 @@
+&i2c6 {
+    fs18xx_smartpa@36 {
+        compatible = "foursemi,fs18xx";
+        reg = <0x36>;
+        status = "okay";
+    };
+};

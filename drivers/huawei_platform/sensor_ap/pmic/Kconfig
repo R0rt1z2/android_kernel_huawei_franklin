@@ -1,0 +1,16 @@
+config HUAWEI_PMIC_RT5112
+	bool "huawei pmic rt5112"
+	default n
+	help
+	  Say Y here to enable power pmic driver.
+	  This driver provides interfaces to get pmic operation
+	  e.g. we use fan53880/rt5112.
+
+
+config HUAWEI_PMIC_FAN53880
+	bool "huawei pmic fan53880"
+	default n
+	help
+	  Say Y here to enable power pmic driver.
+	  This driver provides interfaces to get pmic operation
+	  e.g. we use fan53880/rt5112.

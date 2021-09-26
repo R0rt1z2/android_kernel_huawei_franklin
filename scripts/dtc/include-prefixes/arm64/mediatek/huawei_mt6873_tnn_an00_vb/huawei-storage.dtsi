@@ -1,0 +1,5 @@
+&msdc1 {
+	no-mmc;
+	mux-sdsim = <0>;
+	status = "okay";
+};

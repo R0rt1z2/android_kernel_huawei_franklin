@@ -1,0 +1,1 @@
+obj-$(CONFIG_HUAWEI_BATTERY_INFORMATION) += battery_ct/

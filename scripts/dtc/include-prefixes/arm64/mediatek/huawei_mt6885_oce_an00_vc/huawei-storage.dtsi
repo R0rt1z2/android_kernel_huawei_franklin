@@ -1,0 +1,4 @@
+&ufshci {
+	ufs-tw;
+};
+

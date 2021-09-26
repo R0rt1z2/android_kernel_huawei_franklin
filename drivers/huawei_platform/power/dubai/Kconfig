@@ -1,0 +1,22 @@
+config HUAWEI_DUBAI_BATTERY_STATS
+	bool "Dubai battery stats (capacity_rm)"
+	default n
+	depends on HUAWEI_DUBAI
+	help
+	  This config is mainly for getting capacity_rm value of power_supply.
+	  Please make sure there is POWER_SUPPLY_PROP_CAPACITY_RM.
+
+config HUAWEI_DUBAI_GPU_STATS
+	bool "Dubai gpu frequency stats"
+	default n
+	depends on HUAWEI_DUBAI && MTK_GPU_SUPPORT
+
+config HUAWEI_DUBAI_DDR_STATS
+	bool "Dubai ddr stats"
+	default n
+	depends on HUAWEI_DUBAI && MTK_SWPM
+
+config HUAWEI_DUBAI_VCORE_STATS
+	bool "Dubai vcore voltage stats"
+	default n
+	depends on HUAWEI_DUBAI && MTK_SWPM

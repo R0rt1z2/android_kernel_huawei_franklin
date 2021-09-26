@@ -1,0 +1,15 @@
+# detect devices
+
+menuconfig HUAWEI_OEMINFO
+    bool "HUAWEI OEMINFO"
+    default n
+    help
+      Say yes if you want i2c device detect driver.
+      This is for i2c connected version. If unsure, say N here.
+
+menuconfig OEMINFO_WP_FEATURE
+    bool "OEMINFO_WP_FEATURE"
+    default n
+    help
+      Say yes if you want i2c device detect driver.
+      This is for i2c connected version. If unsure, say N here.

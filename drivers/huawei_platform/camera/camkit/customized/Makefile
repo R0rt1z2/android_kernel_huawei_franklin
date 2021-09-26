@@ -1,0 +1,21 @@
+#
+# Copyright (c) 2020-2020 Huawei Technologies Co., Ltd.
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+
+ifneq (,$(filter $(CONFIG_MTK_PLATFORM), "mt6765"))
+$(warning "platform" $(CONFIG_MTK_PLATFORM))
+obj-y += mt6765/
+endif
+
+ifneq (,$(filter $(CONFIG_MTK_PLATFORM), "mt6853"))
+#obj-y += mt6853/
+endif

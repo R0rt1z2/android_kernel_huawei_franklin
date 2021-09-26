@@ -1,0 +1,7 @@
+#include "../huawei_charger/mt6885_yor_huawei_charger.dtsi"
+
+&i2c7 {
+	rt9426_battery@55{
+		status = "ok";
+	};
+};

@@ -1,0 +1,1 @@
+obj-$(CONFIG_XHUB_ROUTER) += $(MTK_PROJECT)/

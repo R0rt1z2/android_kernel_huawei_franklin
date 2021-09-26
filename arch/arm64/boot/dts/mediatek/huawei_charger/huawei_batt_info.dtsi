@@ -1,0 +1,37 @@
+/ {
+	huawei_batt_info: huawei_batt_info {
+		compatible = "huawei,battery-information";
+		sn-version = <1>;
+		sn-check-type = <1>;
+		shield_ct_sign = <0>;
+		status = "disabled";
+		battery_checker_0: battery_checker@0 {
+			compatible = "huawei,battery-authentication";
+			matchable = <&sle95250>;
+			id-in-grp = /bits/ 8 <1>;
+			chks-in-grp = /bits/ 8 <1>;
+			id-of-grp = /bits/ 8 <1>;
+			free-cycles = <10>;
+			sn-check-type = <0>; /* 0 always success, 1 normal checking */
+			status = "ok";
+		};
+		battery_checker_1: battery_checker@1 {
+			compatible = "huawei,battery-authentication";
+			/* matchable = <&ds28el15_1>; */
+			id-in-grp = /bits/ 8 <2>;
+			chks-in-grp = /bits/ 8 <2>;
+			id-of-grp = /bits/ 8 <1>;
+			free-cycles = <10>;
+			sn-check-type = <0>; /* 0 always success, 1 normal checking */
+			status = "disabled";
+		};
+	};
+	huawei_batt_identify: huawei_batt_identify {
+		compatible = "huawei,battery-identify";
+		status = "disabled";
+	};
+	sle95250: sle95250 {
+		compatible = "infineon,sle95250";
+		status = "disabled";
+	};
+};

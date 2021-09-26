@@ -1,0 +1,40 @@
+#include "../huawei_charger/mt6853_ang_huawei_charger.dtsi"
+
+&i2c7 {
+	bq25970@65 {
+		status = "disabled";
+	};
+	bq25970@66 {
+		compatible = "bq25970";
+		pinctrl-names = "default";
+		pinctrl-0 = <&bq25970_main_irq_pins_default>;
+		gpio_int = <&pio 45 0x0>;
+		switching_frequency = <675>;
+		sense_r_config = <20>;
+		sense_r_actual = <10>;
+		reg = <0x66>;
+		i2c_recovery = <1>;
+		i2c_recovery_addr = <0x65>;
+		status = "ok";
+	};
+};
+
+&i2c0 {
+	bq25970@65 {
+		status = "disabled";
+	};
+	bq25970@66 {
+		compatible = "bq25970";
+		pinctrl-names = "default";
+		pinctrl-0 = <&bq25970_aux_irq_pins_default>;
+		gpio_int = <&pio 39 0x0>;
+		ic_role = <1>;
+		switching_frequency = <675>;
+		sense_r_config = <20>;
+		sense_r_actual = <10>;
+		reg = <0x66>;
+		i2c_recovery = <1>;
+		i2c_recovery_addr = <0x65>;
+		status = "ok";
+	};
+};

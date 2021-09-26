@@ -1,0 +1,36 @@
+#include "../huawei_charger/mt6885_abr_huawei_charger.dtsi"
+
+&i2c7 {
+	rt9426_battery@55{
+		status = "disabled";
+	};
+};
+
+&huawei_battery {
+	use_third_coul = <0>;
+	status = "ok";
+};
+
+&bat_gm30 {
+	status = "ok";
+};
+
+&huawei_power_proxy  {
+	status = "disabled";
+};
+
+&huawei_power_supply {
+	status = "disabled";
+};
+
+&battery_core {
+	status = "disabled";
+};
+
+&battery_model {
+	status = "disabled";
+};
+
+&battery_ui_capacity {
+	status = "disabled";
+};

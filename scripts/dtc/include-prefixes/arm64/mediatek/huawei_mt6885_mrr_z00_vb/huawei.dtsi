@@ -1,0 +1,7 @@
+#include "huawei-charger.dtsi"
+#include "huawei-led.dtsi"
+#include "huawei-lcd.dtsi"
+#include "huawei-camera.dtsi"
+#include "huawei-tp.dtsi"
+#include "huawei-audio.dtsi"
+#include "huawei-sensor.dtsi"

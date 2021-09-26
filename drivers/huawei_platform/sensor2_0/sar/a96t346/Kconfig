@@ -1,0 +1,7 @@
+config MTK_ABOV_SAR
+	bool "abov a96t346 for MediaTek package"
+	default n
+	help
+	  It support different type sensor
+	  in this platform. If this option
+	  is set, it will support sar sensor A96T346.

@@ -1,0 +1,3 @@
+config RFFE_ANTENNA
+	bool "support antenna cable state check function"
+	default n

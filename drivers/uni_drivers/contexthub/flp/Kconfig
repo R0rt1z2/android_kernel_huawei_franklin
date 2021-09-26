@@ -1,0 +1,49 @@
+#
+# FLP driver configuration
+#
+
+menu "HUAWEI FLP configuration"
+
+config HUAWEI_FLP
+	bool "HUAWEI FLP support"
+	depends on HUAWEI_SOFTTIMER
+	default n
+	---help---
+	  Enable support for FLP driver
+
+config HUAWEI_FLP_GEOFENCE
+	bool "HUAWEI FLP GEOFENCE support"
+	depends on HUAWEI_FLP
+	default n
+	---help---
+	  Enable support for GEOFENCE driver
+
+config HUAWEI_FLP_CELLFENCE
+	bool "HUAWEI FLP CELLFENCE support"
+	depends on HUAWEI_FLP
+	default n
+	---help---
+	  Enable support for CELLFENCE driver
+
+config HUAWEI_FLP_WIFIFENCE
+	bool "HUAWEI_FLP_WIFIFENCE support"
+	depends on HUAWEI_FLP
+	default n
+	---help---
+	  Enable support for WIFIFENCE driver
+
+config HUAWEI_FLP_BATCHING
+	bool "HUAWEI_FLP_BATCHING support"
+	depends on HUAWEI_FLP
+	default n
+	---help---
+	  Enable support for BATCHING driver
+
+config HUAWEI_FLP_DIAG
+	bool "HUAWEI_FLP_DIAG support"
+	depends on HUAWEI_FLP
+	default n
+	---help---
+	  Enable support for DIAG driver
+
+endmenu

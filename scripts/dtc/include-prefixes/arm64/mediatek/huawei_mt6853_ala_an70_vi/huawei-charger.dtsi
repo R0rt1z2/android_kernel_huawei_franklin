@@ -1,0 +1,16 @@
+#include "../huawei_charger/mt6853_ang_huawei_charger.dtsi"
+
+&i2c7 {
+	rt9426_battery@55{
+		status = "disabled";
+	};
+	bq27z561_fg@55 {
+		reg = <0x55>;
+		compatible = "huawei,bq27z561";
+		status = "ok";
+	};
+};
+
+&huawei_batt_info {
+	shield_ct_sign = <3>;
+};

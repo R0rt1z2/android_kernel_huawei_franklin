@@ -1,0 +1,119 @@
+&tboard_thermistor1 {
+    compatible = "mediatek,mtboard-thermistor1";
+    io-channels = <&auxadc 0>;
+    io-channel-names = "thermistor-ch0";
+    PUP_R = <22000>;
+    PUP_VOLT = <1800>;
+    OVER_CRITICAL_L = <188500>;
+    NTC_TABLE = <8>;
+    AUXADC_CH = <0>;
+};
+
+/* shell thermal config and algorithm AR000AFR67 JM*/
+&hisi_shell {
+        compatible = "hisi,shell-temp";
+        interval = <5000>;
+        bias = <389235>;
+        count = <7>;
+        tsensor_para = "10000","100000","0";
+        ntc_para = "2000","80000","-20000";
+        status = "ok";
+        sensors {
+            sensor0 {
+                type = "battery";
+                coef = "10411000","7016000","4273000","3888000","6489000","12044000","31456000";
+            };
+            sensor1 {
+                type = "msm_therm";
+                coef = "-5208","-2272","-2468","-1530","-1030","-888","11321";
+            };
+            sensor2 {
+                type = "pa_therm0";
+                coef = "-3519","-340","122","787","2041","4168","11846";
+            };
+            sensor3 {
+                type = "CHG_IC_THERM";
+                coef = "-8378","-3128","-3283","-3902","-2125","-2982","7233";
+            };
+            sensor4 {
+                type = "COOL_THERM";
+                coef = "470","-912","-1434","-375","-1983","-1288","610";
+            };
+            sensor5 {
+                type = "pmic_xo_therm";
+                coef = "4834","2316","3269","3018","3387","1549","980";
+            };
+        };
+    };
+
+&shell_front {
+        compatible = "hisi,shell-temp";
+        interval = <5000>;
+        bias = <291683>;
+        count = <7>;
+        tsensor_para = "10000","100000","0";
+        ntc_para = "2000","80000","-20000";
+        status = "ok";
+        sensors {
+            sensor0 {
+                type = "battery";
+                coef = "14126000","7675000","4619000","3922000","7714000","12702000","31416000";
+            };
+            sensor1 {
+                type = "msm_therm";
+                coef = "-6361","-2909","-2532","-1985","-1050","-734","8920";
+            };
+            sensor2 {
+                type = "pa_therm0";
+                coef = "-2949","-358","-198","451","1502","2733","7772";
+            };
+            sensor3 {
+                type = "CHG_IC_THERM";
+                coef = "-8248","-3123","-3136","-3996","-2756","-3013","4418";
+            };
+            sensor4 {
+                type = "COOL_THERM";
+                coef = "5190","21","-1468","24","-1334","-193","1380";
+            };
+            sensor5 {
+                type = "pmic_xo_therm";
+                coef = "5606","2914","3518","3162","3182","1842","2270";
+            };
+        };
+    };
+
+&shell_back {
+        compatible = "hisi,shell-temp";
+        interval = <5000>;
+        bias = <330976>;
+        count = <7>;
+        tsensor_para = "10000","100000","0";
+        ntc_para = "2000","80000","-20000";
+        status = "ok";
+        sensors {
+            sensor0 {
+                type = "battery";
+                coef = "12639000","6992000","4237000","4154000","7151000","12508000","31281000";
+            };
+            sensor1 {
+                type = "msm_therm";
+                coef = "-5993","-2964","-2459","-1698","-1472","-525","11300";
+            };
+            sensor2 {
+                type = "pa_therm0";
+                coef = "-3961","-610","-5","343","1581","3758","9753";
+            };
+            sensor3 {
+                type = "CHG_IC_THERM";
+                coef = "-7653","-2788","-2755","-3358","-2506","-2785","7955";
+            };
+            sensor4 {
+                type = "COOL_THERM";
+                coef = "1306","-314","-1442","-694","-1498","-557","-89";
+            };
+            sensor5 {
+                type = "pmic_xo_therm";
+                coef = "4796","2769","3397","3261","3248","1828","839";
+            };
+        };
+    };

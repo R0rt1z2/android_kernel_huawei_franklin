@@ -1,0 +1,12 @@
+#include "../huawei_audio/yor/huawei_mt6359_accdet.dtsi"
+#include "../huawei_audio/yor/huawei_audio_yor.dtsi"
+
+&smartpakit {
+	compatible = "huawei,smartpakit";
+	product_name = "YOR";
+	status = "ok";
+	switch_ctl {
+		gpio_reset0 = <&pio 27 0>;
+		gpio_state_default = <0>;
+	};
+};

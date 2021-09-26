@@ -1,0 +1,7 @@
+config HW_PLAT_POWER
+	bool "enable huaweiplatform power"
+	default n
+	help
+	  Support huaweiplatform power.
+
+source "drivers/uni_drivers/power/charge_time/Kconfig"

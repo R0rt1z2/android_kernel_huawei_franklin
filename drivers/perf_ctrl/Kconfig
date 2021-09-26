@@ -1,0 +1,33 @@
+menu "Huawei Performace Control"
+
+config HUAWEI_PERF_CTRL
+	tristate "Huawei Performance Control Drivers"
+	default n
+	help
+	  Huawei Performance Control Drivers
+
+config HUAWEI_DDR_PERF_CTRL
+	bool "ddr perf ctrl"
+	depends on HUAWEI_PERF_CTRL
+	default n
+
+config HUAWEI_THERMAL_PERF_CTRL
+	bool "thermal perf ctrl"
+	depends on HUAWEI_PERF_CTRL
+	default n
+
+config RENDER_RT
+	bool "render realted thread"
+	default n
+	help
+	  Render Related Thread
+
+config RENDER_RT_DEBUG
+	bool "render realted thread test"
+	depends on RENDER_RT
+	depends on DEBUG_FS
+	default n
+	help
+	  Render Related Thread debug trace
+
+endmenu

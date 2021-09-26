@@ -1,0 +1,5 @@
+menuconfig XHUB_ROUTER
+	bool "xhub router support"
+	default n
+	help
+	Say yes here to support xhub router feature.

@@ -1,0 +1,222 @@
+menu "HUAWEI Related Thread Group"
+
+config HW_RTG
+	bool "HUAWEI Related Thread Group"
+	default n
+	help
+	  Set real time scheduler for dedicated thread
+
+config HW_RTG_BOOST
+	bool "HUAWEI Related Thread Group"
+	default n
+	help
+	  Sensing boost in RTG groups
+
+config HW_RTG_NORMALIZED_UTIL
+	bool "HUAWEI RTG Normalized Util and Preferred-Cluster"
+	depends on HW_RTG
+	default n
+	help
+	  Use normalized util as rtg util, also enabled Preferred-Cluster
+
+config HW_RTG_UCLAMP_UTIL
+	bool "HUAWEI RTG Uclamp Util"
+	depends on HW_RTG
+	depends on SCHED_TASK_UTIL_CLAMP
+	default n
+	help
+	  Used uclamp min util as rtg util
+
+config HW_RTG_WALT
+	bool "Use WALT to track the RTG tasks load"
+	depends on HW_RTG
+	default n
+	help
+	  Set real time scheduler for dedicated thread
+
+config HW_RTG_CPU_TIME
+	bool "Steal CPU time from RTG"
+	depends on HW_RTG_WALT
+	help
+	  Record cpu_time in RTG Group
+
+config HW_RTG_FRAME
+	bool "Frame RTG Scheduling"
+	depends on HW_RTG
+	default n
+	help
+	  Use frame_rtg group
+
+config HW_RTG_AUX
+	bool "RTG AUX Group"
+	depends on HW_RTG_FRAME
+	default n
+	help
+	  Use hw rme optimize
+
+config HW_RTG_MULTI_FRAME
+	bool "Multi-Frame RTG Scheduling"
+	depends on HW_RTG_FRAME
+	default n
+	help
+	  Use multi frame_rtg group
+
+config HW_RTG_RT_THREAD_LIMIT
+	bool "Limit the number of RT threads"
+	depends on HW_RTG
+	default n
+	help
+	  If set, limit the number of RT threads in AUX and Frame rtg.
+
+config HW_RTG_FRAME_RME
+	bool "Frame RTG RME Optimize"
+	depends on HW_RTG_FRAME
+	default n
+	help
+	  Use hw rme optimize
+
+config HW_RTG_DEBUG
+	bool "HW RTG DebugFS"
+	depends on HW_RTG_FRAME || HW_RTG_AUX
+	default n
+	help
+	  If set, debug node will show rtg threads
+	  /proc/sched_frame_debug
+	  /proc/sched_aux_debug
+
+config HW_RTG_TRACE
+	bool "HW RTG Tracing"
+	depends on HW_RTG
+	default n
+	help
+	  If set, there will be rtg tag on systrace
+
+config HW_RTG_PERF_CTRL
+	bool "HW RTG Perl Ctrl Interface"
+	depends on HW_RTG
+	depends on HUAWEI_PERF_CTRL
+	default n
+	help
+	  Use the /dev/hw_perf_ctrl to operate the RTG through ioctl.
+
+config HW_RTG_FRAME_NO_FORCE_FAST_DOWN
+       bool "Schedutil frame_update do not force skip_min_sample_time"
+       depends on !HW_BOOST
+       default n
+       help
+         Boosted scene like appstart do not want cpu to fast ramp
+         down. Frame sched should not break it. This option won't
+         set skip_min_sample_time for freq update marked by
+         sched_set_group_normalized_util() if userspace has
+         configured fast_ramp_down to 0.
+         Please say Y.
+
+config HW_RTG_PSEUDO_TICK
+	bool "update rtg by pseudo tick"
+	depends on HW_RTG_FRAME
+	default n
+	help
+	  In the 120-frame scenario, the tick is used to update the
+	  RTG information. Therefore, high-precision timers are used
+	  to implement pseudo ticks.
+
+config HW_CGROUP_RTG
+	bool "enable DEFAULT_CGROUP_COLOC RTG"
+	depends on HW_RTG
+	default n
+	help
+	  Through schedtune, all top-app threads are added to
+	  DEFAULT_CGROUP_COLOC RTG.
+
+choice
+	prompt "HW RTG util control mode"
+	default HW_RTG_FRAME_USE_NORMALIZED_UTIL if HW_RTG_NORMALIZED_UTIL
+	default HW_RTG_FRAME_USE_MIN_UTIL if !HW_RTG_NORMALIZED_UTIL
+	default HW_RTG_FRAME_USE_MIN_UTIL if !HW_CPU_FREQ_GOV_SCHEDUTIL
+	help
+	  Provides multiple methods to deliver the RTG util to control
+	  core selection and frequency modulation.
+
+config HW_RTG_FRAME_USE_MIN_UTIL
+	bool "change group util by min util"
+	depends on HW_RTG_UCLAMP_UTIL
+	depends on HW_RTG_FRAME
+	help
+	  This is done by setting min util for all threads in the RTG group.
+
+config HW_RTG_FRAME_USE_NORMALIZED_UTIL
+	bool "change group util by normalized util"
+	depends on HW_RTG_NORMALIZED_UTIL
+	help
+	  This is done by setting normalized-util and prefer-cluster for
+	  the RTG group.
+endchoice
+
+choice
+	prompt "HW RTG working mode"
+	default HW_RTG_CUSTOM
+	help
+	  Provides multiple methods to deliver the RTG util to control
+	  core selection and frequency modulation.
+
+config HW_RTG_CUSTOM
+	bool "custom RTG support"
+	help
+	  Common RTG working mode, you can customize the RTG mode and
+	  enable the features as required.
+
+config HW_RTG_NORMAL
+	bool "normal RTG support"
+	select HW_RTG
+	select SCHED_WALT
+	select HW_RTG_WALT
+	select HW_RT_CAS
+	select HW_RT_ACTIVE_LB
+	select HW_RTG_FRAME
+	select HW_RTG_AUX
+	select SCHED_TASK_UTIL_CLAMP
+	select HW_RTG_UCLAMP_UTIL
+	select HW_RTG_NORMALIZED_UTIL
+	select HW_RTG_FRAME_USE_NORMALIZED_UTIL
+	select HW_RTG_PERF_CTRL
+	help
+	  Common RTG working mode, supporting AI scheduling, FRAME, and RME,
+	  using normalized util and userspace freq for frequency modulation,
+	  and supporting pref_cluster.
+
+config HW_MTK_RTG_SCHED
+	bool "iaware RTG support"
+	select HW_RTG
+	select SCHED_WALT
+	select HW_RTG_WALT
+	select HW_RT_CAS
+	select HW_RT_ACTIVE_LB
+	select HW_RTG_FRAME
+	select HW_RTG_AUX
+	select SCHED_TASK_UTIL_CLAMP
+	select HW_UCLAMP_MIN_UTIL_DEPRECATED
+	select HW_RTG_UCLAMP_UTIL
+	select HW_RTG_FRAME_USE_MIN_UTIL
+	select HW_CPU_FREQ_GOV_SCHEDUTIL_COMMON
+	help
+	  Simplified RTG working mode supports only FRAME and uses min_util
+	  for frequency modulation. Normalized_util, preferred cluster, and
+	  userspace mode freq are not supported. RME and AI scheduling are
+	  not supported.
+endchoice
+
+config MTK_RTG_SCHED_DEBUG
+	bool "/proc/sched_frame_debug, /proc/sched_aux_debug support"
+	select HW_RTG_DEBUG
+	default n
+	help
+	  if set, debug node will show rtg threads
+
+config HW_MTK_RTG_SCHED_TRACE
+	bool "enable rtg runnable trace tag print"
+	select HW_RTG_TRACE
+	default n
+	help
+	  if set, there will be rtg tag on systrace
+
+endmenu

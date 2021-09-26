@@ -1,0 +1,108 @@
+&charger {
+	ac_charger_current = <2695000>;
+	ac_charger_input_current = <2300000>;
+	non_std_ac_charger_current = <1200000>;
+	dpm_enable;
+	battery_cv = <4410000>;
+	iterm = <150000>;
+	jeita_temp_t2_to_t3_cv = <4410000>;
+	jeita_temp_t1_to_t2_cv = <4410000>;
+	jeita_temp_t0_to_t1_cv = <4410000>;
+	jeita_temp_t2_to_t3_cur = <2695000>;
+	vdpm_para =
+			"-32767", "4000", "4300", "50",
+			"4000", "4200", "4500", "50",
+			"4200", "32767", "4600", "50";
+	charge_full_design = <5000000>;
+	not_support_pd_charge;
+};
+
+&huawei_charger {
+	compatible = "huawei,charger";
+	status = "okay";
+};
+
+&huawei_battery {
+	compatible = "huawei,battery";
+	voltage_max_design = <4410000>;
+	status = "okay";
+};
+
+
+&lk_charger{
+	ac_charger_current = <1050000>;
+	ac_charger_input_current = <1050000>;
+	non_std_ac_charger_current = <1050000>;
+	is_power_path;
+};
+
+&bat_gm30 {
+	bat_para =
+		"BYT_CGL_137", "130000", "220000",
+		"BCY_CAE", "250000", "350000",
+		"BNT_CAE", "400000", "510000",
+		"BIT_CBL", "830000", "960000";
+	min_fcc = <3500000>;
+	max_fcc = <5000000>;
+	g_FG_PSEUDO100_T0 = <(97)>;
+/*      Pseudo 100% percentage at T0*/
+	g_FG_PSEUDO100_T1 = <(97)>;
+/*      Pseudo 100% percentage at T1*/
+	g_FG_PSEUDO100_T2 = <(97)>;
+/*      Pseudo 100% percentage at T2*/
+	g_FG_PSEUDO100_T3 = <(97)>;
+/*      Pseudo 100% percentage at T3*/
+	g_FG_PSEUDO100_T4 = <(97)>;
+	dlpt_optimization;
+	#include "BYT_CGL_137_4v40_4900mah_ext.dtsi"
+	#include "BCY_CAE_4v40_4900mah_ext.dtsi"
+	#include "BNT_CAE_4v40_4900mah_ext.dtsi"
+	#include "BIT_CBL_4v40_4900mah_ext.dtsi"
+};
+
+&usb_c_pinctrl {
+	status = "disabled";
+};
+
+&mt6360_pmu {
+	mt6360,intr_gpio_num = <10>; /* direct defined GPIO num */
+	mt6360,intr_gpio = <&pio 10 0x0>;
+};
+
+&mt6360_typec {
+	mt6360pd,intr_gpio_num = <9>; /* direct defined GPIO num */
+	mt6360pd,intr_gpio = <&pio 9 0x0>;
+	pd-data {
+		pd,sink-pdo-size = <1>;
+		pd,sink-pdo-data = <0x000190c8> ;
+	};
+};
+
+&direct_charge_ps {
+	status = "disabled";
+};
+
+&direct_charger {
+	status = "disabled";
+};
+
+&direct_charger_sc {
+	status = "disabled";
+};
+
+&power_thermalzone {
+	status = "ok";
+	sensors{
+		sensor0{
+			adc_channel = <5>;
+		};
+	};
+};
+
+&mtk_usb_temp {
+	status = "ok";
+};
+
+&usb_short_circuit_protect {
+	status = "ok";
+};

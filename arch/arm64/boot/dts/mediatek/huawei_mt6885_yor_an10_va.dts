@@ -1,0 +1,34 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/spmi/spmi.h>
+#include <dt-bindings/pinctrl/mt6885-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6885_yor_an10_va/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 0 1 6>;
+    mtk,board_name = "YOR_AN10_VA";
+    mtk,product_name = "YOR-AN10";
+    hardware_version = "HL2YORM01";
+};
+
+&antenna_board_match {
+	io-channels = <&auxadc 4>;
+	antenna_board_match_range = <0 1900>;
+};
+
+&display_share_mem {
+	compatible = "delicon,desharemem";
+	status = "ok";
+};
+
+&dev_detect {
+	laser = <2>;
+	status = "ok";
+};
+
+#include <huawei_mt6889_yor/cust.dtsi>
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/

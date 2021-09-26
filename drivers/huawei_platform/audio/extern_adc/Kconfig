@@ -1,0 +1,5 @@
+config HUAWEI_EXTERN_ADC
+	tristate "extern adc driver"
+	default n
+	help
+		Say Y to enable extern adc driver support

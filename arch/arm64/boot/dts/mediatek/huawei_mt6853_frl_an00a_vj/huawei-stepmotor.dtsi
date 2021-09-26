@@ -1,0 +1,2 @@
+#include "../huawei_stepmotor/frl/huawei_mt6853_step_motor_frl.dtsi"
+#include "../huawei_stepmotor/frl/huawei_mt6853_pos_hall_frl.dtsi"

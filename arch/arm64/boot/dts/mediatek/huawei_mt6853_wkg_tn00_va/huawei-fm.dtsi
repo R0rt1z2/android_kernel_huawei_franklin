@@ -1,0 +1,5 @@
+&huawei_fm_info {
+	compatible = "huawei,huawei_fm_info";
+	status = "okay";
+	fm,fm_elna_pins = <&pio 21 0x00>;
+};

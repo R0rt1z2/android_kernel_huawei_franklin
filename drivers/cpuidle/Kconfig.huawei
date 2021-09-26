@@ -1,0 +1,12 @@
+config HUAWEI_IDLE_NOTIFY
+	bool "CPU idle enter and exit notify"
+	depends on CPU_IDLE
+	default n
+
+config HUAWEI_CPUIDLE_LP_MODE
+	bool "Support C-state reselect with lowpower mode"
+	depends on CPU_IDLE
+	default n
+	help
+	  Allows the cpuidle C-state reselect with lowpower mode.
+	  If unsure say N.

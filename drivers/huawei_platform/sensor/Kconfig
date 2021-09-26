@@ -1,0 +1,6 @@
+menuconfig HUAWEI_SENSOR
+    bool "Huawei sensors info"
+    default n
+    help
+      Say yes if you want device detect driver.
+      This is for device connected version. If unsure, say N here.

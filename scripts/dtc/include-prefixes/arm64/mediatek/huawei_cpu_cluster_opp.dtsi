@@ -1,0 +1,100 @@
+&cluster0_opp {
+	opp00 {
+		opp-microamp = <11000>;
+	};
+	opp01 {
+		opp-microamp = <13000>;
+	};
+	opp02 {
+		opp-microamp = <14000>;
+	};
+	opp03 {
+		opp-microamp = <17000>;
+	};
+	opp04 {
+		opp-microamp = <18000>;
+	};
+	opp05 {
+		opp-microamp = <22000>;
+	};
+	opp06 {
+		opp-microamp = <28000>;
+	};
+	opp07 {
+		opp-microamp = <34000>;
+	};
+	opp08 {
+		opp-microamp = <41000>;
+	};
+	opp09 {
+		opp-microamp = <47000>;
+	};
+	opp10 {
+		opp-microamp = <55000>;
+	};
+	opp11 {
+		opp-microamp = <63000>;
+	};
+	opp12 {
+		opp-microamp = <64000>;
+	};
+	opp13 {
+		opp-microamp = <68000>;
+	};
+	opp14 {
+		opp-microamp = <73000>;
+	};
+	opp15 {
+		opp-microamp = <80000>;
+	};
+};
+&cluster1_opp {
+	opp00 {
+		opp-microamp = <42000>;
+	};
+	opp01 {
+		opp-microamp = <47000>;
+	};
+	opp02 {
+		opp-microamp = <54000>;
+	};
+	opp03 {
+		opp-microamp = <65000>;
+	};
+	opp04 {
+		opp-microamp = <78000>;
+	};
+	opp05 {
+		opp-microamp = <89000>;
+	};
+	opp06 {
+		opp-microamp = <100000>;
+	};
+	opp07 {
+		opp-microamp = <122000>;
+	};
+	opp08 {
+		opp-microamp = <127000>;
+	};
+	opp09 {
+		opp-microamp = <130000>;
+	};
+	opp10 {
+		opp-microamp = <149000>;
+	};
+	opp11 {
+		opp-microamp = <169000>;
+	};
+	opp12 {
+		opp-microamp = <209000>;
+	};
+	opp13 {
+		opp-microamp = <238000>;
+	};
+	opp14 {
+		opp-microamp = <275000>;
+	};
+	opp15 {
+		opp-microamp = <282000>;
+	};
+};

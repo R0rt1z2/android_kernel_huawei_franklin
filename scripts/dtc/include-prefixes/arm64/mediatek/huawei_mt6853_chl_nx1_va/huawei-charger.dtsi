@@ -1,0 +1,57 @@
+#include "../huawei_charger/mt6853_chl_40w_huawei_charger.dtsi"
+
+&charger {
+	bc12_charger = <22>; /* usb switch do bc12 */
+};
+
+&pio {
+	bq25970_irq_pins_default: bq25970_irq_pins_default {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO45__FUNC_GPIO45>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+	fsa9685_irq_pins_default: fsa9685_irq_pins_default {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO43__FUNC_GPIO43>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+};
+
+&i2c7 {
+		bq25970@65 {
+			compatible = "bq25970";
+			pinctrl-names = "default";
+			pinctrl-0 = <&bq25970_irq_pins_default>;
+			gpio_int = <&pio 45 0x0>;
+			switching_frequency = <675>;
+			sense_r_config = <20>;
+			sense_r_actual = <20>;
+			reg = <0x65>;
+			status = "ok";
+		};
+		fairchild_fsa9685@25 {
+			compatible = "huawei,fairchild_fsa9685";
+			reg = <0x25>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&fsa9685_irq_pins_default>;
+			fairchild_fsa9685,gpio-intb = <&pio 43 0x0>;
+			fcp_support = <1>;
+			scp_support = <1>;
+			power_by_5v = <1>;
+			close_bc12 = <1>;
+			/* for rt8979 */
+			interrupt-names = "vbus_change", "device_change", "detach",
+					  "attach";
+			/* auto_switch; */
+			scp;
+			dcd;
+			dcd_timeout = <600>;  /* ms */
+			intb_watchdog = <1000>;  /* ms */
+			ovp_sel = <14500000>;  /* uV */
+			status = "ok";
+		};
+};

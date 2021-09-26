@@ -1,0 +1,10 @@
+/* 0x74/0x75 are virtual address, the actual address are 0x34/0x35 */
+&i2c6 {
+	aw882xx_smartpa@74 {
+		compatible = "awinic,aw882xx_smartpa_l";
+		reg = <0x74>;
+		reset-gpio = <&pio 30 0>;
+		irq-gpio = <&pio 31 0>;
+		status = "okay";
+	};
+};

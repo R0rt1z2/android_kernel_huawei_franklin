@@ -1,0 +1,25 @@
+/{
+	huawei_ptst: huawei_ptst {
+		compatible = "huawei,power_test";
+		/* dc_mmi: direct charge mmi test */
+		dc_mmi = <1>;
+		/*
+		 * wlc_mmi: wireless charge mmi test
+		 * @para0: wlc_mmi test timeout ,typically 10s for only protocol test
+		 * @para1: wlc_mmi protocol test, bit0:handshake bit1:get tx_cap bit2:certification
+		 * @para2: wlc expect icon, 0:normal charge 1:fast charge 2: super charge
+		 * @para3: wlc cp_iout lower threhold
+		 * @para4: wlc tx_vset lower threhold
+		 * @para5: reserved
+		 *
+		 * wl_hw_module: supported wireless hardware test module
+		 * bit(0): test pwr_good_gpio
+		 * bit(1): test alignment_circuit
+		 *
+		 * wlc_wp: wireless charge wp test
+		 * @para0: wlc cp_iout threshold
+		 *
+		 */
+		status = "disabled";
+	};
+};

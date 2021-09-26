@@ -1,0 +1,45 @@
+#
+# Huawei enhanced options for sched walt
+#
+
+if SCHED_WALT
+
+config HW_SCHED_PRED_LOAD
+	bool "Calculate predicted load for each task"
+	default y
+	depends on SCHED_WALT
+	help
+	  Another signal to improve schedutil. This will help to ramp up
+	  cpufreq quickly.
+	  To enable this signal, say yes here and set predl_enable to 1
+	  in init rc.
+
+config HW_SCHED_CHECK_IRQLOAD
+	bool "Scheduler check irqload when select task's cpu"
+	default y
+	help
+	  WALT caculates an irqload for each cpu and scheduler will avoid
+	  placing task on a high irqload cpu (if WALT enabled).
+
+config HW_SCHED_WALT
+	bool "WALT platform functions"
+	default y
+	depends on SCHED_WALT
+	select HAVE_QCOM_SCHED_WALT if ARCH_QCOM
+	help
+          WALT platform functions
+
+config HAVE_QCOM_SCHED_WALT
+	bool "QCOM WALT features"
+	default n
+	help
+	  This option used to identify platform difference
+
+config HW_SCHED_WALT_DEBUG
+	bool "Debug HW WALT features"
+	depends on HW_SCHED_WALT
+	default n
+	help
+	  This option used to debug walt features
+
+endif # SCHED_WALT

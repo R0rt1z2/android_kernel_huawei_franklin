@@ -1,0 +1,4 @@
+&msdc1 {
+	no-sd;
+	switch-sd-side = <1>;
+};

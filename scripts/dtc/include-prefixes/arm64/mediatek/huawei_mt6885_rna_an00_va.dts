@@ -1,0 +1,38 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/spmi/spmi.h>
+#include <dt-bindings/pinctrl/mt6885-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6885_rna_an00_va/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 1 1 4>;
+    mtk,board_name = "RNA_AN00_VA";
+    mtk,product_name = "RNA-AN00";
+    hardware_version = "";
+};
+
+&antenna_board_match {
+	io-channels = <&auxadc 4>;
+	antenna_board_match_range = <0 1900>;
+};
+
+&display_share_mem {
+	compatible = "delicon,desharemem";
+	status = "ok";
+};
+
+&dev_detect {
+	laser = <2>;
+	status = "ok";
+};
+
+#include <huawei_mt6889_rna/cust.dtsi>
+
+&i2c0 {
+	clock-frequency = <100000>;
+};
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/

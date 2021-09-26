@@ -1,0 +1,23 @@
+#
+# charger ic drivers
+#
+
+config RT9466_CHARGER
+	bool "rt9466 charger"
+	default n
+	help
+	  Say Y here to enable rt9466 charger driver.
+
+config RT9471_CHARGER
+	bool "rt9471 charger"
+	default n
+	help
+	  Say Y here to enable rt9471 charger driver.
+
+config ETA6937_CHARGER
+        bool "eta6937 charger"
+        default n
+
+config SGM41511H_CHARGER
+        bool "sgm41511h charger"
+        default n

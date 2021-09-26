@@ -1,0 +1,7 @@
+config HW_PERFHUB
+       bool "huawei perfhub"
+       default n
+
+config HW_PERFHUB_TRACE
+       bool "huawei perfhub tracepoint"
+       default n

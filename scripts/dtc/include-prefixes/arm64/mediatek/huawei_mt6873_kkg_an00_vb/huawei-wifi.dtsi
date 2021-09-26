@@ -1,0 +1,8 @@
+&huawei_wifi_info {
+	compatible = "huawei,huawei_wifi_info";
+	status = "okay";
+	ini_type = "KKG";
+	wifi_chiptype = "WIFI_MTK_6635";
+	antenna_types = "SISOWF0";
+	power_limit = "KKG";
+};

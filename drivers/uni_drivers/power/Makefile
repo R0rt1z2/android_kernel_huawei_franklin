@@ -1,0 +1,1 @@
+obj-$(CONFIG_HW_CHARGE_TIME) += charge_time/

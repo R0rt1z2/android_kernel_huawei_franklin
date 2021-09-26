@@ -1,0 +1,11 @@
+config DP_AUX_SWITCH
+        bool "huawei DP_AUX_SWITCH"
+        default n
+        help
+          If you say yes here you get support for huawei DP AUX switch check.
+
+config HUAWEI_DP
+        bool "HUAWEI_DP"
+        default n
+        help
+          If you say yes here you get support for huawei DP AUX switch check.

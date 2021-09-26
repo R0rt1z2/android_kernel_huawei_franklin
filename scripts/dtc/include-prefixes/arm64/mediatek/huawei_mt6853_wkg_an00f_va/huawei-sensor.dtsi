@@ -1,0 +1,22 @@
+&huawei_sensor_info {
+	compatible = "huawei,huawei_sensor_info";
+	product_number = <4>;
+	ps_vol = <10>;
+	ps_calivol = <10>;
+	alsps_power_reset = <1>;
+	status = "okay";
+};
+&i2c7 {
+    sar@20 {
+        status = "okay";
+        compatible = "abov,abov_sar";
+        reg = <0x20>;
+        interrupt-parent = <&pio>;
+        interrupts = <81 IRQ_TYPE_EDGE_FALLING 81 0>;
+        reg_array_len = <0x01>;
+        reg_array_val = <0xFB 0x01>;
+        cap,use_channel_ch0 = <0x00>;
+        cap,use_channel_ch1 = <0x01>;
+        label = "AbovCapSense";
+    };
+};

@@ -1,0 +1,19 @@
+#
+# huawei switch capacitor for direct charge drivers
+#
+
+config SCHARGER_V600
+	bool "scharger_v600_for_direct_charge"
+	depends on SWITCHCAP
+	default n
+	help
+	  Say Y here to enable scharge_v600 driver.
+	  scharge_v600 is a fixed ratio high voltage high power switched capacitor
+	  and low voltage loadswtich ic.
+
+config HI6526_PRIMARY_CHARGER_SUPPORT
+	bool "hi6526 primary charger support"
+	depends on SCHARGER_V600
+	default n
+	help
+	  Say Y here to enable hi6526(schargerV600) primary charger driver

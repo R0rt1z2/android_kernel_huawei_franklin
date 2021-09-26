@@ -1,0 +1,5 @@
+#include "../huawei_charger/mt6853_nza_huawei_charger.dtsi"
+
+&bat_gm30 {
+	CAR_TUNE_VALUE = <(78)>;
+};

@@ -1,0 +1,188 @@
+#include "../lcdkit3.0/frl/devkit_lcd_kit.dtsi"
+
+&huawei_lcd_panel {
+		compatible = "huawei,lcd_panel_type";
+		product_id = <2001>;
+		detect_type = <2>; /*0:DETECT_GPIOID  1:DETECT_CHIPID  2:DETECT_LCD_TYPE */
+		gpio_id = <131 132>; /*ID0 ID1*/
+		support_lcd_type = "LCD_KIT";
+		iovcc_ctrl_mode = <1>;
+};
+
+&reserved_memory {
+};
+
+
+/* chosen */
+&chosen {
+	atag,videolfb-fb_base_l = <0x7e605000>;
+	atag,videolfb-fb_base_h = <0x0>;
+	atag,videolfb-islcmfound = <1>;
+	atag,videolfb-islcm_inited = <0>;
+	atag,videolfb-fps= <6000>;
+	atag,videolfb-vramSize= <0x1be0000>;
+	atag,videolfb-lcmname=
+		"nt35595_fhd_dsi_cmd_truly_nt50358_drv";
+};
+
+&pio {
+	mtkfb_pins_lcm_dsi_te: lcm_dsi_te {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO84__FUNC_DSI_TE>;
+		};
+	};
+};
+
+&dispsys_config {
+	pinctrl-names =
+		"mode_te_te";
+	pinctrl-0 = <&mtkfb_pins_lcm_dsi_te>;
+	status = "okay";
+};
+
+&dsi0 {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+	panel@0 {
+		compatible = "kit_panel_common";
+		reg = <0>;
+		port {
+			panel_in: endpoint {
+				remote-endpoint = <&dsi_out>;
+			};
+		};
+	};
+	ports {
+		port {
+			dsi_out: endpoint {
+				remote-endpoint = <&panel_in>;
+			};
+		};
+	};
+};
+
+&pwmleds {
+	compatible = "mediatek,pwm-leds";
+
+	backlight {
+		label = "lcd-backlight";
+		pwms = <&disp_pwm 0 39385>;
+		led-bits = <13>;
+		trans-bits = <11>;
+		pwm-names = "lcd-backlight";
+	};
+};
+
+&i2c6{
+	ktz,ktz8864@11{
+		compatible = "ktz,ktz8864";
+		ktz8864_support = <1>;
+		reg = <0x11>;
+		ktz8864_i2c_bus_id = <6>;
+		ktz8864_only_backlight = <0>;
+		ktz8864_hw_enable = <1>;
+		ktz8864_hw_en_gpio = <136>;
+		ktz8864_hw_en_pull_low = <1>;
+		bl_on_lk_mdelay = <10>;
+		bl_on_kernel_mdelay = <20>;
+		bl_level = <2047>;
+		ktz8864_10000_bl = <1>;
+		ktz8864_bl_config_1 = <0x30>;
+		ktz8864_bl_config_2 = <0x85>;
+		ktz8864_bl_brightness_lsb = <0x00>;
+		ktz8864_bl_brightness_msb = <0x00>;
+		ktz8864_auto_freq_low = <0x99>;
+		ktz8864_auto_freq_high = <0xac>;
+		ktz8864_bl_en = <0x1f>;
+		ktz8864_display_bias_config_1 = <0x99>;
+		ktz8864_display_bias_config_2 = <0x91>;
+		ktz8864_display_bias_config_3 = <0x00>;
+		ktz8864_lcm_boost_bias = <0x24>;
+		ktz8864_vpos_bias = <0x1E>;
+		ktz8864_vneg_bias = <0x1E>;
+		ktz8864_bl_option_1 = <0x06>;
+		ktz8864_bl_option_2 = <0x76>;
+		ktz8864_bl_max_level = <2047>;
+		ktz8864_hidden_reg_support = <0>;
+		ktz8864_pull_boost_support = <1>;
+		ktz8864_check_fault_support = <1>;
+		ktz8864_pull_down_boost = <0x14>;
+		ktz8864_enable_vsp_vsn = <0x99>;
+		ktz8864_pull_up_boost = <0x24>;
+	};
+	ti,lm36274@11{
+		compatible = "ti,lm36274";
+		lm36274_support = <1>;
+		reg = <0x11>;
+		lm36274_i2c_bus_id = <6>;
+		lm36274_only_backlight = <0>;
+		lm36274_hw_enable = <1>;
+		lm36274_hw_en_gpio = <136>;
+		lm36274_hw_en_pull_low = <1>;
+		bl_on_lk_mdelay = <10>;
+		bl_on_kernel_mdelay = <20>;
+		bl_level = <2047>;
+		lm36274_10000_bl = <1>;
+		lm36274_bl_config_1 = <0x30>;
+		lm36274_bl_config_2 = <0x85>;
+		lm36274_bl_brightness_lsb = <0x00>;
+		lm36274_bl_brightness_msb = <0x00>;
+		lm36274_auto_freq_low = <0x99>;
+		lm36274_auto_freq_high = <0xac>;
+		lm36274_bl_en = <0x1f>;
+		lm36274_display_bias_config_1 = <0x99>;
+		lm36274_display_bias_config_2 = <0x91>;
+		lm36274_display_bias_config_3 = <0x00>;
+		lm36274_lcm_boost_bias = <0x24>;
+		lm36274_vpos_bias = <0x1E>;
+		lm36274_vneg_bias = <0x1E>;
+		lm36274_bl_option_1 = <0x06>;
+		lm36274_bl_option_2 = <0x76>;
+		lm36274_bl_max_level = <2047>;
+		lm36274_check_fault_support = <1>;
+		lm36274_hidden_reg_support = <0>;
+		lm36274_pull_boost_support = <1>;
+		lm36274_pull_down_boost = <0x14>;
+		lm36274_enable_vsp_vsn = <0x99>;
+		lm36274_pull_up_boost = <0x24>;
+	};
+	rt,rt4831@11{
+		compatible = "rt,rt4831";
+		rt4831_support = <1>;
+		reg = <0x11>;
+		rt4831_i2c_bus_id = <6>;
+		rt4831_only_backlight = <0>;
+		rt4831_hw_enable = <1>;
+		rt4831_hw_en_gpio = <136>;
+		rt4831_hw_en_pull_low = <1>;
+		bl_on_lk_mdelay = <10>;
+		bl_on_kernel_mdelay = <20>;
+		bl_level = <2047>;
+		rt4831_10000_bl = <1>;
+		rt4831_bl_config_1 = <0x30>;
+		rt4831_bl_config_2 = <0x85>;
+		rt4831_bl_brightness_lsb = <0x00>;
+		rt4831_bl_brightness_msb = <0x00>;
+		rt4831_auto_freq_low = <0x15>;
+		rt4831_auto_freq_high = <0x22>;
+		rt4831_reg_hidden_f0 = <0x69>;
+		rt4831_reg_hidden_b1 = <0x6C>;
+		rt4831_bl_en = <0x1f>;
+		rt4831_display_bias_config_1 = <0x99>;
+		rt4831_display_bias_config_2 = <0x91>;
+		rt4831_display_bias_config_3 = <0x00>;
+		rt4831_lcm_boost_bias = <0x24>;
+		rt4831_vpos_bias = <0x1E>;
+		rt4831_vneg_bias = <0x1E>;
+		rt4831_bl_option_1 = <0x06>;
+		rt4831_bl_option_2 = <0x76>;
+		rt4831_bl_max_level = <2047>;
+		rt4831_check_fault_support = <1>;
+		rt4831_hidden_reg_support = <0>;
+		rt4831_pull_boost_support = <1>;
+		rt4831_pull_down_boost = <0x14>;
+		rt4831_enable_vsp_vsn = <0x99>;
+		rt4831_pull_up_boost = <0x24>;
+	};
+};

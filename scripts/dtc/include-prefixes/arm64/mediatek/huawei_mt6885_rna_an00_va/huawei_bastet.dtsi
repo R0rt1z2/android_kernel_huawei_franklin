@@ -1,0 +1,6 @@
+/ {
+	bastet: bastet {
+		compatible = "huawei,bastet";
+		status = "ok";
+	};
+};

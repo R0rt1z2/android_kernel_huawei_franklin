@@ -1,0 +1,20 @@
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/pinctrl/mt6873-pinfunc.h>
+#include <dt-bindings/clock/mt6873-clk.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_common/huawei_common.dtsi"
+#include "huawei_mt6873_tel_tn20_va/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 2 6 6>;
+    mtk,board_name = "TEL_TN20_VA";
+    mtk,product_name = "TEL_TN20";
+    hardware_version = "HL6TELM";
+};
+
+#include <k6873v1_64/cust.dtsi>
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/

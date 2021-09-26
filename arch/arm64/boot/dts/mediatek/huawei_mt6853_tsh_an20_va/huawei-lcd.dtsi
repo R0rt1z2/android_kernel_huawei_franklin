@@ -1,0 +1,138 @@
+#include "../lcdkit3.0/tsb/devkit_lcd_kit.dtsi"
+
+&huawei_lcd_panel {
+		compatible = "huawei,lcd_panel_type";
+		product_id = <2002>;
+		detect_type = <2>; /*0:DETECT_GPIOID  1:DETECT_CHIPID  2:DETECT_LCD_TYPE */
+		gpio_id = <131 132>; /*ID0 ID1*/
+		support_lcd_type = "LCD_KIT";
+		iovcc_ctrl_mode = <1>;
+};
+
+&reserved_memory {
+};
+
+
+/* chosen */
+&chosen {
+	atag,videolfb-fb_base_l = <0x7e605000>;
+	atag,videolfb-fb_base_h = <0x0>;
+	atag,videolfb-islcmfound = <1>;
+	atag,videolfb-islcm_inited = <0>;
+	atag,videolfb-fps= <6000>;
+	atag,videolfb-vramSize= <0x1be0000>;
+	atag,videolfb-lcmname=
+		"nt35595_fhd_dsi_cmd_truly_nt50358_drv";
+};
+
+&pio {
+	mtkfb_pins_lcm_dsi_te: lcm_dsi_te {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO84__FUNC_DSI_TE>;
+		};
+	};
+};
+
+&dispsys_config {
+	pinctrl-names =
+		"mode_te_te";
+	pinctrl-0 = <&mtkfb_pins_lcm_dsi_te>;
+	status = "okay";
+};
+
+&dsi0 {
+	status = "okay";
+	#address-cells = <1>;
+	#size-cells = <0>;
+	panel@0 {
+		compatible = "kit_panel_common";
+		reg = <0>;
+		port {
+			panel_in: endpoint {
+				remote-endpoint = <&dsi_out>;
+			};
+		};
+	};
+	ports {
+		port {
+			dsi_out: endpoint {
+				remote-endpoint = <&panel_in>;
+			};
+		};
+	};
+};
+
+&pwmleds {
+	compatible = "mediatek,pwm-leds";
+
+	backlight {
+		label = "lcd-backlight";
+		pwms = <&disp_pwm 0 39385>;
+		led-bits = <13>;
+		trans-bits = <11>;
+		pwm-names = "lcd-backlight";
+		default-state = "on";
+	};
+};
+
+&i2c6{
+	sm,sm5109@3E{
+		compatible = "sm,sm5109";
+		reg = <0x3E>;
+		sm5109_support = <1>;
+		sm5109_i2c_bus_id = <6>;
+	};
+	aw,aw99703@36{
+		compatible = "aw,aw99703";
+		aw99703_support = <1>;
+		reg = <0x36>;
+		aw99703_hw_enable = <1>;
+		aw99703_i2c_bus_id = <6>;
+		aw99703_hw_en_gpio = <136>;
+		aw99703_hw_en_pull_low = <0>;
+		bl_on_lk_mdelay = <5>;
+		bl_on_kernel_mdelay = <5>;
+		aw99703_reg_pfm_67 = <0x1C>;
+		aw99703_reg_boot_headroom_23 = <0x61>;
+		aw99703_reg_pfm_threshold_25 = <0x61>;
+		aw99703_reg_pfm_hys_24 = <0x4C>;
+		aw99703_reg_boost_conctrol1 = <0x29>;
+		aw99703_reg_af_high = <0x10>;
+		aw99703_reg_af_low = <0x05>;
+		aw99703_reg_soft_start_68 = <0x2C>;
+		aw99703_reg_boot_duty_31 = <0xC0>;
+		aw99703_reg_flash = <0x08>;
+		aw99703_reg_lsb = <0x00>;
+		aw99703_reg_msb = <0x01>;
+		aw99703_reg_boost_conctrol2 = <0x80>;
+		aw99703_reg_mode = <0x11>;
+		aw99703_reg_led_current = <0x9f>;
+		aw99703_reg_boot_duty_31_1 = <0x00>;
+		aw99703_reg_flash_1 = <0x58>;
+		aw99703_reg_soft_start_68_1 = <0x00>;
+		aw99703_reg_boost_conctrol2_1 = <0x00>;
+		bl_level = <2047>;
+		aw99703_10000_backlight = <1>;
+		aw99703_check_fault_support = <1>;
+	};
+	ktd,ktd3136@36{
+		compatible = "ktd,ktd3136";
+		ktd3136_support = <1>;
+		reg = <0x36>;
+		ktd3136_hw_enable = <1>;
+		ktd3136_i2c_bus_id = <6>;
+		ktd3136_hw_en_gpio = <136>;
+		ktd3136_hw_en_pull_low = <0>;
+		bl_on_lk_mdelay = <5>;
+		bl_on_kernel_mdelay = <5>;
+		ktd3136_reg_ctrl_a_current_set = <0x99>;
+		ktd3136_reg_ctrl_a_bl_cfg = <0x60>;
+		ktd3136_reg_pwm_cfg = <0x9F>;
+		ktd3136_reg_boost_ctrl = <0x10>;
+		ktd3136_reg_ctrl_a_lsb = <0x00>;
+		ktd3136_reg_ctrl_a_msb = <0x00>;
+		bl_level = <2047>;
+		ktd3136_10000_backlight = <1>;
+		ktd3136_check_fault_support = <1>;
+	};
+};

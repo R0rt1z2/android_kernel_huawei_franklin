@@ -1,0 +1,65 @@
+#include "cs35axx.dtsi"
+#include "aw881xx.dtsi"
+#include "tfa98xx.dtsi"
+
+&audio_hw_config {
+	product_name = "mt6853";
+	mic_silence_continuous_check_times = "5";
+	speaker_test_content = "speaker";
+	audio_param_path = "odm/etc/audio/audio_param";
+	audio_param_ce_path = "odm/etc/audio/audio_param_ce";
+	hardware_info {
+		mic_num = "2";
+		mic_type = "0003"; /* 0001 sub mic   0002 main mic   0004 sub mic2   0008 main mic2 */
+	};
+};
+
+&sound {
+	mtk_spk_i2s_out = <3>;
+	mtk_spk_i2s_in = <9>; //9 means 32bit, 0 means 24bit.
+};
+
+&smartpakit{
+	compatible = "huawei,smartpakit";
+	/* 0 hisi, 1 qcom , 2 mtk*/
+	soc_platform = <2>;
+	/* algo running on: 0 codec_dsp, 1 soc_dsp, 2 smartpa_dsp, 3 simple pa(not smpartpa), 4 simple pa(with i2c) */
+	algo_in = <5>;
+	/* algo_in params need match out_device for smartpa.
+	* Now, up to only support four pa, so out_device = <0 0 0 0>;
+	* 1. This array is arranged in the following order:
+	*    <0 1 2 3>
+	*    <pril prir secl secr>
+	* 2. This array element value is 0 or 1:
+	*    smartpa: 0 speaker, 1 receiver
+	*    simple pa: out_device not applicable, only set 0 to indicate pa_num
+	* 3. The length of this array is variable, for example:
+	*    single pa: out_device = <0>;
+	*    two pa: out_device = <0 0>;
+	*    four pa: out_device = <1 1 0 0>; */
+	out_device = <0>;
+	chip_vendor = <6>;
+	chip_model = "aw881xx";
+	misc_rw_permission_enable;
+	status = "ok";
+};
+
+/* feature : $enable $dl_mem $ul_mem $ref_mem $size */
+&snd_audio_dsp {
+	mtk_dsp_voip = <0x0 0x1 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_primary = <0x0 0x0 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_offload = <0x0 0x6 0xffffffff 0xffffffff 0x400000>;
+	mtk_dsp_deep = <0x0 0x3 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_playback = <0x0 0x4 0x10 0x14 0x30000>;
+	mtk_dsp_music = <0x0 0xffffffff 0xffffffff 0xffffffff 0x0>;
+	mtk_dsp_capture1 = <0x0 0xffffffff 0xd 0x13 0x20000>;
+	mtk_dsp_a2dp = <0x0 0xffffffff 0xffffffff 0xffffffff 0x40000>;
+	mtk_dsp_dataprovider = <0x0 0xffffffff 0xf 0xffffffff 0x30000>;
+	mtk_dsp_call_final = <0x0 0x0 0x10 0x14 0x18000>;
+	mtk_dsp_fast = <0x0 0x2 0xffffffff 0xffffffff 0x5000>;
+	mtk_dsp_ktv = <0x0 0x8 0x12 0xffffffff 0x10000>;
+	mtk_dsp_ver = <0x1>;
+	swdsp_smartpa_process_enable = <0x0>;
+	mtk_dsp_mem_afe = <0x1 0x40000>; /* always enable */
+};
+

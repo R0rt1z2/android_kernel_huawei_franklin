@@ -1,0 +1,21 @@
+#include "../huawei_charger/mt6873_tnnh_huawei_charger.dtsi"
+&direct_charger {
+	high_temp_hysteresis = <1>;
+};
+
+&direct_charger_sc {
+	high_temp_hysteresis = <1>;
+};
+
+&bat_gm30 {
+	ntc_compensation_is = <1>;
+	ntc_temp_compensation_para =
+		"4000", "30",
+		"3000", "20",
+		"2000", "10",
+		"1000", "0";
+};
+
+&usb_phy_tuning {
+	h_u2_term_ref = <3>;
+};

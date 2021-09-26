@@ -1,0 +1,11 @@
+# audio drivers
+subdir-ccflags-y += -Idrivers/devkit/audiokit/smartpakit/
+obj-$(CONFIG_SND_SOC_AW882XX) += aw882xx/
+obj-$(CONFIG_FS18XX) += fs18xx/
+obj-$(CONFIG_HEADSET_AUTO_CALIB) += hs_auto_calib/
+obj-$(CONFIG_TFA98XX) += tfa98xx/
+obj-$(CONFIG_ANA_HS_EXTERN_OPS)	+= ana_hs_extern_ops/
+obj-$(CONFIG_CS35LXX) += cs35lxx/
+obj-$(CONFIG_CS35AXX) += cs35axx/
+obj-$(CONFIG_HUAWEI_EXTERN_ADC) += extern_adc/
+obj-$(CONFIG_ADSP_CHR) += adsp_chr/

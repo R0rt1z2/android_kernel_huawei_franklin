@@ -1,0 +1,8 @@
+config TCPC_FUSB302
+	bool "fusb302"
+	default n
+	help
+	  Say Y
+	  To enable fusb302b
+	  Pd driver and
+	  Typec driver

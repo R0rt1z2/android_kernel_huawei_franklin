@@ -1,0 +1,56 @@
+#include "../huawei_charger/mt6885_rna_huawei_charger.dtsi"
+
+&huawei_battery {
+	use_third_coul = <1>;
+};
+
+&huawei_power_proxy  {
+	status = "ok";
+};
+
+&huawei_power_supply {
+	status = "ok";
+};
+
+&battery_core {
+	status = "ok";
+};
+
+&battery_model {
+	bat_id_table =
+		"BYTCAE_3700_4430_v0", "0", "0", "YA",
+		"BITCAE_3700_4430_v0", "0", "0", "IA";
+	design_fcc = <3900>;
+	status = "ok";
+};
+
+&battery_ui_capacity {
+	status = "ok";
+};
+
+&bat_gm30 {
+	status = "disabled";
+};
+
+&battery_fault {
+	vol_cutoff_normal = <3000>;
+	vol_cutoff_sleep = <3350>;
+	vol_cutoff_low_temp = <3000>;
+	status = "ok";
+};
+
+&i2c0 {
+	rt9426_battery@55{
+		status = "disabled";
+	};
+
+	bq27z561_fg@55 {
+		reg = <0x55>;
+		compatible = "huawei,bq27z561";
+		status = "ok";
+	};
+};
+
+&huawei_batt_info {
+	shield_ct_sign = <3>;
+};

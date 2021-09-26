@@ -1,0 +1,15 @@
+&huawei_sensor_info {
+	compatible = "huawei,huawei_sensor_info";
+	lsm6dsm_direction = <2>;
+	bmi160_direction = <1>;
+	lis2dwl_direction = <0>;
+	bma4xy_direction = <0>;
+	kx022_direction = <0>;
+	icm20600_direction = <0>;
+	product_number = <7>;
+	ps_vol = <10>;
+	ps_calivol = <10>;
+	mag_eliminate_current_effect = <1>;
+	sensor_support = <1 1 0 1 1 0>;
+	status = "okay";
+};

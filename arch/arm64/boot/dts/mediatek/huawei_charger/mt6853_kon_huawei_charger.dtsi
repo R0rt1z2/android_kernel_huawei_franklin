@@ -1,0 +1,271 @@
+&charger {
+	ac_charger_current = <2695000>;
+	ac_charger_input_current = <2300000>;
+	fcp_charger_current = <2500000>;
+	fcp_charger_input_current = <1400000>;
+	non_std_ac_charger_current = <1200000>;
+	pd_vbus_upper_bound = <9000000>;
+	max_charger_voltage = <12000000>;
+	bc12_charger = <22>; /* usb switch do bc12 */
+	dpm_enable;
+	battery_cv = <4380000>;
+	iterm = <150000>;
+	vbus_max_limit = <11500>;
+	jeita_temp_t2_to_t3_cv = <4380000>;
+	jeita_temp_t1_to_t2_cv = <4380000>;
+	jeita_temp_t0_to_t1_cv = <4380000>;
+	jeita_temp_t3_to_t4_cur = <1435000>;
+	jeita_temp_t2_to_t3_cur = <2870000>;
+	jeita_temp_t1_to_t2_cur = <1230000>;
+	jeita_temp_t0_to_t1_cur = <410000>;
+	vdpm_buf_limit = <100>;
+	vdpm_para =
+			"-32767", "4000", "4300", "50",
+			"4000", "4200", "4500", "50",
+			"4200", "32767", "4600", "50";
+	charge_full_design = <4200000>;
+};
+
+&pio {
+	bq25970_irq_pins_default: bq25970_irq_pins_default {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO45__FUNC_GPIO45>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+	fsa9685_irq_pins_default: fsa9685_irq_pins_default {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO43__FUNC_GPIO43>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+	water_check_irq_pins_ear: water_check_irq_pins_ear {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO78__FUNC_GPIO78>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+	water_check_irq_pins_sim: water_check_irq_pins_sim {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO39__FUNC_GPIO39>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+	water_check_irq_pins_key: water_check_irq_pins_key {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO41__FUNC_GPIO41>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+};
+
+&i2c7 {
+		bq25970@65 {
+			compatible = "bq25970";
+			pinctrl-names = "default";
+			pinctrl-0 = <&bq25970_irq_pins_default>;
+			gpio_int = <&pio 45 0x0>;
+			switching_frequency = <675>;
+			sense_r_config = <50>;
+			sense_r_actual = <50>;
+			reg = <0x65>;
+			status = "ok";
+		};
+		fairchild_fsa9685@25 {
+			compatible = "huawei,fairchild_fsa9685";
+			reg = <0x25>;
+			pinctrl-names = "default";
+			pinctrl-0 = <&fsa9685_irq_pins_default>;
+			fairchild_fsa9685,gpio-intb = <&pio 43 0x0>;
+			fcp_support = <1>;
+			scp_support = <1>;
+			power_by_5v = <1>;
+			close_bc12 = <1>;
+			/* for rt8979 */
+			interrupt-names = "vbus_change", "device_change", "detach",
+					  "attach";
+			/* auto_switch; */
+			scp;
+			dcd;
+			dcd_timeout = <600>;  /* ms */
+			intb_watchdog = <1000>;  /* ms */
+			ovp_sel = <14500000>;  /* uV */
+			status = "ok";
+		};
+};
+
+&huawei_charger {
+	compatible = "huawei,charger";
+	status = "okay";
+};
+
+&huawei_battery {
+	compatible = "huawei,battery";
+	voltage_max_design = <4380000>;
+	status = "okay";
+};
+
+&lk_charger{
+	ac_charger_current = <1050000>;
+	ac_charger_input_current = <1050000>;
+	non_std_ac_charger_current = <1050000>;
+	max_charger_voltage = <12000000>;
+	is_power_path;
+};
+
+&direct_charge_ps {
+	status = "ok";
+};
+
+&direct_charger {
+	use_5A = <1>;
+	volt_para =
+		"4380", "2800", "1200";
+	compensate_r = <20>;
+	cc_cable_detect_enable = <1>;
+	high_temp_hysteresis = <1>;
+	full_path_res_max = <500>;
+	super_ico_current = <2400>;
+	scp_work_on_charger = <1>;
+	standard_cable_full_path_res_max = <500>;
+	first_cc_stage_timer_in_min = <0>;
+	stage_need_to_jump = "1";
+	is_show_ico_first = <1>;
+	is_send_cable_type = <0>;
+	temp_para =
+		"-32767", "10", "0",
+		"10", "45", "2800",
+		"45", "32767", "0";
+	status = "disable";
+};
+
+&direct_charger_sc {
+	use_5A = <1>;
+	dc_volt_ratio = <2>;
+	max_adaptor_vset = <11000>;
+	init_adapter_vset = <8800>;
+	delta_err_10v2p25a = <150>;
+	vol_err_th = <500>;
+	adaptor_leakage_current_th = <600>;
+	high_temp_hysteresis = <1>;
+	gain_curr_10v2a = <300>;
+	gain_curr_10v2p25a = <500>;
+	init_delt_vset = <450>;
+	vstep = <20>;
+	max_dc_bat_vol = <4380>;
+	max_current_for_none_standard_cable = <5000>;
+	volt_para =
+		"4100", "5000", "4600",
+		"4250", "4600", "2900",
+		"4400", "2900", "1200";
+	compensate_r = <20>;
+	cc_cable_detect_enable = <1>;
+	full_path_res_max = <500>;
+	scp_work_on_charger = <1>;
+	standard_cable_full_path_res_max = <500>;
+	first_cc_stage_timer_in_min = <10>;
+	stage_need_to_jump = "-1";
+	is_show_ico_first = <1>;
+	is_send_cable_type = <0>;
+	temp_para =
+		"-32767", "10", "0",
+		"10", "45", "5000",
+		"45", "32767", "0";
+	resist_para =
+		"0", "300", "5000",
+		"300", "500", "5000";
+	std_resist_para =
+		"0", "300", "5000",
+		"300", "500", "5000";
+	10v2p25a_cur_para =
+		"-32767", "5500",  "2000",
+		"5500",   "9000",  "2500",
+		"9000",   "10000", "2250",
+		"10000",  "10500", "2000",
+		"10500",  "32767", "1500";
+	status = "ok";
+};
+
+&bat_gm30 {
+	bat_para =
+			"SwdByd", "830000", "960000",
+			"DesayGy", "130000", "220000",
+			"NvtAtl", "1150000", "1300000",
+			"ScudAtl", "250000", "350000";
+	ntc_compensation_is = <1>;
+	ntc_temp_compensation_para =
+		"4000", "30",
+		"3000", "20",
+		"2000", "10",
+		"1000", "0";
+	min_fcc = <3010000>;
+	max_fcc = <4200000>;
+	dlpt_optimization;
+	g_FG_PSEUDO100_T0 = <(97)>;
+/*      Pseudo 100% percentage at T0*/
+	g_FG_PSEUDO100_T1 = <(97)>;
+/*      Pseudo 100% percentage at T1*/
+	g_FG_PSEUDO100_T2 = <(97)>;
+/*      Pseudo 100% percentage at T2*/
+	g_FG_PSEUDO100_T3 = <(97)>;
+/*      Pseudo 100% percentage at T3*/
+	g_FG_PSEUDO100_T4 = <(97)>;
+	CAR_TUNE_VALUE = <(100)>;
+	#include "sunwoda_atl_4v41_4200mah_ext.dtsi"
+	#include "desay_gy_4v41_4200mah_ext.dtsi"
+	#include "nvt_atl_4v41_4200mah_ext.dtsi"
+	#include "sucd_atl_4v41_4200mah_ext.dtsi"
+};
+
+&mt6360_pmu {
+	mt6360,intr_gpio_num = <10>; /* direct defined GPIO num */
+	mt6360,intr_gpio = <&pio 10 0x0>;
+};
+
+&mt6360_typec {
+	mt6360pd,intr_gpio_num = <9>; /* direct defined GPIO num */
+	mt6360pd,intr_gpio = <&pio 9 0x0>;
+};
+
+&usb_c_pinctrl {
+	status = "disabled";
+};
+
+&mtk_usb_temp {
+	status = "ok";
+};
+
+&usb_short_circuit_protect {
+	status = "okay";
+};
+
+&huawei_ptst {
+        status = "ok";
+};
+
+&water_check {
+	pinctrl-names = "water_check_irq_pins_ear",
+			"water_check_irq_pins_sim",
+			"water_check_irq_pins_key";
+	pinctrl-0 = <&water_check_irq_pins_ear>;
+	pinctrl-1 = <&water_check_irq_pins_sim>;
+	pinctrl-2 = <&water_check_irq_pins_key>;
+	gpio_ear = <&pio 78 0>; /* gpio_078 */
+	gpio_sim = <&pio 39 0>; /* gpio_039 */
+	gpio_key = <&pio 41 0>; /* gpio_041 */
+	/* check_type, gpio_name, irq_no, multiple_handle, dmd_offset, prompt, action */
+	water_check_para =
+		"1", "ear", "-1", "1", "1", "0", "0",
+		"1", "sim", "-1", "1", "2", "0", "0",
+		"1", "key", "-1", "1", "3", "0", "0",
+		"2", "null","-1", "0", "4", "0", "0",
+		"3", "null","-1", "0", "5", "0", "0";
+	irq_trigger_type = <1>; /* 1:low level trigger, 0:edge trigger */
+	pinctrl_enable = <1>; /* 1:use pinctrl enable gpio pins state, 0:others */
+	status = "ok";
+};

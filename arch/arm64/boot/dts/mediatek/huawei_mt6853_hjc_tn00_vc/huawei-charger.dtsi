@@ -1,0 +1,27 @@
+#include "../huawei_charger/mt6853_hjc_huawei_charger.dtsi"
+
+&huawei_battery {
+	use_third_coul = <0>;
+};
+
+&huawei_power_proxy  {
+	battery_proxy = <0>;
+	event_proxy = <1>;
+	status = "ok";
+};
+&huawei_power_supply {
+	status = "disabled";
+};
+&battery_core {
+	status = "disabled";
+};
+&battery_model {
+	status = "disabled";
+};
+&battery_ui_capacity {
+	status = "disabled";
+};
+
+&bat_gm30 {
+	status = "ok";
+};

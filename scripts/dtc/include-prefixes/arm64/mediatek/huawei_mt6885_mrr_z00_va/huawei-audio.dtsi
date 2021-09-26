@@ -1,0 +1,35 @@
+#include "../huawei_audio/mrr/huawei_mt6359_accdet.dtsi"
+#include "../huawei_audio/mrr/huawei_smartpa.dtsi"
+#include "../huawei_audio/mrr/huawei_extern_adc.dtsi"
+#include "../huawei_audio/mrr/huawei_audio_dsp.dtsi"
+#include "../huawei_audio/mrr/huawei_audio_gpio.dtsi"
+#include "../huawei_audio/mrr/huawei_fsa4480.dtsi"
+#include "../huawei_audio/mrr/smartpa_aw.dtsi"
+#include "../huawei_audio/mrr/smartpa_tfa.dtsi"
+#include "../huawei_audio/mrr/smartpa_tas.dtsi"
+#include "../huawei_audio/mrr/smartpa_cs.dtsi"
+
+
+&mt6359_snd {
+	extern_adc_enable = <1>; /* enable extern adc */
+};
+
+&audio_hw_config {
+	product_name = "MRR";
+	audio_param_path = "odm/etc/audio/audio_param";
+	audio_param_ce_path = "odm/etc/audio/audio_param_ce";
+	extern_adc = "true";
+	speaker_test_content = "leftspeaker,rightspeaker,subleftspeaker,subrightspeaker";
+	mic_test_content = "mainmic,mainmic2,submic,submic2,submic3";
+	multi_mic_enable = "true";
+	send_config_data_to_dsp = "true";
+};
+
+&sound {
+		mtk_spk_i2s_out = <3>;
+		mtk_spk_i2s_in = <0>;
+};
+
+&afe {
+	extern_adc_support = <1>;
+};

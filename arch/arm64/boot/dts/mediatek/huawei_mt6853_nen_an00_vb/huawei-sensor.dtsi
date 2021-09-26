@@ -1,0 +1,6 @@
+&huawei_sensor_info {
+	compatible = "huawei,huawei_sensor_info";
+	product_number = <12>;
+	huawei_virt_prox = <1>;
+	status = "okay";
+};

@@ -1,0 +1,25 @@
+&i2c3 {
+	secure_mode = <1>;
+	nfc@8 {
+		compatible = "hisilicon,st21nfc";
+		status = "okay";
+		reg = <0x8>;
+
+		st,reset_gpio = <&pio 10 0x00>;
+		st,irq_gpio = <&pio 11 0x00>;
+
+		st_nfc_brcm_conf_name = "libnfc-brcm.conf";
+		st_nfc_nxp_name = "libnfc-nxp.conf";
+		st_nfc_card_num = <0x2>;
+		st_nfc_chip_type = "st21nfc";
+		st_nfc_single_channel = "false";
+		st_nfc_ese_num = <0x1>;
+	};
+};
+
+/*nfc*/
+&nfc_exist {
+	nfc_exist_flag = "1";
+	hisee_exist_flag = "0";
+	status = "ok";
+};

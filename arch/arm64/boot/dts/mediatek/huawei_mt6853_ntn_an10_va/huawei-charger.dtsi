@@ -1,0 +1,41 @@
+#include "../huawei_charger/mt6853_ntn_huawei_charger.dtsi"
+
+#ifndef POWER_FACTORY_MODE
+&i2c7 {
+	rt9426_battery@55{
+		status = "ok";
+	};
+};
+
+&huawei_battery {
+	use_third_coul = <1>;
+};
+
+&huawei_power_proxy  {
+	status = "ok";
+};
+
+&huawei_power_supply {
+	status = "ok";
+};
+
+&battery_core {
+	status = "ok";
+};
+
+&battery_fault {
+	status = "ok";
+};
+
+&battery_ui_capacity {
+	status = "ok";
+};
+
+&bat_gm30 {
+	status = "disabled";
+};
+
+&soc_decimal {
+	ui_offset = <0>;
+};
+#endif

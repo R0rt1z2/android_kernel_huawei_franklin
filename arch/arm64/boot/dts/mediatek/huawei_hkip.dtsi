@@ -1,0 +1,15 @@
+/* huawei hkip dts */
+
+/ {
+        hkip {
+                compatible = "huawei,huawei-hkip";
+                hhee_enable = <1>;
+        };
+
+        hkip_atkinfo {
+                compatible = "hkip,hkip-atkinfo";
+                hkip_atkinfo_enable = <1>;
+                cycle-time = <86400000>; /* ms, 24hours */
+        };
+};
+

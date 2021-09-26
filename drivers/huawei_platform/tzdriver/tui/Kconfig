@@ -1,0 +1,29 @@
+config TEE_TUI
+	bool "Trusted User Interface Driver"
+	default n
+	depends on TZDRIVER
+	help
+	  Trusted user interface diver
+
+config TEE_TUI_FP
+	bool "Trusted User Interface Driver For FP"
+	default n
+	depends on TZDRIVER
+	help
+	  Trusted user interface diver
+
+config TEE_TUI_MTK
+	bool "Trusted User Interface Driver For MTK"
+	default n
+	depends on TZDRIVER
+	help
+	  Trusted user interface diver
+
+config ITRUSTEE_TRUSTED_UI
+    bool "ITRUSTEE Trusted User Interface"
+    default n
+    ---help---
+     Enable ITRUSTEE Trusted User Interfac
+     ITRUSTEE TUI features was based on ITRUSTEE TEE mechanism to protect
+     Touch/Display inside TEE, to prevent malicious access of sensitive data
+     used by APPs like Banking.

@@ -1,0 +1,443 @@
+&charger {
+	ac_charger_current = <2695000>;
+	ac_charger_input_current = <2300000>;
+	fcp_charger_current = <2500000>;
+	fcp_charger_input_current = <1400000>;
+	non_std_ac_charger_current = <1200000>;
+	pd_vbus_upper_bound = <9000000>;
+	max_charger_voltage = <12000000>;
+	bc12_charger = <22>; /* usb switch do bc12 */
+	dpm_enable;
+	dynamic_cv_en;
+	battery_cv = <4410000>;
+	iterm = <150000>;
+	vbus_max_limit = <11500>;
+	jeita_temp_t2_to_t3_cv = <4410000>;
+	jeita_temp_t1_to_t2_cv = <4410000>;
+	jeita_temp_t0_to_t1_cv = <4410000>;
+	jeita_temp_t2_to_t3_cur = <2695000>;
+	vdpm_buf_limit = <100>;
+	vdpm_para =
+			"-32767", "4000", "4300", "50",
+			"4000", "4200", "4500", "50",
+			"4200", "32767", "4600", "50";
+	charge_full_design = <4000000>;
+	enable_dynamic_mivr;
+};
+
+&pio {
+
+	bq25970_irq_pins_default: bq25970_irq_pins_default {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO72__FUNC_GPIO72>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+	fsa9685_irq_pins_default: fsa9685_irq_pins_default {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO80__FUNC_GPIO80>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+
+	stwlc68_irq_pins_default: stwlc68_irq_pins_default {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO102__FUNC_GPIO102>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+	pca9488_irq_pins_default: pca9488_irq_pins_default {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO132__FUNC_GPIO132>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+};
+
+&i2c6 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	bbst_tps63810_i2c6@75 {
+		compatible = "huawei, buckboost_tps63810";
+		reg = <0x75>;
+		gpio_enable = <&pio 130 0x0>;
+		vsel_state = <0>;
+		vsel_range = <1>;
+		status = "ok";
+	};
+};
+&i2c7 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	bq25970@65 {
+		compatible = "bq25970";
+		pinctrl-names = "default";
+		pinctrl-0 = <&bq25970_irq_pins_default>;
+		gpio_int = <&pio 72 0x0>;
+		switching_frequency = <675>;
+		sense_r_config = <50>;
+		sense_r_actual = <50>;
+		reg = <0x65>;
+		status = "ok";
+	};
+
+	fairchild_fsa9685@25 {
+		compatible = "huawei,fairchild_fsa9685";
+		reg = <0x25>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&fsa9685_irq_pins_default>;
+		fairchild_fsa9685,gpio-intb = <&pio 80 0x0>;
+		fcp_support = <1>;
+		scp_support = <1>;
+		power_by_5v = <1>;
+		close_bc12 = <1>;
+		/* for rt8979 */
+		interrupt-names = "vbus_change", "device_change", "detach",
+			"attach";
+		/* auto_switch; */
+		scp;
+		dcd;
+		dcd_timeout = <600>;  /* ms */
+		intb_watchdog = <1000>;  /* ms */
+		ovp_sel = <14500000>;  /* uV */
+		status = "ok";
+	};
+
+	stwlc68@61 {
+		compatible = "st,stwlc68";
+		reg = <0x61>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&stwlc68_irq_pins_default>;
+		gpio_int = <&pio 102 0x0>;
+		gpio_en = <&pio 106 0x0>;
+		gpio_sleep_en = <&pio 105 0x0>;
+		gpio_pwr_good = <&pio 77 0x0>;
+		gpio_en_valid_val = <0>;
+		rx_ss_good_lth = <110>;
+		rx_ldo_cfg_5v = /bits/ 8 <0x13 0x13 0x0D 0x03 0x13 0x20 0x2C>;
+		rx_ldo_cfg_9v = /bits/ 8 <0x13 0x13 0x0D 0x03 0x13 0x20 0x2C>;
+		rx_ldo_cfg_12v = /bits/ 8 <0x13 0x13 0x0D 0x03 0x13 0x20 0x2C>;
+		rx_ldo_cfg_sc = /bits/ 8 <0x2F 0x2F 0x0D 0x03 0x13 0x20 0x2C>;
+		rx_fod_5v = /bits/ 8 <0x1E 0x37 0x6E 0x00 0x00 0x00 0x00 0x3A 0x3C 0x3A 0x3A 0x9C>;
+		rx_fod_9v = /bits/ 8 <0x19 0x6E 0x8C 0x00 0x00 0x00 0x00 0x96 0xAF 0x50 0x4B 0xB0>;
+		rx_fod_12v = /bits/ 8 <0x1E 0x3C 0x82 0x00 0x00 0x00 0x00 0x0E 0x21 0x22 0x2B 0x9C>;
+		rx_fod_15v = /bits/ 8 <0x3A 0x4B 0x8C 0x00 0x00 0x00 0x00 0xDC 0x4B 0xC3 0x3C 0xB0>;
+		rx_fod_9v_cp60 = /bits/ 8 <0x14 0x55 0x8C 0x00 0x00 0x00 0x00 0x3E 0x41 0x34 0x41 0xB0>;
+                rx_offset_9v = /bits/ 8 <0x28>;
+                rx_offset_15v = /bits/ 8 <0xa>;
+		temp_para = <
+			/* temp(min,max] ilim temp_back */
+			0   100       2500 10
+			100 999       1500 0
+		>;
+		time_para = <
+			/* time  ilim */
+	                   300   1300
+	                   0     1500
+		>;
+		status = "ok";
+	};
+	pca9488@55 {
+		compatible = "charge_pump_pca9488";
+		reg = <0x55>;
+		pinctrl-names = "default";
+		pinctrl-0 = <&pca9488_irq_pins_default>;
+		gpio_int = <&pio 132 0x0>;
+		status = "ok";
+	};
+};
+&huawei_charger {
+	compatible = "huawei,charger";
+	status = "ok";
+};
+&vbus_channel_boost_gpio {
+	gpio_otg_switch = <&pio 138 0x0>;
+	status = "ok";
+};
+&huawei_ptst {
+	compatible = "huawei,power_test";
+	status = "ok";
+};
+
+&huawei_battery {
+	compatible = "huawei,battery";
+	voltage_max_design = <4430000>;
+	status = "ok";
+};
+
+&buck_boost {
+	compatible = "huawei, buck_boost";
+	status = "ok";
+};
+
+
+&lk_charger{
+	ac_charger_current = <1050000>;
+	ac_charger_input_current = <1050000>;
+	non_std_ac_charger_current = <1050000>;
+	max_charger_voltage = <12000000>;
+	is_power_path;
+	poweron_charger_enable = <1>;
+};
+
+&bat_gm30 {
+	bat_para =
+		"BYT_CGL_137", "130000", "220000",
+		"BCY_CAE", "250000", "350000",
+		"BNT_CAE", "400000", "510000",
+		"BIT_CBL", "830000", "960000";
+	min_fcc = <2800000>;
+	max_fcc = <4000000>;
+	dlpt_optimization;
+	ntc_compensation_is = <1>;
+	ntc_temp_compensation_para =
+		"11000", "140",
+		"10000", "120",
+		"9000", "100",
+		"8000", "80",
+		"7000", "60",
+		"6000", "50",
+		"5000", "40",
+		"3000", "20",
+		"2000", "10";
+	CAR_TUNE_VALUE = <(100)>;
+	#include "BYT_CGL_137_4v40_4900mah_ext.dtsi"
+	#include "BCY_CAE_4v40_4900mah_ext.dtsi"
+	#include "BNT_CAE_4v40_4900mah_ext.dtsi"
+	#include "BIT_CBL_4v40_4900mah_ext.dtsi"
+};
+
+&usb_phy_tuning {
+	d_u2_vrt_ref = <7>;
+	d_u2_term_ref = <7>;
+	d_u2_enhance = <3>;
+	status = "ok";
+};
+
+&mt6360_pmu {
+	mt6360,intr_gpio_num = <24>; /* direct defined GPIO num */
+	mt6360,intr_gpio = <&pio 24 0x0>;
+};
+
+&boost_5v {
+	boost_5v_use_common_pmic = <0>;
+	boost_5v_use_buckboost = <1>;
+	boost_5v_buckboost_vol = <5000>;
+	status = "ok";
+};
+
+&pd_dpm {
+	support_analog_audio = <1>;
+	otg_channel = <1>;
+	status = "ok";
+};
+
+&mt6360_typec {
+	mt6360pd,intr_gpio_num = <25>; /* direct defined GPIO num */
+	mt6360pd,intr_gpio = <&pio 25 0x0>;
+};
+
+&direct_charge_ps {
+	status = "ok";
+};
+
+&direct_charger {
+	use_5A = <1>;
+	scp_work_on_charger = <1>;
+	need_wired_sw_off = <0>;
+	volt_para =
+		"4080", "5000", "4650",
+		"4230", "4650", "2800",
+		"4340", "2800", "1200";
+	compensate_r = <20>;
+	cc_cable_detect_enable = <1>;
+	full_path_res_max = <220>;
+	standard_cable_full_path_res_max = <260>;
+	first_cc_stage_timer_in_min = <5>;
+	stage_need_to_jump = "1";
+	low_temp_hysteresis = <5>;
+	temp_para =
+		"-32767", "10", "0",
+		"10", "45", "5000",
+		"45", "32767", "0";
+	rt_test_para =
+		"2000", "105"; /* rt_curr_th rt_test_time */
+	status = "ok";
+};
+
+&direct_charger_sc {
+	use_5A = <1>;
+	adaptor_antifake_check_enable = <1>;
+	adaptor_antifake_key_index = <2>;
+	ui_max_pwr = <40000>;
+	dc_volt_ratio = <2>;
+	max_adaptor_vset = <11000>;
+	init_adapter_vset = <8800>;
+	delta_err_10v2p25a = <150>;
+	vol_err_th = <500>;
+	adaptor_leakage_current_th = <600>;
+	high_temp_hysteresis = <1>;
+	gain_curr_10v2a = <300>;
+	gain_curr_10v2p25a = <500>;
+	init_delt_vset = <450>;
+	vstep = <20>;
+	max_dc_bat_vol = <4380>;
+	max_current_for_none_standard_cable = <4200>;
+	volt_para =
+		"4200", "8000", "6000",
+		"4330", "6000", "5460",
+		"4350", "5460", "4200",
+		"4400", "4200", "1200";
+	compensate_r = <20>;
+	cc_cable_detect_enable = <1>;
+	full_path_res_max = <500>;
+	scp_work_on_charger = <1>;
+	need_wired_sw_off = <0>;
+	standard_cable_full_path_res_max = <500>;
+	first_cc_stage_timer_in_min = <10>;
+	stage_need_to_jump = "-1";
+	is_show_ico_first = <1>;
+	is_send_cable_type = <0>;
+	temp_para =
+		"-32767", "10", "0",
+		"10", "45", "8000",
+		"45", "32767", "0";
+	resist_para =
+		"0", "300", "8000",
+		"300", "500", "5000";
+	std_resist_para =
+		"0", "300", "8000",
+		"300", "500", "5000";
+	10v2p25a_cur_para =
+		"-32767", "5500",  "2000",
+		"5500",   "9000",  "2500",
+		"9000",   "10000", "2250",
+		"10000",  "10500", "2000",
+		"10500",  "32767", "1500";
+	rt_test_para =
+		"2500", "105"; /* rt_curr_th rt_test_time */
+	status = "ok";
+};
+
+&power_thermalzone {
+	status = "ok";
+};
+
+&mtk_usb_temp {
+	io-channels = <&auxadc 4>;
+	status = "ok";
+};
+
+&usb_short_circuit_protect {
+	uscp_threshold_tusb = <40>;
+	open_mosfet_temp = <30>;
+	close_mosfet_temp = <10>;
+	interval_switch_temp = <15>;
+	status = "ok";
+};
+
+&huawei_ptst {
+	/* definition refered to huawei_power_test.dtsi */
+	wlc_mmi = <1>;
+	wlc_mmi_para = <10 0x07 1 0 0 0>;
+	wl_hw_test = <1>;
+	wl_hw_module = <0x1>;
+	wlc_wp = <1>;
+	wlc_wp_para = <1000>;
+	status = "ok";
+};
+&wired_channel_switch {
+	use_ovp_cutoff_wired_channel = <1>;
+	use_super_switch_cutoff_wired_channel = <0>;
+	use_wireless_switch_cutoff_wired_channel = <0>;
+	status = "ok";
+};
+&ovp_channel_switch {
+	gpio_ovp_chsw_en = <&pio 71 0x0>;
+	gpio_low_by_set_input = <0>;
+	status = "disabled";
+};
+&wireless_ps {
+	gpio_txsw = <&pio 84 0x0>;
+	gpio_txsw_valid_val = <1>;
+	gpio_rxsw = <&pio 126 0x0>;
+	gpio_rxsw_valid_val = <0>;
+	gpio_ext_pwr_sw = <&pio 81 0x0>;
+	gpio_ext_pwr_sw_valid_val = <1>;
+	tx_ps_ctrl_src = <1>; /* 0:NA 1:tx_chip 2:AP */
+	sysfs_en_pwr = <1>; /* 0:null 1:rx_pwr 2:tx_pwr */
+	proc_otp_pwr = <1>; /* 0:null 1:rx_pwr 2:tx_pwr */
+	status = "ok";
+};
+
+&wireless_charger {
+	pmax = <20>;
+	fod_status = <0x3a39>; /* b1:fop b2:q_val */
+	antifake_key_index = <1>;
+	interference_para =
+		"0x01", "0xfe", "131", "5000", "5500", "475",
+                "0x02", "0xfd", "-1",  "-1",   "-1",   "1000";
+	rx_mode_para =
+		/*This table should be arranged in ascending order of power mode priority*/
+		/*mode  tx_vout  tx_iout tx_vset  rx_vset  rx_iset vrect_lth tbatt cable cert  icon time expect_mode*/
+                        "5W",   "5000",  "475",  "5000",  "5500",  "825",  "4650",   "-1", "-1", "-1", "0", "-1",  "4",
+                        "7.5W", "9000",  "1400", "9000",  "9900",  "825",  "8000",   "-1", "-1", "-1", "0", "-1",  "2",
+                        "10W",  "9000",  "2000", "9000",  "9900",  "1100", "9000",   "-1", "-1", "1",  "1", "-1",  "4",
+                        "SC_2", "9000",  "2000", "9000",  "9000",  "-1",   "-1",     "45", "-1", "1",  "1", "-1",  "4",
+                        "SC_4", "15000", "1800", "15000", "15000", "-1",   "-1",     "45", "-1", "1",  "2", "-1",  "-1";
+	status = "ok";
+};
+
+&wireless_sc {
+	ibat_max_hth = <7900>;
+	ibat_min_lth = <7600>;
+	init_para =
+		/* in ratio-descending order
+		 * ext_pwr: bit(0): needed by sc chip; bit(1): needed by rx
+		 * type   type_name ext_pwr rx_ratio vbatt(lth, hth) rx_vout  vout_th vdiff  ileak_th vdelt  rx_vmax
+		 */
+                 "0x2", "SC_2",   "0",    "1",     "3550", "4380", "9000",  "450",  "300",  "100",   "300", "10000",
+                 "0x4", "SC_4",   "2",    "2",     "3550", "4380", "15000", "500",  "300",  "100",   "300", "20000";
+                volt_para00 =
+                        "4410", "1500", "600";
+                volt_para01 =
+                        "4250", "3000", "2000",
+                        "4320", "2000", "1500",
+                        "4420", "1500", "1000";
+
+	volt_para02 =
+		"4250", "4200", "3000",
+		"4330", "3000", "2050",
+		"4390", "2050", "1000";
+                bat_para =
+                        "default", "10", "45", "0x02", "volt_para00",
+                        "default", "10", "45", "0x04", "volt_para01",
+                        "liwinon", "10", "45", "0x02", "volt_para00",
+                        "liwinon", "10", "45", "0x04", "volt_para01",
+                        "atl", "10", "45", "0x02", "volt_para00",
+                        "atl", "10", "45", "0x04", "volt_para01",
+                        "guangyu", "10", "45", "0x02", "volt_para00",
+                        "guangyu", "10", "45", "0x04", "volt_para01";
+
+	status = "ok";
+};
+
+&wireless_tx {
+	pwr_type = <2>; /* 5VBST */
+	/* rx_vmin rx_vmax tx_vset tx_lvset tx_hvset tx_pl_th tx_pl_cnt ext_hdl */
+	tx_vset_para = <6200 7700 6800 6300 7600 3000 5 0
+                        4900 6400 5500 4500 6300 2200 5 0
+                        8500 10900 10000 9500 10800 4500 5 0>;
+	/* power_supply ping handshake default */
+	tx_stage_vset = <5500 5500 5500 6800>;
+	/* type vout iout extra */
+	tx_cap = <
+                        0x9 5000 1000 0
+                        0x9 9000 1400 0
+	>;
+	status = "ok";
+};

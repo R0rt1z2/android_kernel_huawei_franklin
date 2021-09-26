@@ -1,0 +1,4 @@
+config HUAWEI_MSS_AUTO_CHANGE
+        bool "Huawei MSS auto change function support"
+        default n
+

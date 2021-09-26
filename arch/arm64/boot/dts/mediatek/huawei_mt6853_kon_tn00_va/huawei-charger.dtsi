@@ -1,0 +1,10 @@
+#include "../huawei_charger/mt6853_kon_huawei_charger.dtsi"
+
+&power_thermalzone {
+	status = "ok";
+	sensors{
+		sensor0{
+			ntc_index = <6>; /* usb thermal ntc pullup 22k */
+		};
+	};
+};

@@ -1,0 +1,8 @@
+&huawei_sensor_info {
+	compatible = "huawei,huawei_sensor_info";
+	huawei_virt_prox = <1>;
+	product_number = <10>;
+	status = "okay";
+	lsm6dsm_direction = <3>;
+	bmi160_direction = <2>;
+};

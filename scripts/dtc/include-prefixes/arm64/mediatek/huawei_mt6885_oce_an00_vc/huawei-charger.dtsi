@@ -1,0 +1,73 @@
+#include "../huawei_charger/mt6885_oce_huawei_charger.dtsi"
+
+&pio {
+	mt6315_irq2_pins_default: mt6315_irq2_pins_default {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO188__FUNC_GPIO188>;
+			slew-rate = <0>;
+			input-enable;
+			bias-pull-down;
+		};
+	};
+};
+
+&i2c0 {
+	hl1506@1B {
+		status = "ok";
+	};
+};
+
+&i2c3 {
+	hl1506@1B {
+		status = "ok";
+	};
+};
+
+&i2c7 {
+	rt9748@67 {
+		sense_r_mohm = <20>;
+	};
+
+	bq25970@65 {
+		sense_r_config = <20>;
+		sense_r_actual = <20>;
+	};
+};
+
+&charge_pump {
+	gpio_main_en = <&pio 76 0x0>;
+	gpio_main_cp_en_val = <0>;
+	gpio_aux_en = <&pio 133 0x0>;
+	gpio_aux_cp_en_val = <1>;
+	status = "ok";
+};
+
+&wireless_ps {
+	gpio_rxsw = <&pio 99 0x0>;
+	gpio_rxsw_aux = <&pio 147 0x0>;
+	gpio_rxsw_aux_valid_val = <0>;
+};
+
+&wireless_sc {
+	support_multi_cp = <1>;
+};
+
+&bat_gm30 {
+	CAR_TUNE_VALUE = <(250)>;
+};
+
+&spmi_bus {
+#ifndef CONFIG_FPGA_EARLY_PORTING
+	mt6315@7 {
+		mt6315_7_regulator {
+			pinctrl-names = "default";
+			pinctrl-0 = <&mt6315_irq2_pins_default>;
+			interrupts = <188 IRQ_TYPE_LEVEL_HIGH 188 0>;
+		};
+	};
+#endif
+};
+
+&usb_short_circuit_protect {
+	gpio_usb_short_circuit_protect = <&pio 70 0>;
+};

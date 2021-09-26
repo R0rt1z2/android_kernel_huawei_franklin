@@ -1,0 +1,9 @@
+#
+# huawei blackbox kdump configuration
+#
+
+config HUAWEI_BB
+	bool "huawei blackbox kdump"
+	default n
+	help
+	  If you say yes here you get support for huawei kernel dump.

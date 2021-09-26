@@ -1,0 +1,42 @@
+subdir-ccflags-y += -I$(src)/
+subdir-ccflags-y += -I$(src)/acc/
+subdir-ccflags-y += -I$(src)/airpress/
+subdir-ccflags-y += -I$(src)/als/
+subdir-ccflags-y += -I$(src)/cap_prox/
+subdir-ccflags-y += -I$(src)/gyro/
+subdir-ccflags-y += -I$(src)/mag/
+subdir-ccflags-y += -I$(src)/ps/
+subdir-ccflags-y += -I$(src)/therm/
+subdir-ccflags-y += -I$(src)/mtk/$(MTK_PROJECT)
+subdir-ccflags-y += -I$(srctree)/drivers/misc/mediatek/scp/$(CONFIG_MTK_PLATFORM)
+
+ifeq ($(CONFIG_XHUB_ROUTER), y)
+$(info xhub $(MTK_PROJECT))
+subdir-ccflags-y += -DXHUB_SAVE_DUMPFILES
+endif
+
+# xhub Driver
+obj-$(CONFIG_XHUB_ROUTER)       += ipc_adapter.o
+obj-$(CONFIG_XHUB_ROUTER)		+= xhub_boot.o
+obj-$(CONFIG_XHUB_ROUTER)		+= xhub_route.o
+obj-$(CONFIG_XHUB_ROUTER)		+= sensor_config.o
+obj-$(CONFIG_XHUB_ROUTER)       += xhub_logbuff.o
+obj-$(CONFIG_XHUB_ROUTER)       += xhub_debug.o
+obj-$(CONFIG_XHUB_ROUTER)	+= sensor_channel.o
+obj-$(CONFIG_XHUB_ROUTER)  += motion_channel.o
+obj-$(CONFIG_XHUB_ROUTER)  += sensor_detect.o
+obj-$(CONFIG_XHUB_ROUTER)  += sensor_sysfs.o
+obj-$(CONFIG_XHUB_ROUTER)  += sensor_info.o
+obj-$(CONFIG_XHUB_ROUTER)  += sensor_feima.o
+obj-$(CONFIG_XHUB_ROUTER)  += xhub_recovery.o
+obj-$(CONFIG_XHUB_ROUTER)  += xhub_pm.o
+obj-$(CONFIG_XHUB_ROUTER)  += xhub_bigdata.o
+obj-$(CONFIG_XHUB_ROUTER) += acc/
+obj-$(CONFIG_XHUB_ROUTER) += airpress/
+obj-$(CONFIG_XHUB_ROUTER) += als/
+obj-$(CONFIG_XHUB_ROUTER) += cap_prox/
+obj-$(CONFIG_XHUB_ROUTER) += gyro/
+obj-$(CONFIG_XHUB_ROUTER) += mag/
+obj-$(CONFIG_XHUB_ROUTER) += ps/
+obj-$(CONFIG_XHUB_ROUTER) += mtk/$(MTK_PROJECT)/
+obj-$(CONFIG_XHUB_VIBRATOR_CHANNEL) += therm/

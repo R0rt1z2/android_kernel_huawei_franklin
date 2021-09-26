@@ -1,0 +1,423 @@
+&i2c3 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	ams_as7341@39 {
+		compatible = "ams,as7341";
+		reg = <0x39>;
+		flicker_support = <1>;
+		algo_support = <1>;
+		status = "ok";
+	};
+};
+
+&xhub_io_power{
+	compatible = "huawei,xhub_io";
+	/* sensor-io-supply = <&ldo24>; */
+	no_need_sensor_ldo24 = <1>;
+	/* psensor-io-supply = <&ldo34>; */
+	use_ldo34 = <1>;
+	interrupts = <0 371 4>;
+	status="ok";
+};
+
+&xhub{
+	xhub_ext_config {
+		compatible = "huawei,xhub";
+		akm_need_current = "no";
+		invensense_exist = "no";
+		isensor_version = "no";
+		adapt_sensor_list_id = <2 6 7 8 12 13 14 15 17 18 21 26 27 29>;
+		adapt_file_id = <9 29>;
+	};
+
+	light{
+		#address-cells = <1>;
+		#size-cells = <0>;
+		als1{
+			compatible="als_s001_002";
+			bus_number = <0x0>;
+			reg=<0x39>;
+			chip_id_register = <0x92>;
+			chip_id_value = <0x18>;
+			file_id = <117>;
+			sensor_list_info_id = <0x03>;
+			sensor_type = "als";
+			poll_interval = <350>;
+			threshold_value = <0x1>;
+			GA1 = <0x1046>;
+			GA2 = <0xf3c>;
+			GA3 = <0x1194>;
+			tp_color = <0x0>;
+			again = <0x1>;
+			gpio_int1_sh=<1005>;
+			atime = <0xdb>;
+			init_time = <0x96>;
+			status = "ok";
+			als_phone_type = <85>;
+			als_phone_version = <10>;
+			als_cali_after_sale = <18>;//0:no need; 1:cali 9253 of 2012;cali 3701 of 2012
+			als_cali_after_sale_xy = <830 4 920 94>;
+			als_extend_data = <0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0>;
+			sensorlist_name="als_s001_002";
+			vendor="als_s001_002";
+			als_ud_type = <1>;
+			aod_support_xlevel_brightness = <1>;
+		};
+		als2{
+			compatible="als_s001_003";
+			bus_number = <0x0>;
+			reg=<0x39>;
+			chip_id_register = <0x92>;
+			chip_id_value = <0x40>;
+			file_id = <161>;
+			sensor_list_info_id = <0x03>;
+			sensor_type = "als";
+			poll_interval = <350>;
+			threshold_value = <0x1>;
+			GA1 = <0x1046>;
+			GA2 = <0xf3c>;
+			GA3 = <0x1194>;
+			tp_color = <0x0>;
+			again = <0x1>;
+			/* gpio_int1 = <&gpio20 5 0>; */
+			gpio_int1_sh=<4>;
+			atime = <0xdb>;
+			init_time = <0x96>;
+			status = "ok";
+			als_phone_type = <85>;
+			als_phone_version = <10>;
+			als_cali_after_sale = <2>;//0:no need; 1:cali 9253 of 2012;cali 3701 of 2012
+			als_cali_after_sale_xy = <313 83 403 173>; // als sensor zone, x1 y1 x2 y2
+			als_extend_data = <0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0>;
+			als_ud_size = <0x5959>;
+			als_ud_addr_block = <0x2e2e2b2b 0x2e2a2929 0x2a30292b 0x30302b2f
+				0x302e2f29 0x30282525 0x28342529 0x34342931 0x34303125
+				0x34242020 0x24392025 0x39392535 0x39343520 0x391f1919
+				0x1f401920 0x4040203a 0x40393a19 0x40181111 0x18481119
+				0x48481941 0x48404111 0x48100000 0x10590011 0x59591149
+				0x59484900 0 0 0 0 0>;
+			als_ud_ave_block = <4096 5461 5461 5461 5461 1365 1365 1365
+				1365 624 624 624 624 284 284 284 284 171 171
+				171 171 53 53 53 53 0 0 0 0 0>;
+			sensorlist_name="als_s001_003";
+			vendor="als_s001_003";
+			is_cali_supported = <1>;
+			als_ud_type = <1>; // 0:not under screen, 1:rgb mode, 2:ALSC mode
+		};
+	};
+
+	proximity{
+		#address-cells = <1>;
+		#size-cells = <0>;
+		ps1{
+			compatible="ps,s001002,proximity";
+			bus_number=<0>;
+			reg=<0x39>;
+			chip_id_register=<0x92>;
+			chip_id_value=<0x18>;
+			file_id=<118>;
+			sensor_list_info_id = <0x04>;
+			sensor_type="ps";
+			min_proximity_value=<930>;
+			pwindows_value=<60>;
+			pwave_value=<170>;
+			threshold_value=<90>;
+			pwindows_screenon_value=<189>;
+			pwave_screenon_value=<104>;
+			threshold_screenon_value=<110>;
+			ps_calib_20cm_threshold=<1024>;
+			ps_calib_5cm_threshold=<450>;
+			ps_calib_3cm_threshold=<950>;
+			poll_interval = <80>;
+			ps_oily_threshold = <15>;
+			oily_max_near_pdata=<900>;
+			max_oily_add_pdata=<260>;
+			max_near_pdata_loop=<3>;
+			oily_count_size=<8>;
+			status = "ok";
+			sensorlist_name="ps-s001002";
+			vendor="ps-s001002";
+			fifoReservedEventCount=<100>;
+			fifoMaxEventCount=<100>;
+			maxDelay=<200000>;
+			ptime =<70>;  // ms
+			wtime =<3>; // ms
+			pulse_len =<16>; // us
+			ps_pulse_count =<48>;
+			pgain =<1>;
+			led_current=<15>; // mA
+			prox_avg=<3>;
+			offset_max=<200>;
+			offset_min=<20>;
+			need_reduce_interference=<58>; // Reference tcs3701_ps_feature to configure it
+		};
+		ps2{
+			compatible="ps,ps_s001_003,proximity";
+			bus_number=<0>;
+			reg=<0x39>;
+			chip_id_register=<0x92>;
+			chip_id_value=<0x40>;
+			file_id=<159>;
+			sensor_list_info_id = <0x04>;
+			sensor_type="ps";
+			min_proximity_value=<500>;
+			pwindows_value=<300>;
+			pwave_value=<250>;
+			threshold_value=<90>;
+			ps_calib_20cm_threshold=<2000>;
+			ps_calib_5cm_threshold=<4096>;
+			ps_calib_3cm_threshold=<4096>;
+			need_reduce_interference = <1>;
+			poll_interval = <80>;
+			ps_oily_threshold = <15>;
+			oily_max_near_pdata=<1000>;
+			max_oily_add_pdata=<210>;
+			max_near_pdata_loop=<3>;
+			oily_count_size=<8>;
+			status = "ok";
+			sensorlist_name="ps_s001_003";
+			vendor="ps_s001_003";
+			fifoReservedEventCount=<100>;
+			fifoMaxEventCount=<100>;
+			maxDelay=<200000>;
+			ptime = <0x3>;
+			wtime = <0x87>; // PCFG3 8mA
+			pulse_len=<64>; // us
+			ps_pulse_count=<1>;
+			pgain = <0x05>; //2x 2x
+			led_current=<0x58>;  //14mA
+			pwave_screenon_value = <0xe0>; // VSYNC_CFG2
+			is_check_ps_broke = <0x0>; // VSYNC_CFG3
+			prox_avg=<2>;
+			offset_max=<255>;
+			offset_min=<255>;
+			ps_tp_threshold = <180>;
+			support_absolute_threshold = <1>;
+			ps_cali_supported=<1>;
+			update_ps_cali=<1>;
+			is_need_lcd_freq=<1>;
+		};
+	};
+	gsensor{
+		#address-cells=<1>;
+		#size-cells=<0>;
+		acc1{
+			compatible ="acc_s001_001";
+			bus_type ="spi";
+			bus_number =<2>;
+			commu_len =<1>;
+			i2c_address =<0x6a>;
+			reg =<0x6a>;
+			chip_id_register =<0x8f>;
+			chip_id_value =<0x6a>;
+			file_id =<34>;
+			sensor_list_info_id =<0>;
+			sensor_type ="acc";
+			axis_map_x =<1>;
+			axis_map_y =<0>;
+			axis_map_z =<2>;
+			negate_x =<0>;
+			negate_y =<0>;
+			negate_z =<1>;
+			offset_x =<0>;
+			offset_y =<0>;
+			offset_z =<0>;
+			sensitivity_x =<1>;
+			sensitivity_y =<1>;
+			sensitivity_z =<1>;
+			poll_interval =<10>;
+			/* gpio_int1 =<&gpio26 0 0>; */
+			/* gpio_int2 =<&gpio26 0 0>; */
+			device_type =<1>;
+			gpio_int2_sh =<1013>;
+			gpio_int2_sh_func =<2>;
+			used_int_pin =<1>;
+			calibrate_style =<0>;
+			x_calibrate_thredhold = <250>;
+			y_calibrate_thredhold = <250>;
+			z_calibrate_thredhold = <320>;
+			sensorlist_name="acc_s001_001";
+			vendor="acc_s001_001";
+			maxRange=<8>;
+			power=<230>;
+			minDelay=<2000>;
+			fifoReservedEventCount=<0>;
+			fifoMaxEventCount=<0>;
+			maxDelay=<200000>;
+			calibrate_way=<1>;
+			status = "ok";
+		};
+		acc2{
+			compatible ="acc_s002_002";
+			bus_type ="spi";
+			bus_number =<2>;
+			commu_len =<1>;
+			i2c_address =<0x68>;
+			reg =<0x68>;
+			chip_id_register =<0x80>;
+			chip_id_value =<0xd1>;
+			file_id =<33>;
+			sensor_list_info_id =<0>;
+			sensor_type ="acc";
+			axis_map_x =<0>;
+			axis_map_y =<1>;
+			axis_map_z =<2>;
+			negate_x =<0>;
+			negate_y =<1>;
+			negate_z =<1>;
+			offset_x =<0>;
+			offset_y =<0>;
+			offset_z =<0>;
+			sensitivity_x =<1>;
+			sensitivity_y =<1>;
+			sensitivity_z =<1>;
+			poll_interval =<10>;
+			/* gpio_int1 =<&gpio26 0 0>; */
+			/* gpio_int2 =<&gpio26 0 0>; */
+			gpio_int2_sh =<1013>;
+			gpio_int2_sh_func =<2>;
+			used_int_pin =<1>;
+			calibrate_style =<0>;
+			x_calibrate_thredhold = <250>;
+			y_calibrate_thredhold = <250>;
+			z_calibrate_thredhold = <320>;
+			sensorlist_name="acc_s002_002";
+			vendor="acc_s002_002";
+			maxRange=<8>;
+			power=<230>;
+			minDelay=<2000>;
+			fifoReservedEventCount=<0>;
+			fifoMaxEventCount=<0>;
+			maxDelay=<200000>;
+			calibrate_way=<1>;
+			status = "ok";
+		};
+	};
+
+	gyroscope{
+		#address-cells = <1>;
+		#size-cells = <0>;
+		gyro1{
+			compatible ="gyro_s001_001";
+			bus_type ="spi";
+			bus_number =<2>;
+			commu_len =<1>;
+			i2c_address =<0x6a>;
+			reg =<0x6a>;
+			chip_id_register =<0x8f>;
+			chip_id_value =<0x6a>;
+			file_id =<36>;
+			sensor_list_info_id =<5>;
+			sensor_type ="gyro";
+			position = <1>;
+			axis_map_x =<1>;
+			axis_map_y =<0>;
+			axis_map_z =<2>;
+			negate_x =<0>;
+			negate_y =<0>;
+			negate_z =<1>;
+			poll_interval =<10>;
+			calibrate_thredhold = <572>;
+			sensorlist_name="gyro_s001_001";
+			vendor="gyro_s001_001";
+			minDelay=<2000>;
+			maxDelay=<200000>;
+			calibrate_way=<1>;
+			status = "ok";
+		};
+		gyro2{
+			compatible ="gyro_s002_002";
+			bus_type ="spi";
+			bus_number =<2>;
+			commu_len =<1>;
+			i2c_address =<0x68>;
+			reg =<0x68>;
+			chip_id_register =<0x80>;
+			chip_id_value =<0xd1>;
+			file_id =<35>;
+			sensor_list_info_id =<5>;
+			sensor_type ="gyro";
+			position = <1>;
+			axis_map_x =<0>;
+			axis_map_y =<1>;
+			axis_map_z =<2>;
+			negate_x =<0>;
+			negate_y =<1>;
+			negate_z =<1>;
+			poll_interval =<10>;
+			calibrate_thredhold = <278>;
+			sensorlist_name="gyro_s002_002";
+			vendor="gyro_s002_002";
+			minDelay=<2000>;
+			maxDelay=<200000>;
+			calibrate_way=<1>;
+			status = "ok";
+		};
+	};
+	compass{
+		#address-cells = <1>;
+		#size-cells = <0>;
+		mag1{
+			compatible="mag_s001_001";
+			bus_number=<0>;
+			reg=<0x0C>;
+			chip_id_register=<0x00>;
+			chip_id_value=<0x48>;
+			file_id=<67>;
+			sensor_list_info_id=<1>;
+			sensor_type="mag";
+			/*sensor-vdd-supply = <&ldo24>;*/
+			outbit=<0>;
+			calibrate_method=<2>;
+			axis_map_x=<1>;
+			axis_map_y=<0>;
+			axis_map_z=<2>;
+			negate_x=<0>;
+			negate_y=<0>;
+			negate_z=<1>;
+			poll_interval=<10>;
+			/* gpio_int1=<&gpio0 0 0>; */
+			/* gpio_reset=<&gpio0 0 0>; */
+			softiron_parameter = <32 40 129 2 104 0 129 2 102 36 146 0 104 0 146 0 22 39 0 0 0 0 0 0 0 0 0>;
+			sensorlist_name="mag_s001_001";
+			vendor="mag_s001_001";
+			minDelay=<10000>;
+			fifoReservedEventCount=<0>;
+			fifoMaxEventCount=<0>;
+			status = "ok";
+			akm_need_charger_current = <0x1>;
+			charger_trigger = <0x1>;
+			akm_current_x_fac = <0x15>;
+			akm_current_y_fac = <0x0>;
+			akm_current_z_fac = <0x0>;
+		};
+		mag2 {
+			compatible="mag_s002_001";
+			bus_number=<0>;
+			reg=<0x30>;
+			chip_id_register=<0x39>;
+			chip_id_value=<0x10>;
+			file_id=<125>;
+			sensor_list_info_id=<1>;
+			sensor_type="mag";
+			calibrate_method=<2>;
+			axis_map_x=<1>;
+			axis_map_y=<0>;
+			axis_map_z=<2>;
+			negate_x=<0>;
+			negate_y=<0>;
+			negate_z=<1>;
+			poll_interval=<10>;
+			softiron_parameter = <88 40 193 2 53 0 193 2 250 35 127 0 53 0 127 0 7 40 0 0 0 0 0 0 0 0 0>;
+			threshold_for_als_calibrate=<800>;
+			sensorlist_name="mag_s002_001";
+			vendor="mag_s002_001";
+			status = "ok";
+			akm_need_charger_current = <0x1>;
+			charger_trigger = <0x1>;
+			akm_current_x_fac = <0x15>;
+			akm_current_y_fac = <0x0>;
+			akm_current_z_fac = <0x0>;
+		};
+	};
+};

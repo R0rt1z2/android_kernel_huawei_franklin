@@ -1,0 +1,26 @@
+/* tfa98xx Smart PA */
+&smartpakit {
+    chip_vendor = <1>;
+    chip_model = "tfa98xx";
+    misc_rw_permission_enable;
+    status = "okay";
+};
+
+&i2c6 {
+    tfa98xx_smartpa@34 {
+        compatible = "nxp,tfa98xx";
+        reg = <0x34>;
+        reset-gpio = <&pio 127 0>;
+        irq-gpio = <&pio 109 0>;
+        status = "okay";
+    };
+
+    tfa98xx_smartpa@35 {
+        compatible = "nxp,tfa98xx";
+        reg = <0x35>;
+        reset-gpio = <&pio 30 0>;
+        irq-gpio = <&pio 31 0>;
+        status = "okay";
+    };
+};
+/* tfa98xx Smart PA End */

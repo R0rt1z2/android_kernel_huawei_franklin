@@ -1,0 +1,123 @@
+config HW_EXTERNAL_SENSOR_QCOM
+	bool "distinguish IPA for Qcom or MTK"
+	default n
+	help
+	  indicate IPA for Qcom
+
+config HW_EXTERNAL_SENSOR
+	tristate "Support external sensor driver instead of HW_THERMAL_TSENSOR in IPA"
+	default n
+	help
+	  Support external sensor driver instead of HW_THERMAL_TSENSOR in IPA
+
+config HW_IPA_THERMAL
+	#tristate "Temperature sensor on ARM SoC based on HW_THERMAL_TSENSOR interface"
+	tristate "Temperature sensor on ARM SoC"
+	#depends on HW_THERMAL_TSENSOR
+	depends on CPU_FREQ
+	depends on OF
+	select THERMAL_POWER_ACTOR_CPU
+	help
+	  Support for the HW thermal sensor driver in the Linux thermal
+	  framework.
+
+config HW_THERMAL_TSENSOR
+	tristate "Hw thermal sensor driver"
+	default n
+	help
+	  Enable this to plug the thermal sensor driver into the Linux
+	  thermal framework
+
+config HW_THERMAL_PERIPHERAL
+	tristate "Hw peripheral thermal driver"
+	default n
+	help
+	  Enable this to plug the peripheral thermal sensor driver into the Linux
+	  thermal framework
+
+config HW_THERMAL_PERIPHERAL_HIGHRESTEMP
+	bool "High resolution thermal format for Hw peripheral thermal driver"
+	depends on HW_THERMAL_PERIPHERAL
+	default n
+	help
+	  Enable this to use hi-resolution temperature format for PERIPHERAL thermal.
+
+config HW_THERMAL_CONTEXTHUB
+	bool "Hw contexthub thermal driver"
+	default n
+	help
+	  Enable Contexthub Thermal
+
+config HW_THERMAL_SPM
+	bool "Hw sustainable performance mode"
+	depends on HW_IPA_THERMAL
+	default n
+	help
+	  Enable sustainable performance mode
+
+config HW_THERMAL_HOTPLUG
+	bool "Hw thermal hotplug support"
+	depends on HOTPLUG_CPU
+	depends on HW_IPA_THERMAL
+	default n
+	help
+	  Enable thermal hotplug
+
+config HW_THERMAL_GPU_HOTPLUG
+	bool "Hw thermal gpu hotplug support"
+	depends on HW_IPA_THERMAL
+	depends on HW_GPU_CORE_HOTPLUG
+	default n
+	help
+	  Enable gpu thermal hotplug
+
+config HW_GPU_HOTPLUG_EMULATION
+	bool "Hw thermal gpu hotplug emulation support"
+	depends on HW_THERMAL_GPU_HOTPLUG
+	default n
+	help
+	  Enable thermal gpu hotplug emulation
+
+config HW_THERMAL_NPU_HOTPLUG
+	bool "Hw thermal npu hotplug support"
+	depends on HW_IPA_THERMAL
+	default n
+	help
+	  Enable npu thermal hotplug
+
+config HW_NPU_HOTPLUG_EMULATION
+	bool "Hw thermal npu hotplug emulation support"
+	depends on HW_THERMAL_NPU_HOTPLUG
+	default n
+	help
+	  Enable thermal npu hotplug emulation
+
+config HW_HOTPLUG_EMULATION
+	bool "Hw thermal hotplug emulation support"
+	depends on HW_THERMAL_HOTPLUG
+	default n
+	help
+	  Enable thermal hotplug emulation
+
+config HW_THERMAL_TRIP
+	bool "Hw trip point for thermal zone"
+	depends on HW_THERMAL_TSENSOR
+	depends on HW_THERMAL_PERIPHERAL
+	depends on HW_BCI_BATTERY
+	default n
+	help
+	  Enable trip point for thermal zone
+
+config HW_THERMAL_SHELL
+	bool "Hw shell temp calculation"
+	#depends on HW_THERMAL_PERIPHERAL
+	#depends on HW_COUL
+	default n
+	help
+	  Enable shell temp calculation
+config HW_SHELL_TEMP_DEBUG
+	bool "Hw shell temp debug configuration"
+	depends on HW_THERMAL_SHELL
+	default n
+	help
+	  Enable debug node for shell temp calculation

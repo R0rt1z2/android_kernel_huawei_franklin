@@ -1,0 +1,41 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/spmi/spmi.h>
+#include <dt-bindings/pinctrl/mt6885-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6885_abr_an00_vc/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 4 1 9>;
+    mtk,board_name = "ABR_AN00_VC";
+    mtk,product_name = "ABR-AN00";
+    hardware_version = "HN1AMBERM";
+};
+
+&dev_detect{
+    nfc = <1>;
+	compass = <1>;
+	g_sensor = <1>;
+	gyroscope = <1>;
+	l_sensor = <2>;
+	airpress = <0>;
+	charge_loadswitch = <1>;
+	charge_switchcap = <1>;
+	laser = <2>;
+    status = "ok";
+};
+
+/*
+ * Each set of pins contains the pin number and pins voltage
+ * values, and must end with the names _num and _val.
+ */
+&gpio_check {
+	buckle_num = "146 147 148";
+	buckle_val = "0 0 0";
+};
+
+#include <huawei_mt6889_abr/cust.dtsi>
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/

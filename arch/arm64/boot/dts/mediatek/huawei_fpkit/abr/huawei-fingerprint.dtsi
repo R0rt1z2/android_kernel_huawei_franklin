@@ -1,0 +1,147 @@
+&mt_pmic_vibr_ldo_reg {
+	regulator-min-microvolt = <3300000>;
+	regulator-max-microvolt = <3300000>;
+	regulator-default-on = <2>; /* 0:skip, 1: off, 2:on */
+	regulator-boot-on;
+};
+
+&fingerprint {
+	fingerprint,product = "amber";
+	fingerprint,force_storage = <1>;
+
+	fingerprint,sensor_type = <516>;
+
+	fingerprint,top_left_corner_x = <480>; /* only for UD */
+	fingerprint,top_left_corner_y = <889>; /* only for UD */
+	fingerprint,bottom_right_corner_x = <520>; /* only for UD */
+	fingerprint,bottom_right_corner_y = <929>; /* only for UD */
+	fingerprint,tp_hover_support = <0>;
+	fingerprint,radius = <99>;
+};
+
+&spi0 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	fingerprint_sensor@0 {
+		compatible = "mediatek,mtk_finger";
+		reg = <0>;
+		spi-max-frequency = <4800000>;
+
+		fingerprint,navigation_adjust1 = <0>;
+		fingerprint,poweroff_scheme = <0>; /* 1:close ldo(for pd_charge);2:close ldo(independent power) */
+		/* 1:vdd->1ms->rst/cs; 2:vdd->10ms->rst/cs; 3:vdd->10ms->cs->600us->rst; 4:vdd->rst1/cs1/rst/cs0 */
+		fingerprint,custom_timing_scheme = <2>;
+		fingerprint,use_tp_irq = <1>; /* 0:using self irq pin; 1:use tp irq pin */
+		fingerprint,product_id = <99>;
+
+		pinctrl-names = "fingerprint_spi_default", "fingerprint_spi_cs_low","fingerprint_spi_cs_high","fingerprint_spi_miso_low","fingerprint_spi_miso_high",
+                    "fingerprint_spi_mosi_low","fingerprint_spi_mosi_high","fingerprint_spi_mclk_low","fingerprint_spi_mclk_high",
+                    "fingerprint_rst_low","fingerprint_rst_high","fingerprint_power_low","fingerprint_power_high";
+		pinctrl-0 = <&fingerprint_spi_default>;
+		pinctrl-1 = <&fingerprint_spi_cs_low>;
+		pinctrl-2 = <&fingerprint_spi_cs_high>;
+		pinctrl-3 = <&fingerprint_spi_miso_low>;
+		pinctrl-4 = <&fingerprint_spi_miso_high>;
+		pinctrl-5 = <&fingerprint_spi_mosi_low>;
+		pinctrl-6 = <&fingerprint_spi_mosi_high>;
+		pinctrl-7 = <&fingerprint_spi_mclk_low>;
+		pinctrl-8 = <&fingerprint_spi_mclk_high>;
+		pinctrl-9 = <&fingerprint_rst_low>;
+		pinctrl-10 = <&fingerprint_rst_high>;
+		pinctrl-11 = <&fingerprint_power_low>;
+		pinctrl-12 = <&fingerprint_power_high>;
+
+		fp_vdd-supply = <&mt_pmic_vibr_ldo_reg>;
+
+		status = "okay";
+	};
+};
+
+&pio {
+	fingerprint_spi_default: fingerprint_spi_default {
+	};
+
+	fingerprint_spi_cs_low: fingerprint_spi_cs_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO104__FUNC_SPI0_A_CSB>;
+			slew-rate = <1>;
+			drive-strength = <2>;
+			output-low;
+		};
+	};
+	fingerprint_spi_cs_high: fingerprint_spi_cs_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO104__FUNC_SPI0_A_CSB>;
+			slew-rate = <1>;
+			drive-strength = <2>;
+			output-high;
+		};
+	};
+	fingerprint_spi_miso_low: fingerprint_spi_miso_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO103__FUNC_SPI0_A_MI>;
+			slew-rate = <0>;
+			drive-strength = <2>;
+			bias-pull-down;
+		};
+	};
+	fingerprint_spi_miso_high: fingerprint_spi_miso_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO103__FUNC_SPI0_A_MI>;
+			drive-strength = <2>;
+			bias-disable;
+		};
+	};
+	fingerprint_spi_mosi_low: fingerprint_spi_mosi_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO105__FUNC_SPI0_A_MO>;
+			slew-rate = <1>;
+			drive-strength = <2>;
+			output-low;
+		};
+	};
+	fingerprint_spi_mosi_high: fingerprint_spi_mosi_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO105__FUNC_SPI0_A_MO>;
+			slew-rate = <1>;
+			drive-strength = <2>;
+			output-high;
+		};
+	};
+	fingerprint_spi_mclk_low: fingerprint_spi_mclk_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO106__FUNC_SPI0_A_CLK>;
+			slew-rate = <1>;
+			drive-strength = <4>;
+			output-low;
+		};
+	};
+	fingerprint_spi_mclk_high: fingerprint_spi_mclk_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO106__FUNC_SPI0_A_CLK>;
+			slew-rate = <1>;
+			drive-strength = <4>;
+			output-high;
+		};
+	};
+	fingerprint_rst_low: fingerprint_rst_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO153__FUNC_GPIO153>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	fingerprint_rst_high: fingerprint_rst_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO153__FUNC_GPIO153>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+	fingerprint_power_low: fingerprint_power_low {
+
+	};
+	fingerprint_power_high: fingerprint_power_high {
+
+	};
+};

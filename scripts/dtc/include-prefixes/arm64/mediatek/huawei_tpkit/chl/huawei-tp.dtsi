@@ -1,0 +1,148 @@
+&pio {
+	ctp_pins_default: eint0default {
+	};
+	ctp_pins_eint_as_int: eint@0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO14__FUNC_GPIO14>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+	ctp_pins_eint_output0: eintoutput0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO14__FUNC_GPIO14>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	ctp_pins_eint_output1: eintoutput1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO14__FUNC_GPIO14>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+	ctp_pins_rst_output0: rstoutput0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO15__FUNC_GPIO15>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	ctp_pins_rst_output1: rstoutput1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO15__FUNC_GPIO15>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	ctp_pins_cs_output0: csoutput0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO21__FUNC_SPI1_CSB>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	ctp_pins_cs_output1: csoutput1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO21__FUNC_SPI1_CSB>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+	ctp_pins_spi_status: spistatus {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO20__FUNC_SPI1_CLK>,
+				 <PINMUX_GPIO21__FUNC_SPI1_CSB>,
+				 <PINMUX_GPIO22__FUNC_SPI1_MO>,
+				 <PINMUX_GPIO23__FUNC_SPI1_MI>;
+			drive-strength = <3>;
+		};
+	};
+};
+
+&spi1 {
+	status = "ok";
+	huawei_thp: huawei_thp@10 {
+		compatible = "huawei,thp";
+		/* SPI Config */
+		spi-max-frequency = <10000000>;
+		spi-bus-id = <1>;
+		spi-mode = <0>;
+		reg = <0>;
+		spi_sync_cs_hi_delay_ns = <200>;
+		spi_sync_cs_low_delay_ns = <10>;
+		/* Timing */
+		boot_reset_hi_delay_ms = <1>;
+		boot_reset_low_delay_ms = <0>;
+		boot_reset_after_delay_ms = <0>;
+		resume_reset_after_delay_ms = <1>;
+		suspend_reset_after_delay_ms = <1>;
+		use_mdelay = <1>;
+		/* GPIO Config */
+		irq_flag = <0x00004002>;
+		interrupt-parent = <&pio>;
+		interrupts = <14 2 0 0>;
+		/* PinCtrl Config */
+		support_pinctrl = <1>;
+		pinctrl-names = "default", "idle", "state_eint_as_int", "state_rst_output0",
+			"state_rst_output1", "state_cs_output0", "state_cs_output1", "state_spi_status";
+		pinctrl-0 = <&ctp_pins_rst_output1 &ctp_pins_cs_output1>;
+		pinctrl-1 = <&ctp_pins_rst_output0 &ctp_pins_cs_output0>;
+		pinctrl-2 = <&ctp_pins_eint_as_int>;
+		pinctrl-3 = <&ctp_pins_rst_output0>;
+		pinctrl-4 = <&ctp_pins_rst_output1>;
+		pinctrl-5 = <&ctp_pins_cs_output0>;
+		pinctrl-6 = <&ctp_pins_cs_output1>;
+		pinctrl-7 = <&ctp_pins_spi_status>;
+		/* Feature Config */
+		pt_station_test = <1>;
+		proximity_support = <1>;
+		hide_product_info_en = <1>;
+		support_no_cs_pinctrl_for_mtk = <1>;
+		change_spi_driving_force = <1>;
+		support_vendor_ic_type = <1>;
+		supported_charger = <1>;
+
+		thp_input_dev {
+			compatible = "huawei,thp_input";
+			abs_max_x = <1080>;
+			abs_max_y = <2400>;
+		};
+		novatech {
+			spi_sync_cs_hi_delay_ns = <200>;
+			spi_sync_cs_low_delay_ns = <200>;
+			change_spi_driving_force = <1>;
+			support_vendor_ic_type = <1>;
+		};
+		synaptics_thp {
+			spi_sync_cs_hi_delay_ns = <20>;
+			spi_sync_cs_low_delay_ns = <20>;
+			spi-mode = <3>;
+			bits-per-word = <8>;
+			need_huge_memory_in_spi = <1>;
+			change_spi_driving_force = <1>;
+			support_vendor_ic_type = <0>;
+		};
+		focal {
+			use_default_configuration = <1>;
+			boot_reset_hi_delay_ms = <0>;
+			boot_reset_low_delay_ms = <5>;
+			spi_sync_cs_hi_delay_ns = <200>;
+			spi_sync_cs_low_delay_ns = <1000>;
+			reset_status_in_suspend_mode = <0>;
+			lcd_need_get_afe_status = <0>;
+		};
+		ssl {
+			use_default_configuration = <1>;
+			boot_reset_low_delay_ms = <5>;
+			boot_reset_hi_delay_ms = <5>;
+		};
+		ili {
+			use_default_configuration = <1>;
+			boot_reset_low_delay_ms = <5>;
+			boot_reset_hi_delay_ms = <5>;
+		};
+	};
+};

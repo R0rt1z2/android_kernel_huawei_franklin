@@ -1,0 +1,48 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/spmi/spmi.h>
+#include <dt-bindings/pinctrl/mt6885-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6885_mrr_an19_va/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 2 0 4>;
+    mtk,board_name = "MRR_AN19_VA";
+    mtk,product_name = "MRR-AN19";
+    hardware_version = "SH0MRRLM";
+};
+
+&antenna_cable_detect {
+        pinctrl-names = "default", "id0";
+        pinctrl-0 = <&ant_cable_det_default>;
+        pinctrl-1 = <&ant_cable_det_id0>;
+        gpios = <&pio 37 0 >;
+        gpio_count = <1>;
+};
+
+&pio {
+        ant_cable_det_default: ant_cable_det_default {
+        };
+
+        ant_cable_det_id0: ant_cable_det_id0 {
+                pins_cmd_dat {
+                        pinmux = <PINMUX_GPIO37__FUNC_GPIO37>;
+                        slew-rate = <0>;
+                        bias-pull-up = <11>;
+                };
+        };
+};
+
+&dev_detect{
+	compass = <3>;
+	g_sensor = <3>;
+	gyroscope = <3>;
+	l_sensor = <2>;
+	status = "ok";
+};
+
+#include <huawei_mt6885_mrr/cust.dtsi>
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/

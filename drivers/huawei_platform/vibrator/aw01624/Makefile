@@ -1,0 +1,1 @@
+obj-$(CONFIG_HUAWEI_VIBRATOR) += aw8624.o

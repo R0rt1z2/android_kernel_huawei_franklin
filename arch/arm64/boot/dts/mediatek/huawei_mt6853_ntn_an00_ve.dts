@@ -1,0 +1,47 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/pinctrl/mt6853-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6853_ntn_an00_ve/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 3 0 4>;
+    mtk,board_name = "NTN_AN00_VE";
+    mtk,product_name = "NTN-AN00";
+    hardware_version = "HN3NTNM";
+};
+
+&antenna_cable_detect {
+	pinctrl-names = "default", "id0", "id1";
+	pinctrl-0 = <&ant_cable_det_default>;
+	pinctrl-1 = <&ant_cable_det_id0>;
+	pinctrl-2 = <&ant_cable_det_id1>;
+	gpios = <&pio 12 0 >,
+		<&pio 13 0 >;
+	gpio_count = <2>;
+};
+
+&pio {
+	ant_cable_det_default: ant_cable_det_default {
+	};
+
+	ant_cable_det_id0: ant_cable_det_id0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO12__FUNC_GPIO12>;
+			slew-rate = <0>;
+			bias-pull-up = <11>;
+		};
+	};
+	ant_cable_det_id1: ant_cable_det_id1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO13__FUNC_GPIO13>;
+			slew-rate = <0>;
+			bias-pull-up = <11>;
+		};
+	};
+};
+#include <huawei_mt6853_nto/cust.dtsi>
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/

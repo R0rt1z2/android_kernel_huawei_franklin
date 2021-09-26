@@ -1,0 +1,24 @@
+config HW_ED_TASK
+	bool "Huawei early detection tasks for frequency guidance"
+	depends on SCHED_WALT
+	depends on HW_CPU_FREQ_GOV_SCHEDUTIL
+	default n
+	help
+	  Huawei early detection tasks for frequency guidance.
+
+config HW_TOP_TASK
+	bool "Maintain the top task load of each cpu"
+	depends on SCHED_WALT
+	depends on HW_CPU_FREQ_GOV_SCHEDUTIL
+	default n
+	help
+	  huawei schedutil governor may use the top task load as a guide to
+	  frequency evaluation.
+
+config HW_TOP_TASK_SKIP_HISPEED_LOGIC
+	bool "Let top task ignore above_hipeed_delay"
+	depends on HW_TOP_TASK
+	default n
+	help
+	  For schedutil governor, this option skips hispeed logic when
+	  ADD_TOP_TASK event triggers freq update.

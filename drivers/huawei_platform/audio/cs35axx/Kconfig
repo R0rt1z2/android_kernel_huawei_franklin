@@ -1,0 +1,9 @@
+#
+# Misc strange devices
+#
+config CS35AXX
+	tristate "Cirrus Logic C35AXX Amplifier misc i2c driver"
+	depends on I2C
+	select  SND_SOC_CS35AXX
+	select  REGMAP_I2C
+

@@ -1,0 +1,392 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2020-2020. All rights reserved.
+ * Description: mrr sensor  dts config
+ * Author: liuzhuang
+ * Create: 2020-8-27
+ */
+
+&xhub_io_power{
+	compatible = "huawei,xhub_io";
+	/* sensor-io-supply = <&ldo24>; */
+	no_need_sensor_ldo24 = <1>;
+	/* psensor-io-supply = <&ldo34>; */
+	use_ldo34 = <1>;
+	interrupts = <0 371 4>;
+	status="ok";
+};
+
+&xhub{
+	xhub_ext_config {
+		compatible = "huawei,xhub";
+		akm_need_current = "no";
+		invensense_exist = "no";
+		isensor_version = "no";
+		adapt_sensor_list_id = <0x2 0x6 0x7 0x8 0xb 0xc 0xd 0xe 0xf 0x1b>;
+		adapt_file_id = <14>;
+	};
+
+	light{
+		#address-cells = <1>;
+		#size-cells = <0>;
+		als1{
+			compatible="huawei,ams_tcs3707";
+			bus_number = <0x0>;
+			reg=<0x39>;
+			chip_id_register = <0x92>;
+			chip_id_value = <0x18>;
+			file_id = <162>;
+			sensor_list_info_id = <0x03>;
+			sensor_type = "als";
+			poll_interval = <350>;
+			threshold_value = <0x1>;
+			GA1 = <0x1046>;
+			GA2 = <0xf3c>;
+			GA3 = <0x1194>;
+			tp_color = <0x0>;
+			again = <0x1>;
+			/* gpio_int1 = <&gpio20 5 0>; */
+			gpio_int1_sh=<1001>;
+			atime = <0xdb>;
+			init_time = <0x96>;
+			status = "ok";
+			als_phone_type = <59>;
+			als_phone_version = <10>;
+			als_extend_data = <0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0 0x0>;
+			sensorlist_name="als-tcs3707";
+			vendor="ams";
+		};
+		als2{
+			compatible="huawei,rohm_bu27006muc";
+			bus_number=<0>;
+			reg=<0x38>;
+			chip_id_register=<0x92>;
+			chip_id_value=<0xE0>;
+			file_id=<163>;
+			sensor_list_info_id=<0x03>;
+			sensor_type="als";
+			poll_interval=<350>;
+			threshold_value=<1>;
+			GA1=<4166>;
+			GA2=<3900>;
+			GA3=<4500>;
+			tp_color=<0>;
+			als_phone_type =<59>;
+			als_phone_version=<10>;
+			als_extend_data = <0 0 0 0 0 0 0 0 0 0 0 0>;
+			again=<1>;
+			atime=<0xdb>;
+			init_time =<150>;
+			sensorlist_name="als-bu27006muc";
+			vendor="rohm";
+			status="ok";
+		};
+	};
+	gsensor{
+		#address-cells=<1>;
+		#size-cells=<0>;
+		acc1{
+			compatible ="huawei,st-lsm6dsm";
+			bus_type ="spi";
+			bus_number =<2>;
+			commu_len =<1>;
+			i2c_address =<0x6a>;
+			reg =<0x6a>;
+			chip_id_register =<0x8f>;
+			chip_id_value =<0x6a>;
+			file_id =<34>;
+			sensor_list_info_id =<0>;
+			sensor_type ="acc";
+			axis_map_x =<1>;
+			axis_map_y =<0>;
+			axis_map_z =<2>;
+			negate_x =<0>;
+			negate_y =<1>;
+			negate_z =<0>;
+			offset_x =<0>;
+			offset_y =<0>;
+			offset_z =<0>;
+			sensitivity_x =<1>;
+			sensitivity_y =<1>;
+			sensitivity_z =<1>;
+			poll_interval =<10>;
+			/* gpio_int1 =<&gpio26 0 0>; */
+			/* gpio_int2 =<&gpio26 0 0>; */
+			gpio_int2_sh =<1013>;
+			gpio_int2_sh_func =<2>;
+			used_int_pin =<1>;
+			calibrate_style =<0>;
+			x_calibrate_thredhold = <250>;
+			y_calibrate_thredhold = <250>;
+			z_calibrate_thredhold = <320>;
+			sensorlist_name="accelerometer-lsm6dsm";
+			vendor="st";
+			maxRange=<8>;
+			power=<230>;
+			minDelay=<2000>;
+			fifoReservedEventCount=<0>;
+			fifoMaxEventCount=<0>;
+			maxDelay=<200000>;
+			calibrate_way=<1>;
+			status = "ok";
+		};
+		acc2{
+			compatible ="huawei,bosch-bmi160";
+			bus_type ="spi";
+			bus_number =<2>;
+			commu_len =<1>;
+			i2c_address =<0x68>;
+			reg =<0x68>;
+			chip_id_register =<0x80>;
+			chip_id_value =<0xd1>;
+			file_id =<33>;
+			sensor_list_info_id =<0>;
+			sensor_type ="acc";
+			axis_map_x =<0>;
+			axis_map_y =<1>;
+			axis_map_z =<2>;
+			negate_x =<0>;
+			negate_y =<0>;
+			negate_z =<0>;
+			offset_x =<0>;
+			offset_y =<0>;
+			offset_z =<0>;
+			sensitivity_x =<1>;
+			sensitivity_y =<1>;
+			sensitivity_z =<1>;
+			poll_interval =<10>;
+			/* gpio_int1 =<&gpio26 0 0>; */
+			/* gpio_int2 =<&gpio26 0 0>; */
+			gpio_int2_sh =<1013>;
+			gpio_int2_sh_func =<2>;
+			used_int_pin =<1>;
+			calibrate_style =<0>;
+			x_calibrate_thredhold = <250>;
+			y_calibrate_thredhold = <250>;
+			z_calibrate_thredhold = <320>;
+			sensorlist_name="accelerometer-bmi160";
+			vendor="bosch";
+			maxRange=<8>;
+			power=<230>;
+			minDelay=<2000>;
+			fifoReservedEventCount=<0>;
+			fifoMaxEventCount=<0>;
+			maxDelay=<200000>;
+			calibrate_way=<1>;
+			status = "ok";
+		};
+	};
+
+	gyroscope{
+		#address-cells = <1>;
+		#size-cells = <0>;
+		gyro1{
+			compatible ="huawei,st-lsm6dsm";
+			bus_type ="spi";
+			bus_number =<2>;
+			commu_len =<1>;
+			i2c_address =<0x6a>;
+			reg =<0x6a>;
+			chip_id_register =<0x8f>;
+			chip_id_value =<0x6a>;
+			file_id =<36>;
+			sensor_list_info_id =<5>;
+			sensor_type ="gyro";
+			position = <1>;
+			axis_map_x =<1>;
+			axis_map_y =<0>;
+			axis_map_z =<2>;
+			negate_x =<0>;
+			negate_y =<1>;
+			negate_z =<0>;
+			poll_interval =<10>;
+			calibrate_thredhold = <572>;
+			sensorlist_name="gyroscope-lsm6dsm";
+			vendor="st";
+			minDelay=<2000>;
+			maxDelay=<200000>;
+			calibrate_way=<1>;
+			status = "ok";
+		};
+		gyro2{
+			compatible ="huawei,bosch-bmi160";
+			bus_type ="spi";
+			bus_number =<2>;
+			commu_len =<1>;
+			i2c_address =<0x68>;
+			reg =<0x68>;
+			chip_id_register =<0x80>;
+			chip_id_value =<0xd1>;
+			file_id =<35>;
+			sensor_list_info_id =<5>;
+			sensor_type ="gyro";
+			position = <1>;
+			axis_map_x =<0>;
+			axis_map_y =<1>;
+			axis_map_z =<2>;
+			negate_x =<0>;
+			negate_y =<0>;
+			negate_z =<0>;
+			poll_interval =<10>;
+			sensorlist_name="gyroscope-bmi160";
+			vendor="bosch";
+			minDelay=<2000>;
+			maxDelay=<200000>;
+			calibrate_way=<1>;
+			status = "ok";
+		};
+	};
+	compass{
+		#address-cells = <1>;
+		#size-cells = <0>;
+		mag1{
+			compatible="huawei,akm-akm09918";
+			bus_number=<0>;
+			reg=<0x0C>;
+			chip_id_register=<0x00>;
+			chip_id_value=<0x48>;
+			file_id=<67>;
+			sensor_list_info_id=<1>;
+			sensor_type="mag";
+			/*sensor-vdd-supply = <&ldo24>;*/
+			outbit=<0>;
+			calibrate_method=<2>;
+			axis_map_x=<0>;
+			axis_map_y=<1>;
+			axis_map_z=<2>;
+			negate_x=<1>;
+			negate_y=<0>;
+			negate_z=<1>;
+			poll_interval=<10>;
+			/* gpio_int1=<&gpio0 0 0>; */
+			/* gpio_reset=<&gpio0 0 0>; */
+			softiron_parameter = <225 37 184 0 132 0 184 0 232 40 88 0 132 0 88 0 249 40 0 0 0 0 0 0 0 0 0>;
+			sensorlist_name="akm-akm09918";
+			vendor="akm";
+			minDelay=<10000>;
+			fifoReservedEventCount=<0>;
+			fifoMaxEventCount=<0>;
+			status = "ok";
+			akm_need_charger_current = <0x1>;
+			charger_trigger = <0x1>;
+			akm_current_x_fac = <0x15>;
+			akm_current_y_fac = <0x0>;
+			akm_current_z_fac = <0x0>;
+		};
+		mag2 {
+			compatible="huawei,mmc-mmc5603";
+			bus_number=<0>;
+			reg=<0x30>;
+			chip_id_register=<0x39>;
+			chip_id_value=<0x10>;
+			file_id=<125>;
+			sensor_list_info_id=<1>;
+			sensor_type="mag";
+			calibrate_method=<2>;
+			axis_map_x=<0>;
+			axis_map_y=<1>;
+			axis_map_z=<2>;
+			negate_x=<1>;
+			negate_y=<0>;
+			negate_z=<1>;
+			poll_interval=<10>;
+			softiron_parameter = <23 37 139 0 206 0 139 0 159 39 52 0 206 0 52 0 245 40 0 0 0 0 0 0 0 0 0>;
+			threshold_for_als_calibrate=<1000>;
+			sensorlist_name="mmc-mmc5603";
+			vendor="mmc";
+			status = "ok";
+			akm_need_charger_current = <0x1>;
+			charger_trigger = <0x1>;
+			akm_current_x_fac = <0x15>;
+			akm_current_y_fac = <0x0>;
+			akm_current_z_fac = <0x0>;
+		};
+	};
+};
+
+&pio {
+	hall_0_n_eint: hall_0_n_eint {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO148__FUNC_GPIO148>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+	hall_1_n_eint: hall_1_n_eint {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO192__FUNC_GPIO192>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+	hall_1_s_eint: hall_1_s_eint {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO74__FUNC_GPIO74>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+	hall_2_n_eint: hall_2_n_eint {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO82__FUNC_GPIO82>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+	hall_3_n_eint: hall_3_n_eint {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO190__FUNC_GPIO190>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+};
+
+&huawei_hall {
+	compatible = "huawei,hall_sensor,ak8789";
+	status = "ok";
+	huawei,hall_0 {
+		huawei,single-n-pole = <&pio 148 0x00>;
+		huawei,id = <0>;
+		huawei,type = <0x01>;
+		huawei,wakeup-flag = <0x4000>; // IRQF_NO_SUSPEND
+		huawei,hw-wakeup-support = <0x03>;
+		huawei,default-state = "on";
+		huawei,x-coordinate = <0>;
+		huawei,y-coordinate = <0>;
+		huawei,int-delay-time = <100>;
+	};
+	huawei,hall_1 {
+		huawei,single-n-pole = <&pio 192 0x00>;
+		huawei,single-s-pole = <&pio 74 0x00>;
+		huawei,id = <1>;
+		huawei,type = <0x03>;
+		huawei,wakeup-flag = <0x4000>;
+		huawei,hw-wakeup-support = <0x03>;
+		huawei,default-state = "on";
+		huawei,x-coordinate = <0>;
+		huawei,y-coordinate = <0>;
+		huawei,int-delay-time = <100>;
+	};
+	huawei,hall_2 {
+		huawei,single-n-pole = <&pio 82 0x00>;
+		huawei,id = <2>;
+		huawei,type = <0x01>;
+		huawei,wakeup-flag = <0x4000>;
+		huawei,hw-wakeup-support = <0x03>;
+		huawei,default-state = "on";
+		huawei,x-coordinate = <0>;
+		huawei,y-coordinate = <0>;
+		huawei,int-delay-time = <100>;
+	};
+	huawei,hall_3 {
+		huawei,single-n-pole = <&pio 190 0x00>;
+		huawei,id = <3>;
+		huawei,type = <0x01>;
+		huawei,wakeup-flag = <0x4000>;
+		huawei,hw-wakeup-support = <0x03>;
+		huawei,default-state = "on";
+		huawei,x-coordinate = <0>;
+		huawei,y-coordinate = <0>;
+		huawei,int-delay-time = <100>;
+	};
+};

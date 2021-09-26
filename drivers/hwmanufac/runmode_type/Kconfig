@@ -1,0 +1,6 @@
+#
+# runmode type pares
+#
+config RUNMODE_TYPE_PARSE
+	bool "cmdline parse"
+	default y

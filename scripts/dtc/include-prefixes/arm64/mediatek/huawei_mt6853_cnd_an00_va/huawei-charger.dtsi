@@ -1,0 +1,12 @@
+#include "../huawei_charger/mt6853_cnd_huawei_charger.dtsi"
+
+&i2c7 {
+	bq25970@65 {
+		sense_r_config = <50>;
+		sense_r_actual = <50>;
+	};
+};
+
+&bat_gm30 {
+	CAR_TUNE_VALUE = <(100)>;
+};

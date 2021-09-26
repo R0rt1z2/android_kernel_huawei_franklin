@@ -1,0 +1,7 @@
+&huawei_sensor_info {
+	compatible = "huawei,huawei_sensor_info";
+	product_number = <11>;
+	status = "okay";
+	kx022_direction = <4>;
+	bma253_direction = <4>;
+};

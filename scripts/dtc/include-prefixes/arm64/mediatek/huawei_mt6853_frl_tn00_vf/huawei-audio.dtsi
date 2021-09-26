@@ -1,0 +1,2 @@
+#include "../huawei_audio/frl/huawei_mt6359_accdet.dtsi"
+#include "../huawei_audio/frl/huawei_audio_frl.dtsi"

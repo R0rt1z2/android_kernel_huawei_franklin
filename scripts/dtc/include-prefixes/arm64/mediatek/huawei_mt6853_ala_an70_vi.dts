@@ -1,0 +1,50 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/pinctrl/mt6853-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6853_ala_an70_vi/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 4 8 8>;
+    mtk,board_name = "ALA_AN70_VI";
+    mtk,product_name = "ALA-AN70";
+    hardware_version = "HN3ANGM";
+};
+
+&dev_detect{
+    touch_panel = <2>;
+    nfc = <1>;
+    status = "ok";
+};
+
+&antenna_cable_detect {
+	pinctrl-names = "default", "id0";
+	pinctrl-0 = <&ant_cable_det_default>;
+	pinctrl-1 = <&ant_cable_det_id0>;
+	gpios = <&pio 12 0 >;
+	gpio_count = <1>;
+};
+
+&pio {
+	ant_cable_det_default: ant_cable_det_default {
+	};
+
+	ant_cable_det_id0: ant_cable_det_id0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO12__FUNC_GPIO12>;
+			slew-rate = <0>;
+			bias-pull-up = <11>;
+		};
+	};
+};
+
+#include <huawei_mt6853_ala/cust.dtsi>
+
+&i2c7 {
+	clock-frequency = <100000>;
+};
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/
+

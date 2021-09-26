@@ -1,0 +1,34 @@
+/* Box ID END */
+&pio {
+	speaker_box_l_on: speaker_box_l_on {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO78__FUNC_GPIO78>;
+			slew-rate = <0>;
+			bias-pull-up;
+		};
+	};
+	speaker_box_l_off: speaker_box_l_off {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO78__FUNC_GPIO78>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+};
+
+&deviceboxID {
+	pinctrl-names = "default",
+					"idle";
+	pinctrl-0 = <&speaker_box_l_on>;
+	pinctrl-1 = <&speaker_box_l_off>;
+	check_mode = "gpio";
+	box_num = <1>;
+	enable_boxID = <1 0 0 0>;
+	gpio_num = <1 0 0 0>;
+	gpio_speakerID = <&pio 78 0>;
+	speaker_map = <1 7 2>; /* 1 means AAC, 7 means SSI, 2 means GEER */
+	tristate_mode = <1>;  /* devicebox three mode use one gpio, init-PU normal-PD */
+	deviceboxID_limit = <500>;
+	status = "ok";
+};
+/* Box ID END */

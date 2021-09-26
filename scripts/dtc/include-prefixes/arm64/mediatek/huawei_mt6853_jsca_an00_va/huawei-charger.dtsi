@@ -1,0 +1,5 @@
+#include "../huawei_charger/mt6853_jsc_huawei_charger.dtsi"
+
+&huawei_batt_info {
+	shield_ct_sign = <1>;
+};

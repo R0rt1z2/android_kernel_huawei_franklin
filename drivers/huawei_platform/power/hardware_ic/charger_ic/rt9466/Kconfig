@@ -1,0 +1,3 @@
+config RT9466_CHARGER
+        bool "rt9466 charger"
+        default n

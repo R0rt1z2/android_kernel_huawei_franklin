@@ -1,0 +1,21 @@
+&tboard_thermistor1 {
+    compatible = "mediatek,mtboard-thermistor1";
+    io-channels = <&auxadc 0>;
+    io-channel-names = "thermistor-ch0";
+    PUP_R = <22000>;
+    PUP_VOLT = <1800>;
+    OVER_CRITICAL_L = <188500>;
+    NTC_TABLE = <8>;
+    AUXADC_CH = <0>;
+};
+
+&tboard_thermistor5 {
+    compatible = "mediatek,mtboard-thermistor5";
+    io-channels = <&auxadc 6>;
+    io-channel-names = "thermistor-ch4";
+    PUP_R = <22000>;
+    PUP_VOLT = <1800>;
+    OVER_CRITICAL_L = <188500>;
+    NTC_TABLE = <8>;
+    AUXADC_CH = <6>;
+};

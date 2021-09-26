@@ -1,0 +1,4 @@
+menu "Huawei Manufac Drivers"
+source "drivers/hwmanufac/dev_detect/Kconfig"
+source "drivers/hwmanufac/runmode_type/Kconfig"
+endmenu

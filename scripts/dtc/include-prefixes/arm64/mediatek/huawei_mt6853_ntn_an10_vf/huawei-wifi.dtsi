@@ -1,0 +1,8 @@
+&huawei_wifi_info {
+	compatible = "huawei,huawei_wifi_info";
+	status = "okay";
+	ini_type = "NTN";
+	wifi_chiptype = "WIFI_MTK_6631";
+	power_limit = "NTO_5G";
+	wifi_cfg_type = "NTN_";
+};

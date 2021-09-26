@@ -1,0 +1,12 @@
+#
+# ITRUSTEE TUI configuration
+#
+
+config ITRUSTEE_TRUSTED_UI
+	bool "ITRUSTEE Trusted User Interface"
+	default n
+	---help---
+	  Enable ITRUSTEE Trusted User Interface
+	  ITRUSTEE TUI features was based on ITRUSTEE TEE mechanism to protect
+	  Touch/Display inside TEE, to prevent malicious access of sensitive data
+	  used by APPs like Banking.

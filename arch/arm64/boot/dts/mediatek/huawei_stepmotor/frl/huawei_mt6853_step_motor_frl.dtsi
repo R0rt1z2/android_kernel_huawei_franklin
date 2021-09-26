@@ -1,0 +1,246 @@
+&step_motor {
+	compatible = "huawei,step_motor";
+	status = "okay";
+	step_gen_manner = <1>;  /* 0--GPIO MODE  1--PWM MODE */
+	set_step_mode = <8>; /* 1--full step  8--32step */
+	set_start_stop_curve_style = <2>; /* 0-NO_START_NO_STOP 1-SLOW_START_NO_STOP 2-SLOW_START_SLOW_STOP */
+	motor_direction = <0x01>;
+	support_set_voltage = <0>;
+	select_voltage_by_gpio = <1>;
+	motor_params = /bits/ 16 <1200 2600 1400 50 87 225 31>;
+	support_ti_hardware_set = /bits/ 16 <0 0>;
+	interrupt-parent = <&pio>;
+	interrupts = <65 IRQ_TYPE_LEVEL_HIGH 65 0>;
+	gpio_enable = <&pio 70 0x0>; /* Distinguishing Chip Pins */
+	gpio_voltage = <&pio 90 0x0>; /* set big/small force by gpio pin */
+	pinctrl-names = "default", "idle", "gpio_vm_high", "gpio_mode1_high", "gpio_mode1_low", "gpio_mode1_np",
+					"gpio_decay_high", "gpio_decay_low", "gpio_step_high", "gpio_step_low",
+					"gpio_dir_high", "gpio_dir_low", "gpio_enable_normal_high", "gpio_enable_normal_low",
+					"gpio_sleep_high", "gpio_sleep_low", "gpio_fault_int", "gpio_st_en_high", "gpio_st_en_low",
+					"gpio_st_en_np", "gpio_enable_input", "gpio_voltage_high", "gpio_voltage_low";
+	pinctrl-0 = <&gpio_step_pwm_mode &gpio_enable_default>;
+	pinctrl-1 = <&gpio_step_gpio_mode &gpio_enable_idle>;
+	pinctrl-2 = <&gpio_vm_high>;
+	pinctrl-3 = <&gpio_mode1_high>;
+	pinctrl-4 = <&gpio_mode1_low>;
+	pinctrl-5 = <&gpio_mode1_np>;
+	pinctrl-6 = <&gpio_decay_high>;
+	pinctrl-7 = <&gpio_decay_low>;
+	pinctrl-8 = <&gpio_step_high>;
+	pinctrl-9 = <&gpio_step_low>;
+	pinctrl-10 = <&gpio_dir_high>;
+	pinctrl-11 = <&gpio_dir_low>;
+	pinctrl-12 = <&gpio_enable_normal_high>;
+	pinctrl-13 = <&gpio_enable_normal_low>;
+	pinctrl-14 = <&gpio_sleep_high>;
+	pinctrl-15 = <&gpio_sleep_low>;
+	pinctrl-16 = <&gpio_fault_int>;
+	pinctrl-17 = <&gpio_st_en_high>;
+	pinctrl-18 = <&gpio_st_en_low>;
+	pinctrl-19 = <&gpio_st_en_np>;
+	pinctrl-20 = <&gpio_enable_input>;
+	pinctrl-21 = <&gpio_voltage_high>;
+	pinctrl-22 = <&gpio_voltage_low>;
+};
+
+&pio {
+	gpio_step_pwm_mode:gpio_step_pwm_mode@gpio0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO0__FUNC_PWM_0>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	gpio_step_gpio_mode:gpio_step_gpio_mode@gpio0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO0__FUNC_GPIO0>;
+			slew-rate = <1>;
+			bias-disable;
+			output-low;
+			input-schmitt-enable = <0>;
+		};
+	};
+	/* Distinguishing Chip Pins default */
+	gpio_enable_default: gpio_enable_default {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO74__FUNC_GPIO74>;
+			slew-rate = <0>; /* di */
+			bias-pull-down; /* pd */
+		};
+	};
+	/* Distinguishing Chip Pins idle */
+	gpio_enable_idle: gpio_enable_idle {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO74__FUNC_GPIO74>;
+			slew-rate = <0>; /* di */
+			bias-pull-up; /* pu */
+		};
+	};
+
+	gpio_vm_high: gpio_vm_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO75__FUNC_GPIO75>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	gpio_mode1_high: gpio_mode1_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO76__FUNC_GPIO76>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	gpio_mode1_low: gpio_mode1_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO76__FUNC_GPIO76>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+
+	gpio_mode1_np: gpio_mode1_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO76__FUNC_GPIO76>;
+			slew-rate = <0>;
+		};
+	};
+	/* st : mode2  ti : decay */
+	gpio_decay_high: gpio_decay_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO72__FUNC_GPIO72>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	gpio_decay_low: gpio_decay_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO72__FUNC_GPIO72>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+
+	gpio_step_high: gpio_step_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO0__FUNC_GPIO0>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	gpio_step_low: gpio_step_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO0__FUNC_GPIO0>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+
+	gpio_dir_high: gpio_dir_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO71__FUNC_GPIO71>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	gpio_dir_low: gpio_dir_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO71__FUNC_GPIO71>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	/* ti : enable */
+	gpio_enable_normal_high: gpio_enable_normal_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO74__FUNC_GPIO74>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	gpio_enable_normal_low: gpio_enable_normal_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO74__FUNC_GPIO74>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+
+	gpio_sleep_high: gpio_sleep_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO69__FUNC_GPIO69>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	gpio_sleep_low: gpio_sleep_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO69__FUNC_GPIO69>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+
+	gpio_fault_int: gpio_fault_int {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO65__FUNC_GPIO65>;
+			input-enable;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+	/* st : enable */
+	gpio_st_en_high: gpio_st_en_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO70__FUNC_GPIO70>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	gpio_st_en_low: gpio_st_en_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO70__FUNC_GPIO70>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+
+	gpio_st_en_np: gpio_st_en_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO70__FUNC_GPIO70>;
+			slew-rate = <0>;
+		};
+	};
+
+	gpio_enable_input: gpio_enable_input {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO74__FUNC_GPIO74>;
+			slew-rate = <0>;
+		};
+	};
+
+	gpio_voltage_high: gpio_voltage_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO90__FUNC_GPIO90>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	gpio_voltage_low: gpio_voltage_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO90__FUNC_GPIO90>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+};

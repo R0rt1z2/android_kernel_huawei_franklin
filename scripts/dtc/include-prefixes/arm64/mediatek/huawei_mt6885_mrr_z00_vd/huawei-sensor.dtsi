@@ -1,0 +1,2 @@
+#include "../huawei_mt6885_sensor_mrr.dtsi"
+#include "../huawei_mt6885_sar_sensor_mrr.dtsi"

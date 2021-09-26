@@ -1,0 +1,69 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/pinctrl/mt6853-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6853_ntn_an00_va/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 2 8 0>;
+    mtk,board_name = "NTN_AN00_VA";
+    mtk,product_name = "NTN-AN00";
+    hardware_version = "HN2NTNM";
+};
+
+&antenna_cable_detect {
+	pinctrl-names = "default", "id0", "id1";
+	pinctrl-0 = <&ant_cable_det_default>;
+	pinctrl-1 = <&ant_cable_det_id0>;
+	pinctrl-2 = <&ant_cable_det_id1>;
+	gpios = <&pio 12 0 >,
+		<&pio 13 0 >;
+	gpio_count = <2>;
+};
+
+&pio {
+	ant_cable_det_default: ant_cable_det_default {
+	};
+
+	ant_cable_det_id0: ant_cable_det_id0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO12__FUNC_GPIO12>;
+			slew-rate = <0>;
+			bias-pull-up = <11>;
+		};
+	};
+	ant_cable_det_id1: ant_cable_det_id1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO13__FUNC_GPIO13>;
+			slew-rate = <0>;
+			bias-pull-up = <11>;
+		};
+	};
+};
+
+&mt6360_fled {
+	fled-reg-channel = <1>;
+};
+
+&fled_regulator {
+	compatible = "hw,fled-regulator";
+	status = "okay";
+	fled_regulators {
+		fled_regulator1: fled_reg1 {
+			regulator-compatible = "fled_reg1";
+			regulator-name = "FLED-REG1";
+			regulator-min-microamp = <50000>;
+			regulator-max-microamp = <200000>;
+			regulator-channel-id = <1>;
+			regulator-channel-name = "mt-flash-led2";
+			regulator-mode-enable = <1>;
+			regulator-allow-set-load;
+		};
+	};
+};
+
+#include <huawei_mt6853_ntn/cust.dtsi>
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/

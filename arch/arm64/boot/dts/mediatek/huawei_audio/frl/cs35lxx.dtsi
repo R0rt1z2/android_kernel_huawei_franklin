@@ -1,0 +1,40 @@
+&i2c6 {
+	cs35lxx_smartpa@50 {
+		compatible = "cirrus,cs35lxx";
+		reg = <0x50>;
+		reset-gpio = <&pio 139 0>;
+		interrupt-parent = <&pio>;
+		interrupts = <32 IRQ_TYPE_LEVEL_LOW>;
+		irq-gpio = <&pio 32 0>;
+		status = "okay";
+		cirrus,boost-ind-nanohenry = <1000>;
+		cirrus,boost-ctl-millivolt = <10000>;
+		cirrus,boost-peak-milliamp = <4500>;
+		cirrus,boost-ctl-select = <0x01>;
+		cirrus,weak-fet-delay = <0x04>;
+		cirrus,weak-fet-thld = <0x01>;
+		cirrus,temp-warn-threshold = <0x01>;
+		cirrus,irq-drive-select = <0x01>;
+		cirrus,irq-gpio-select = <0x01>;
+		cirrus,pll-refclk-sel = <0x0>;
+		cirrus,pll-refclk-freq = <0x21>;
+
+		cirrus,vpbr-config {
+			cirrus,vpbr-en = <0x00>;
+			cirrus,vpbr-thld = <0x05>;
+			cirrus,vpbr-atk-rate = <0x02>;
+			cirrus,vpbr-atk-vol = <0x01>;
+			cirrus,vpbr-max-attn = <0x09>;
+			cirrus,vpbr-wait = <0x01>;
+			cirrus,vpbr-rel-rate = <0x05>;
+			cirrus,vpbr-mute-en = <0x00>;
+		};
+		cirrus,asp-config {
+			cirrus,asp-rx-width = <0x20>;
+			cirrus,asp-tx-width = <0x10>;
+			cirrus,asp-fmt = <0x02>;
+			cirrus,asp-sample-rate = <0x03>;
+			cirrus,asp-sclk-rate = <0x21>;
+		};
+	};
+};

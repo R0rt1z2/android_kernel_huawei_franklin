@@ -1,0 +1,25 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/spmi/spmi.h>
+#include <dt-bindings/pinctrl/mt6885-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6893_oce_an00_va/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 4 0 3>;
+    mtk,board_name = "OCE_AN00_VA";
+    mtk,product_name = "OCE-AN00";
+    hardware_version = "HN1OCETM01";
+};
+
+&display_share_mem {
+	compatible = "delicon,desharemem";
+	status = "ok";
+};
+
+#include "cust_mt6885_camera.dtsi"
+#include <huawei_mt6893_oce/cust.dtsi>
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/

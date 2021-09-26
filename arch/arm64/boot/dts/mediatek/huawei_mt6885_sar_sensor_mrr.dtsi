@@ -1,0 +1,76 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2020-2020. All rights reserved.
+ * Description: mrr lte sensor  dts config
+ * Author: liuzhuang
+ * Create: 2020-8-20
+ */
+
+&xhub{
+	sar {
+		sar1 {
+			compatible="huawei,abov-a96t3x6";
+			sensor_type="cap_prox";
+			calibrate_type=<6>; // bit config 110(b)
+			calibrate_order = "999 2 1"; // 0:free  1:near  2:far
+			sensor_list_info_id=<20>;
+			status = "ok";
+			sensorlist_name="CAP_PROX sensor-a96t3x6";
+			vendor="abov";
+		};
+		sar2 {
+			compatible="huawei,abov-a96t3x6";
+			sensor_type="cap_prox1";
+			calibrate_type=<6>; // bit config 110(b)
+			calibrate_order = "999 2 1"; // 0:free  1:near  2:far
+			sensor_list_info_id=<39>;
+			status = "ok";
+			vendor="abov";
+		};
+	};
+};
+
+&pio {
+	sar0_eint_as_int: sar0_eint_as_int {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO7__FUNC_GPIO7>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+	sar1_eint_as_int1: sar1_eint_as_int1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO11__FUNC_GPIO11>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+};
+
+&i2c6 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	sar@20 {
+		status = "okay";
+		compatible = "abov,abov_sar";
+		reg = <0x20>;
+		interrupt-parent = <&pio>;
+		interrupts = <7 IRQ_TYPE_EDGE_FALLING 7 0>;
+		reg_array_len = <0x02>;
+		reg_array_val = <0x09 0xED 0xFB 0x01>;
+		cap,use_channel_ch0 = <0x00>;
+		cap,use_channel_ch1 = <0x01>;
+		label = "AbovCapSense";
+	};
+	sar@21 {
+		status = "okay";
+		compatible = "abov,abov_sar1";
+		reg = <0x21>;
+		interrupt-parent = <&pio>;
+		interrupts = <11 IRQ_TYPE_EDGE_FALLING 11 0>;
+		reg_array_len = <0x02>;
+		reg_array_val = <0x09 0xEE 0xFB 0x01>;
+		cap,use_channel_ch0 = <0x00>;
+		cap,use_channel_ch1 = <0x01>;
+		label = "AbovCapSense";
+	};
+};

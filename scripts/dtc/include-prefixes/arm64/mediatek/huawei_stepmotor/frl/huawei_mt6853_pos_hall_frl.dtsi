@@ -1,0 +1,34 @@
+&i2c3 {
+	ak09970_dev: ak09970_dev@0C {
+		clock-frequency = <400000>;
+		compatible = "akm,ak09970";
+		status = "okay";
+		reg = <0x0C>;
+		support_odm_algo = <1>;
+		self_test_threshold = /bits/ 16 <1500 1500 1500 1500 1500 1500 1500 1500 1500>;
+		calibration_open_range = /bits/ 16 <(-3117) 883 (-5000) (-1000) (-1500) 1500>;
+		calibration_close_range = /bits/ 16 <1677 5677 307 4307 (-1500) 1500>;
+		cali_default_data = /bits/ 16 <2689 3025 (-379) (-1995) (-1906) 102>;
+		interrupt-parent = <&pio>;
+		pinctrl-names = "gpio_rst_high", "gpio_rst_low";
+		pinctrl-0 = <&gpio_rst_high>;
+		pinctrl-1 = <&gpio_rst_low>;
+	};
+};
+
+&pio {
+	gpio_rst_high: gpio_rst_high {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO41__FUNC_GPIO41>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+	gpio_rst_low: gpio_rst_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO41__FUNC_GPIO41>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+};

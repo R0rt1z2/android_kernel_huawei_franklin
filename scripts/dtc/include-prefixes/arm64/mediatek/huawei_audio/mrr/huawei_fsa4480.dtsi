@@ -1,0 +1,93 @@
+&i2c9 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	ana_hs_fsa4480@42 {
+		compatible = "huawei,ana_hs_i2c";
+		status = "ok";
+		reg = <0x42>;
+		init_id = <0>;
+		remove_id = <0>;
+		irq_handler {
+			gpio_irq = <&pio 183 0>;
+			/*
+			 * 0x0 IRQF_TRIGGER_NONE, 0x1 IRQF_TRIGGER_RISING, 0x2 IRQF_TRIGGER_FALLING,
+			* 0x4 IRQF_TRIGGER_HIGH, 0x8 IRQF_TRIGGER_LOW
+			*/
+			irq_flag = <2>;
+			func_id = <0>;
+		};
+		regmap_cfg {
+			reg_bits = <8>;
+			val_bits = <8>;
+			/* 0 REGCACHE_NONE, 1 REGCACHE_RBTREE, 2 REGCACHE_COMPRESSED, 3 REGCACHE_FLAT */
+			cache_type = <1>;
+			max_register = <0x1f>;
+			reg_volatile = <
+				0x00 0x01 0x02 0x03
+				0x04 0x05 0x06 0x07
+				0x12 0x13 0x14 0x15
+				0x16 0x18 0x19
+			>;
+		};
+	};
+};
+
+&ana_hs {
+	compatible = "huawei,ana_hs";
+	support_cc = <1>;
+	status = "ok";
+	ana_hs_core@0 {
+		compatible = "huawei,ana_hs_core";
+		/*
+		 * Access bus type of chip
+		 * 0: use gpio
+		 * 1: use i2c
+		 */
+		bus_type = <1>;
+
+		/*
+		 * reg value sequence for analog headset plug in and out
+		 * < reg value mask delay_time >
+		 * reg: i2c reg number
+		 * value: value write into reg
+		 * mask: bit mask for which bit should be changed
+		 * delay_time: delay time after reg write
+		 */
+		plug_in_seq = <
+			0x04 0x9F 0 0
+			0x05 0x00 0 20
+		>;
+		plug_out_seq = <
+			0x04 0x98 0 0
+			0x05 0x18 0 0
+		>;
+		/*
+		 * reg for mic gnd connect reverse
+		 * < reg reserve mask delay_time >
+		 * reg: i2c reg number
+		 * mask: bit mask which should be reverse
+		 * 	 when mic gnd connect reverse
+		 * delay_time: delay_time after reg write
+		 */
+		mic_gnd_sequence = <
+			0x05 0x00 0x07 150
+		>;
+		/*
+		 * reg value sequence for dp plug in and out
+		 * data meaning same as plug_in_seq
+		 */
+		dp_charger_in_seq = <
+			0x04 0xF8 0 0
+			0x05 0x18 0 0
+		>;
+		dp_cross_seq = <
+			0x04 0xF8 0 0
+			0x05 0x78 0 0
+		>;
+		dp_charger_out_seq = <
+			0x04 0x98 0 0
+			0x05 0x18 0 0
+		>;
+		status = "ok";
+	};
+};

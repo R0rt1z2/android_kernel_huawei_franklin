@@ -1,0 +1,2 @@
+#include "../huawei_audio/kon/huawei_audio_kon.dtsi"
+#include "../huawei_audio/kon/huawei_mt6359_accdet.dtsi"

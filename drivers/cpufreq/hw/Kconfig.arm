@@ -1,0 +1,48 @@
+config HW_CPU_FREQ
+	bool "Huawei cpufreq optimize for huawei schedutil"
+	default n
+	help
+	  This modifies the platform cpufreq driver to achieve
+	  better performance with huawei schedutil.
+
+config HW_CPU_FREQ_GOV_SCHEDUTIL
+	bool "Huawei schedutil cpufreq governor optimize"
+	depends on CPU_FREQ_GOV_SCHEDUTIL
+	select HW_CPU_FREQ_GOV_SCHEDUTIL_COMMON
+	select HW_CPU_FREQ
+	default n
+	help
+	  This extends the functionality of existing schedutil governor.
+
+config HW_CPU_FREQ_LOCK_DETECT
+	bool "Huawei schedutil detect freq lock&unlock"
+	depends on HW_CPU_FREQ_GOV_SCHEDUTIL
+	default n
+	help
+	  This extends min_sample_time when boost scene finish.
+
+config HW_PPM_DVFS_LIMIT
+	bool "Offer dvfs_limit and dvfs_limit_enabled interfaces"
+	depends on HW_CPU_FREQ
+	default n
+	help
+	  This config is used to enhance mtk ppm and offer two interfaces.
+	  ppm's dvfs limit can be read from dvfs_limit, and dvfs_limit_enabled
+	  can be used to disable ppm to set dvfs limit to policy.
+
+#
+# CPUFREQ level
+#
+config HW_CPUFREQ_GOVERNOR_BACKUP
+	bool "Huawei backup cpufreq governor tunables"
+	depends on CPU_FREQ
+	default n
+	help
+	  Huawei save and restore cpufreq governor tunables set by userspace.
+
+config HW_FREQ_STATS_COUNTING_IDLE
+	bool "time in state seperate active and idle time"
+	depends on CPU_FREQ_STAT && CPU_IDLE
+	default n
+	help
+	  Account active and idle time in different frequencies.

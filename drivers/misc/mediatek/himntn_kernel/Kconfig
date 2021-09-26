@@ -1,0 +1,7 @@
+config HIMNTN_FEATURE_SUPPORT
+	bool "himntn feature switch"
+	default n
+	help
+	  himntn feature is used to control maintenance,
+	  which can be correct partition value in kernel phase.
+	  you should set in project configure file.

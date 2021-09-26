@@ -1,0 +1,6 @@
+config HUAWEI_DSM_CAMERA
+	bool "dsm camera"
+	default n
+	depends on HUAWEI_DSM
+	help
+	  Huawei Dsm Camera Function.

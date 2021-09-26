@@ -1,0 +1,18 @@
+config MTK_MCIF_WIFI_SUPPORT
+	bool "Support Mediatek MD Consys Interface WiFi Service"
+	help
+	  This config is used to enable or disable connection
+	  between Mediatek Modem WiFi Service and Mediatek WiFi
+	  dirver, so applications in Modem can send/receive IP
+	  packets to/from WiFi coprocessor through MCIF directly.
+
+config MTK_MDDP_WH_SUPPORT
+	bool "Support Mediatek MD Direct Path WiFi Hotspot"
+	depends on MTK_MCIF_WIFI_SUPPORT
+	help
+	  This config is used to enable or disable WiFi Hotspot
+	  through MCIF. When config is enabled, tethering traffic
+	  can be transferred between Modem and WiFi coprocessor
+	  directly instead of crossing application processor
+	  all the time.
+

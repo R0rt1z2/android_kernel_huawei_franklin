@@ -1,0 +1,81 @@
+config HW_EAS_SCHED
+	bool "Huawei EAS scheduler"
+	default n
+	depends on ARCH_HW
+	select HW_CPU_FREQ_GOV_SCHEDUTIL
+	help
+	  Huawei EAS scheduler, it makes scheduling more
+	  efficient and energy-saving.
+
+config HW_MULTI_MARGIN
+	bool "Huawei multiple margin"
+	default n
+	depends on HW_SCHED_CLUSTER
+	depends on HW_EAS_SCHED
+	help
+	  Allow each cluster has its own capacity_margin/sd_capacity_margin.
+
+config HW_BOOST
+	bool "Huawei boost support"
+	depends on HW_EAS_SCHED
+	default n
+	help
+	  macro switch of boost
+
+config HW_BOOT_BOOST
+	bool "Huawei boot boost support"
+	depends on HW_BOOST
+	default n
+	help
+	  on system boot scenarios, it is used to accelerate
+	  system startup.
+
+config HW_FORK_BOOST
+	bool "Huawei fork boost support"
+	depends on HW_BOOST
+	default n
+	help
+	  on fork scenarios, it is used to set task boost to
+	  512, which is used to run the task quickly.
+
+config HW_GLOBAL_BOOST
+	bool "Huawei global boost support"
+	depends on HW_BOOST
+	default n
+	help
+	  on some interactive scenarios, it is used to enable
+	  boost function in a short time to improve performance.
+
+config HW_NEGATIVE_BOOST
+	bool "Huawei negative boost support"
+	depends on HW_BOOST
+	default n
+	help
+	  We can increase the value of boost to make the task select
+	  the large core, or reduce the value of boost to make the task
+	  select the small core. At this time, the range of boost is
+	  - 100 to 100.
+
+config HW_SPREAD_TASK
+	bool "Huawei spread task"
+	depends on HW_EAS_SCHED
+	default n
+	help
+	  when each CPU in the cluster is overloaded, the packaged
+	  small tasks need to be split to improve performance.
+
+config HW_FAVOR_SMALL_CAP
+	bool "Huawei config favor small capacity"
+	depends on HW_EAS_SCHED
+	default n
+	help
+	  users turn on or off the switch through ioctrl, when
+	  the switch is turned on, the task witch TIF_FAVOR_SMALL_CAP
+	  will select little core.
+
+config HW_EAS_TRACE
+	bool "Huawei EAS Trace"
+	depends on HW_EAS_SCHED
+	default n
+	help
+	  enable huawei eas trace.

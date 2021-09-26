@@ -1,0 +1,12 @@
+config HUAWEI_FBE
+	bool "HUAWEI FBE2 support"
+	default n
+	help
+	  Say yes here to support the HUAWEI FBE2
+
+config HUAWEI_FBE_DBG
+	bool "HUAWEI FBE2 debug support"
+	depends on HUAWEI_FBE
+	default n
+	help
+	  Say yes here to support the HUAWEI FBE2 debug

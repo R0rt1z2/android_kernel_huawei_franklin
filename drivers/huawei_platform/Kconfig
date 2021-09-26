@@ -1,0 +1,33 @@
+#=============================================================================
+#  add new config for devices check
+#  add new config for factory cmdline parse
+#  add new config for antenna board gpio match
+#=============================================================================
+
+menu "Huawei Platform Drivers"
+source "drivers/huawei_platform/hw_kstate/Kconfig"
+source "drivers/huawei_platform/antenna_board_gpio_match/Kconfig"
+source "drivers/huawei_platform/antenna_board_adc_match/Kconfig"
+source "drivers/huawei_platform/audio/Kconfig"
+source "drivers/huawei_platform/sensors/Kconfig"
+source "drivers/huawei_platform/antenna_cable/Kconfig"
+source "drivers/huawei_platform/net/Kconfig"
+
+source "drivers/huawei_platform/sensor/Kconfig"
+source "drivers/huawei_platform/ioinfo/Kconfig"
+source "drivers/huawei_platform/power/Kconfig"
+source "drivers/huawei_platform/hwpower/Kconfig"
+source "drivers/huawei_platform/pmeminfo/Kconfig"
+source "drivers/huawei_platform/card_tray/Kconfig"
+source "drivers/huawei_platform/virt_to_phys/Kconfig"
+source "drivers/huawei_platform/sensor2_0/Kconfig"
+source "drivers/huawei_platform/comb_key/Kconfig"
+source "drivers/huawei_platform/dp/Kconfig"
+source "drivers/huawei_platform/sensor_ap/Kconfig"
+source "drivers/huawei_platform/usb/Kconfig"
+source "drivers/huawei_platform/hwdps/Kconfig"
+source "drivers/huawei_platform/scsi/ufs/Kconfig"
+source "drivers/huawei_platform/vibrator/Kconfig"
+source "drivers/huawei_platform/rmeminspect/Kconfig"
+source "drivers/huawei_platform/popup/Kconfig"
+endmenu

@@ -1,0 +1,77 @@
+&mt6359_snd {
+	use_simple_pa = <1>; /* select 1: use, 0: not use */
+	simple_pa_gpio = <&pio 139 0>; /* GPIO139, gpionum is 329 + 139 = 468 */
+	pinctrl-names = "aud_pa_pin_default";
+	pinctrl-0 = <&aud_pa_pin_default>;
+};
+
+&pio {
+	aud_pa_pin_default: aud_pa_pin_default {
+		pins_cmd1_dat {
+			pinmux = <PINMUX_GPIO139__FUNC_GPIO139>;
+			input-enable;
+			bias-pull-up;
+		};
+	};
+};
+
+&audio_hw_config {
+	product_name = "mt6853";
+	mic_silence_continuous_check_times = "5";
+	speaker_test_content = "speaker";
+	audio_param_path = "odm/etc/audio/audio_param";
+	audio_param_ce_path = "odm/etc/audio/audio_param_ce";
+	hardware_info {
+		mic_num = "2";
+		mic_type = "0003"; /* 0001 sub mic   0002 main mic   0004 sub mic2   0008 main mic2 */
+	};
+};
+
+/* feature : $enable $dl_mem $ul_mem $ref_mem $size */
+&snd_audio_dsp {
+	mtk_dsp_voip = <0x0 0x1 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_primary = <0x0 0x0 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_offload = <0x0 0x6 0xffffffff 0xffffffff 0x400000>;
+	mtk_dsp_deep = <0x0 0x3 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_playback = <0x0 0x4 0x10 0x14 0x30000>;
+	mtk_dsp_music = <0x0 0xffffffff 0xffffffff 0xffffffff 0x0>;
+	mtk_dsp_capture1 = <0x0 0xffffffff 0xd 0x13 0x20000>;
+	mtk_dsp_a2dp = <0x0 0xffffffff 0xffffffff 0xffffffff 0x40000>;
+	mtk_dsp_dataprovider = <0x0 0xffffffff 0xf 0xffffffff 0x30000>;
+	mtk_dsp_call_final = <0x0 0x0 0x10 0x14 0x18000>;
+	mtk_dsp_fast = <0x0 0x2 0xffffffff 0xffffffff 0x5000>;
+	mtk_dsp_ktv = <0x0 0x8 0x12 0xffffffff 0x10000>;
+	mtk_dsp_ver = <0x1>;
+	swdsp_smartpa_process_enable = <0x0>;
+	mtk_dsp_mem_afe = <0x1 0x40000>; /* always enable */
+};
+
+/* accdet start */
+&accdet {
+	/* accdet micbias voltage: 0x09:2.85v 0x08:2.8v 0x07,
+	 * 2.7v;0x05,2.5v;0x02,1.9v
+	 */
+	accdet-mic-vol = <8>;
+	/* accdet pwm_width, pwm_thresh, fall_delay, rise_delay
+	 * debounce0, debounce1, debounce3, debounce4
+	 * eint pwm_width, eint pwm_thresh
+	 * eint deb(debounce0, debounce1, debounce2, debounce3), inv_debounce
+	 */
+	headset-mode-setting = <0x500 0x500 1 0x1f0
+				0x800 0x800 0x20 0x44
+				0x4 0x1
+				0x5 0x3 0x3 0x5 0xe>;
+	accdet-plugout-debounce = <1>;
+	/*1:ACC mode, 2:low cost without in bias, 6:low cost with in bias*/
+	accdet-mic-mode = <2>;
+	/*0--MD_MAX--UP_MAX--DW_MAX*/
+	headset-three-key-threshold = <0 80 192 400>;
+	headset-three-key-threshold-CDD = <0 121 192 600>;
+	/*0--MD_MAX--VOICE_MAX--UP_MAX--DW_MAX*/
+	headset-four-key-threshold = <0 58 121 192 400>;
+
+	/* select VTH to 2v and 500k, use internal resitance */
+	eint_use_ext_res = <0>;
+	status = "okay";
+};
+/* accdet end */

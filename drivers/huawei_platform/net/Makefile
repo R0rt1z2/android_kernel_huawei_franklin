@@ -1,0 +1,1 @@
+obj-$(CONFIG_HUAWEI_BASTET_MTK) += bastet/

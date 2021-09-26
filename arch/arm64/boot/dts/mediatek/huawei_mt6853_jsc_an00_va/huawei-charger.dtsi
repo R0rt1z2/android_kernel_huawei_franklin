@@ -1,0 +1,5 @@
+#include "../huawei_charger/mt6853_jsc_huawei_charger.dtsi"
+
+&direct_charger_sc {
+	use_force_sleep = <1>;
+};

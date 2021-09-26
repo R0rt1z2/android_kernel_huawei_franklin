@@ -1,0 +1,2 @@
+source "drivers/huawei_platform/power/hardware_ic/charger_ic/Kconfig"
+source "drivers/huawei_platform/power/hardware_ic/switch_capacitor/Kconfig"

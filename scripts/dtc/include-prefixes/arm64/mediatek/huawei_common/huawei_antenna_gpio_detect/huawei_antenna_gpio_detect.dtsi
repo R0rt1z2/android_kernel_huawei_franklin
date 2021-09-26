@@ -1,0 +1,99 @@
+&antenna_boardid_detect {
+    pinctrl-names = "default",
+                    "state_id0_default",
+                    "state_id0_bias_up",
+                    "state_id0_bias_down",
+                    "state_id1_default",
+                    "state_id1_bias_up",
+                    "state_id1_bias_down",
+                    "state_id2_default",
+                    "state_id2_bias_up",
+                    "state_id2_bias_down";
+    pinctrl-0 = <&ant_pins_all_default>;
+    pinctrl-1 = <&ant_pins_id0_default>;
+    pinctrl-2 = <&ant_pins_id0_bias_up>;
+    pinctrl-3 = <&ant_pins_id0_bias_down>;
+    pinctrl-4 = <&ant_pins_id1_default>;
+    pinctrl-5 = <&ant_pins_id1_bias_up>;
+    pinctrl-6 = <&ant_pins_id1_bias_down>;
+    pinctrl-7 = <&ant_pins_id2_default>;
+    pinctrl-8 = <&ant_pins_id2_bias_up>;
+    pinctrl-9 = <&ant_pins_id2_bias_down>;
+};
+
+&pio {
+    ant_pins_all_default: ant_pins_all_default {
+    };
+
+    ant_pins_id0_default: ant_pins_id0_default {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO176__FUNC_GPIO176>;
+            slew-rate = <0>;
+            bias-disable;
+        };
+    };
+
+    ant_pins_id0_bias_up: ant_pins_id0_bias_up {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO176__FUNC_GPIO176>;
+            slew-rate = <0>;
+            bias-pull-up;
+        };
+    };
+
+    ant_pins_id0_bias_down: ant_pins_id0_bias_down {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO176__FUNC_GPIO176>;
+            slew-rate = <0>;
+            bias-pull-down;
+        };
+    };
+
+    ant_pins_id1_default: ant_pins_id1_default {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO175__FUNC_GPIO175>;
+            slew-rate = <0>;
+            bias-disable;
+        };
+    };
+
+    ant_pins_id1_bias_up: ant_pins_id1_bias_up {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO175__FUNC_GPIO175>;
+            slew-rate = <0>;
+            bias-pull-up;
+        };
+    };
+
+    ant_pins_id1_bias_down: ant_pins_id1_bias_down {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO175__FUNC_GPIO175>;
+            slew-rate = <0>;
+            bias-pull-down;
+        };
+    };
+
+    ant_pins_id2_default: ant_pins_id2_default {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO172__FUNC_GPIO172>;
+            slew-rate = <0>;
+            bias-disable;
+        };
+    };
+
+    ant_pins_id2_bias_up: ant_pins_id2_bias_up {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO172__FUNC_GPIO172>;
+            slew-rate = <0>;
+            bias-pull-up;
+        };
+    };
+
+    ant_pins_id2_bias_down: ant_pins_id2_bias_down {
+        pins_cmd_dat {
+            pinmux = <PINMUX_GPIO172__FUNC_GPIO172>;
+            slew-rate = <0>;
+            bias-pull-down;
+        };
+    };
+};

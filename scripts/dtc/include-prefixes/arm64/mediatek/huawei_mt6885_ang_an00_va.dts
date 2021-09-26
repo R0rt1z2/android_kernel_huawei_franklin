@@ -1,0 +1,20 @@
+#include <dt-bindings/interrupt-controller/irq.h>
+#include <dt-bindings/interrupt-controller/arm-gic.h>
+#include <dt-bindings/spmi/spmi.h>
+#include <dt-bindings/pinctrl/mt6885-pinfunc.h>
+/dts-v1/;
+/plugin/;
+
+#include "huawei_mt6885_ang_an00_va/huawei.dtsi"
+
+&rootparam {
+    mtk,boardid = <4 0 0 0>;
+    mtk,board_name = "ANG_AN00_VA";
+    mtk,product_name = "ANG-AN00";
+    hardware_version = "HN1ANGTM01";
+};
+
+#include "cust_mt6885_camera.dtsi"
+#include <k6889v1_64/cust.dtsi>
+
+/*End of this file, DO NOT ADD ANYTHING HERE*/

@@ -1,0 +1,21 @@
+menu "huawei secmem"
+
+config HW_VLTMM
+	bool "Enable huawei secure memory dynamic allocate"
+	default n
+	help
+	  Support allocate secure volatil memory from secos.
+
+config HW_SECMEM
+	bool "Enable huawei secure memory"
+	default n
+	help
+	  Support secure memory.
+
+config HW_SECMEM_DEBUG
+	bool "Enable huawei secure memory debug"
+	default n
+	help
+	  Support secure memory debug.
+
+endmenu

@@ -1,0 +1,47 @@
+#include "../huawei_audio/huawei_mt6359_accdet.dtsi"
+#include "../huawei_audio/huawei_mt6873_audio_gpio.dtsi"
+
+&mt6359_snd {
+	use_simple_pa = <1>; /* select 1: use, 0: not use */
+	simple_pa_gpio = <&pio 30 0>; /* GPIO30, gpionum is 329 + 30 = 359 */
+	pinctrl-names = "aud_pa_pin_default";
+	pinctrl-0 = <&aud_pa_pin_default>;
+};
+
+&pio {
+	aud_pa_pin_default: aud_pa_pin_default {
+		pins_cmd1_dat {
+			pinmux = <PINMUX_GPIO30__FUNC_GPIO30>;
+			input-enable;
+			bias-pull-up;
+		};
+	};
+};
+
+&audio_hw_config {
+	audio_param_path = "odm/etc/audio/audio_param";
+	audio_param_ce_path = "odm/etc/audio/audio_param_ce";
+	hardware_info {
+		mic_num = "2";
+		mic_type = "0003"; /* 0001 sub mic   0002 main mic   0004 sub mic2   0008 main mic2 */
+	};
+};
+
+/* feature : $enable $dl_mem $ul_mem $ref_mem $size */
+&snd_audio_dsp {
+	mtk_dsp_voip = <0x0 0x1 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_primary = <0x0 0x0 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_offload = <0x0 0x6 0xffffffff 0xffffffff 0x400000>;
+	mtk_dsp_deep = <0x0 0x3 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_playback = <0x0 0x4 0x10 0x14 0x30000>;
+	mtk_dsp_music = <0x0 0xffffffff 0xffffffff 0xffffffff 0x0>;
+	mtk_dsp_capture1 = <0x0 0xffffffff 0xd 0x13 0x20000>;
+	mtk_dsp_a2dp = <0x0 0xffffffff 0xffffffff 0xffffffff 0x40000>;
+	mtk_dsp_dataprovider = <0x0 0xffffffff 0xf 0xffffffff 0x30000>;
+	mtk_dsp_call_final = <0x0 0x0 0x10 0x14 0x18000>;
+	mtk_dsp_fast = <0x0 0x2 0xffffffff 0xffffffff 0x5000>;
+	mtk_dsp_ktv = <0x0 0x8 0x12 0xffffffff 0x10000>;
+	mtk_dsp_ver = <0x1>;
+	swdsp_smartpa_process_enable = <0x0>;
+	mtk_dsp_mem_afe = <0x1 0x40000>; /* always enable */
+};

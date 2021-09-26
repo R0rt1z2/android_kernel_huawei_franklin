@@ -1,0 +1,14 @@
+#include "../huawei_mt6885_camera_yorv4.dtsi"
+
+&mediatek_camera {
+	total-sensor-idx = <2 4>;
+	camera2 { /* sensor idx 2 */
+		compatible = "huawei,camera2";
+		power-setting-idx = <0>;
+	};
+
+	camera4 { /* sensor idx 4 */
+		compatible = "huawei,camera4";
+		power-setting-idx = <0>;
+	};
+};

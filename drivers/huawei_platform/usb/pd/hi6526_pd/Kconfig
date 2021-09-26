@@ -1,0 +1,98 @@
+config TCPC_HI6526
+	bool "Hi6526 TypeC Port Controller Device"
+	help
+	  Say Y to enable Hi6526 Typec Port Controller Driver
+
+if TCPC_HI6526
+
+config HI6526_TCPC_DEBUG
+	bool "Hi6526 TypeC Driver verbose debug information."
+	default n
+	help
+	  If unsure, say N.
+
+config TYPEC_CAP_DBGACC_SNK_SUPPORT
+	bool "DebugAccessory sink support"
+	default n
+	help
+	  Debug Accessory sink support.
+
+config TYPEC_CAP_CUSTOM_SRC_SUPPORT
+	bool "Custom SRC support"
+	default n
+	help
+	  Custom SRC support
+
+config TCPC_VSAFE0V_DETECT_SUPPORT
+	bool "TCPC Vsafe0V detect support"
+	default n
+	help
+	  TCPC Vsafe0V detect support
+
+config USB_POWER_DELIVERY_SUPPORT
+	bool "Hi6526 Power Delivery Support"
+	help
+	  Support PD using hi6526 tcpc.
+
+config USB_PD_ALT_MODE_SUPPORT
+	bool "Alternate Mode support"
+	default n
+	help
+	  Alternate Mode support
+
+config USB_PD_ALT_MODE_DFP_SUPPORT
+	bool "Alternate Mode DFP support"
+	default n
+	help
+	  Alternate Mode DFP support
+
+config USB_PD_UVDM_SUPPORT
+	bool "USB PD Unstructed VDM support"
+	default n
+	help
+	  USB PD Unstructed VDM support
+
+config USB_PD_CUSTOM_DBGACC_SUPPORT
+	bool "Custom Debug Accessory support"
+	default n
+	help
+	  Custom Debug Accessory support
+
+config USB_PD_REV30
+	bool "PD REV30"
+	depends on HI6526_TCPC
+	depends on USB_POWER_DELIVERY_SUPPORT
+	default n
+	help
+		PD REV30
+
+config USB_PD_REV30_PPS_SINK
+	bool "sink pps feature of PD REV30"
+	depends on HI6526_TCPC
+	depends on USB_POWER_DELIVERY_SUPPORT
+	depends on USB_PD_REV30
+	default n
+	help
+		sink pps feature of PD REV30
+
+config HI6526_USB_TYPEC
+        bool "Hi6526 USB Typei-C Driver"
+        help
+          Say Y to enable Hi6526 USB Typec Driver
+
+config HI6526_USB_TYPEC_DBG
+        bool "Hi6526 USB Type-C driver verbost debug infomation."
+        depends on HI6526_USB_TYPEC
+        help
+          Say Y here if you want verbost debug infomation. If unsure, say N.
+
+config HI6526_PD_DBG_INFO
+	bool "PD debug information"
+	depends on TCPC_CLASS
+	default y
+	help
+	  Say Y to enable PD debug
+	  information
+	  Say N to disable
+
+endif

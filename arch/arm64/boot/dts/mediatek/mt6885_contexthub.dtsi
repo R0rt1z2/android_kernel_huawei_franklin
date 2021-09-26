@@ -1,0 +1,31 @@
+/{
+	contexthub: contexthub {
+		compatible = "huawei,contexthub_status";
+		status = "ok";
+
+		flp_geofence {
+			compatible = "huawei,flp_geofence";
+			lpm = <0>;
+			unavail_timeout = <30>;
+			valid_accuracy = <50>;
+			high_accuracy = <16>;
+			min_off_time = <180>;
+			prestart_time = <15>;
+			vehicle_speed = <120>;
+			riding_speed = <50>;
+			walking_speed = <5>;
+			running_speed = <36>;
+		};
+
+	};
+
+    hisi_ar:ar {
+        compatible = "huawei,hismart-ar";
+        status = "ok";
+    };
+
+    hisi_flp:flp {
+        compatible = "huawei,flp-common";
+        status = "ok";
+    };
+};

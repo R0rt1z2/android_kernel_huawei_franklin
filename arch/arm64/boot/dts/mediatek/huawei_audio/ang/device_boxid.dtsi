@@ -1,0 +1,32 @@
+/* Box ID END */
+&pio {
+	speaker_box_on: speaker_box_on {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO67__FUNC_GPIO67>;
+			slew-rate = <0>;
+			bias-pull-up = <MTK_PUPD_SET_R1R0_01>;
+		};
+	};
+	speaker_box_off: speaker_box_off {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO67__FUNC_GPIO67>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+};
+
+&deviceboxID {
+	compatible = "huawei,deviceboxID";
+	pinctrl-names = "default", "idle";
+	pinctrl-0 = <&speaker_box_on>;
+	pinctrl-1 = <&speaker_box_off>;
+	check_mode = "gpio";
+	box_num = <1>;
+	enable_boxID = <1 0 0 0>;
+	gpio_num = <1 0 0 0>;
+	gpio_speakerID = <&pio 67 0>;
+	speaker_map = <6 1>; /*1 means AAC, 6 means XW*/
+	status = "ok";
+};
+/* Box ID END */

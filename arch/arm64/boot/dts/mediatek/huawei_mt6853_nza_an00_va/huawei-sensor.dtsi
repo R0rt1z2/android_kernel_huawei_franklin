@@ -1,0 +1,8 @@
+&huawei_sensor_info {
+	compatible = "huawei,huawei_sensor_info";
+	product_number = <4>;
+	ps_vol = <10>;
+	ps_calivol = <10>;
+	alsps_power_reset = <1>;
+	status = "okay";
+};

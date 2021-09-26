@@ -1,0 +1,3 @@
+config FS18XX
+	bool "foursemi smartpa fs18xx driver"
+	default y

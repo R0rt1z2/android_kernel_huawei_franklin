@@ -1,0 +1,7 @@
+#
+# huawei direct charger drivers
+#
+
+config DIRECT_CHARGER
+        bool "direct_charger"
+        default n

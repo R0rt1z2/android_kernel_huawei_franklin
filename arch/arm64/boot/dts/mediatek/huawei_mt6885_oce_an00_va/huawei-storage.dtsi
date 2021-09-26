@@ -1,0 +1,8 @@
+&msdc1 {
+	status = "okay";
+};
+
+&ufshci {
+	ufs-tw;
+};
+

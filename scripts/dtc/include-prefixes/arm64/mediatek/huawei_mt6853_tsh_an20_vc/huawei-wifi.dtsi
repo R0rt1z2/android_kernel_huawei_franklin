@@ -1,0 +1,6 @@
+&huawei_wifi_info {
+	compatible = "huawei,huawei_wifi_info";
+	status = "okay";
+	ini_type = "TSH";
+	wifi_chiptype = "WIFI_MTK_6631";
+};

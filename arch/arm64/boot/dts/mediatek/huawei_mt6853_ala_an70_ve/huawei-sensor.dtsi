@@ -1,0 +1,9 @@
+&huawei_sensor_info {
+	compatible = "huawei,huawei_sensor_info";
+	lsm6dsm_direction = <1>;
+	bmi160_direction = <0>;
+	gyro_calibrate_timeout = <5000>;
+	product_number = <8>;
+	status = "okay";
+	calibrate_method=<2>;
+};

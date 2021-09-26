@@ -1,0 +1,31 @@
+&i2c6 {
+	cs35axx_smartpa@40 {
+		compatible = "cirrus,cs35axx";
+		reg = <0x40>;
+		reset-gpio = <&pio 139 0>;
+		interrupt-parent = <&pio>;
+		interrupts = <32 IRQ_TYPE_LEVEL_LOW>;
+		irq-gpio = <&pio 32 0>;
+		status = "okay";
+
+        cirrus,boost-peak-milliamp = <4500>;
+	    cirrus,boost-ind-nanohenry = <1000>;
+	    cirrus,boost-cap-microfarad = <15>;
+
+		cirrus,pll-refclk-sel = <0x0>;
+		cirrus,pll-refclk-freq = <0x21>;
+
+		cirrus,gpio-config2 {
+			cirrus,gpio-src-select = <0x5>;
+			cirrus,gpio-output-enable;
+		};
+
+		cirrus,asp-config {
+			cirrus,asp-rx-wl = <0x10>;
+			cirrus,asp-rx-width = <0x20>;
+			cirrus,asp-fmt = <0x2>;
+			cirrus,asp-srate = <0x3>;
+		};
+
+    };
+};

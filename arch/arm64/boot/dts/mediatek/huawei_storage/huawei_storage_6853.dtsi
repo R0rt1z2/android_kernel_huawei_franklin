@@ -1,0 +1,190 @@
+/* storage nano sd GPIO standardization */
+&msdc1 {
+	pinctrl-names = "default",
+		"sd_clk_function0_np",
+		"sd_clk_function1_np",
+		"sd_cmd_pu",
+		"sd_cmd_np",
+		"sd_data0_pu",
+		"sd_data0_np",
+		"sd_data1_pu",
+		"sd_data1_np",
+		"sd_data2_pu",
+		"sd_data2_np",
+		"sd_data3_pu",
+		"sd_data3_np",
+		"sim_clk_function0_np",
+		"sim_clk_function1_pd",
+		"sim_rst_function0_np",
+		"sim_rst_function1_pd",
+		"sim_data_function0_np",
+		"sim_data_function1_pu";
+	pinctrl-0 = <&sd_default>;
+	pinctrl-1 = <&sd_clk_function0_np>;
+	pinctrl-2 = <&sd_clk_function1_np>;
+	pinctrl-3 = <&sd_cmd_pu>;
+	pinctrl-4 = <&sd_cmd_np>;
+	pinctrl-5 = <&sd_data0_up>;
+	pinctrl-6 = <&sd_data0_np>;
+	pinctrl-7 = <&sd_data1_up>;
+	pinctrl-8 = <&sd_data1_np>;
+	pinctrl-9 = <&sd_data2_up>;
+	pinctrl-10 = <&sd_data2_np>;
+	pinctrl-11 = <&sd_data3_up>;
+	pinctrl-12 = <&sd_data3_np>;
+	pinctrl-13 = <&sim_clk_function0_np>;
+	pinctrl-14 = <&sim_clk_function1_pd>;
+	pinctrl-15 = <&sim_rst_function0_np>;
+	pinctrl-16 = <&sim_rst_function1_pd>;
+	pinctrl-17 = <&sim_data_function0_np>;
+	pinctrl-18 = <&sim_data_function1_pu>;
+	status = "okay";
+};
+
+&pio {
+	sd_default: sd_default {
+	};
+
+	sd_clk_function0_np: sd_clk_function0_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO125__FUNC_GPIO125>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_00>;
+			drive-strength = <3>;
+		};
+	};
+
+	sd_clk_function1_np: sd_clk_function1_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO125__FUNC_MSDC1_CLK>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_00>;
+			drive-strength = <3>;
+		};
+	};
+
+	sd_cmd_pu: sd_cmd_pu {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO126__FUNC_MSDC1_CMD>;
+			bias-pull-up = <MTK_PUPD_SET_R1R0_11>;
+			drive-strength = <3>;
+	   };
+	};
+
+	sd_cmd_np: sd_cmd_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO126__FUNC_GPIO126>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_00>;
+			drive-strength = <3>;
+		};
+	};
+
+   sd_data0_up: sd_data0_up {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO128__FUNC_MSDC1_DAT0>;
+			bias-pull-up = <MTK_PUPD_SET_R1R0_11>;
+			drive-strength = <3>;
+		};
+	};
+
+   sd_data0_np: sd_data0_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO128__FUNC_GPIO128>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_00>;
+			drive-strength = <3>;
+		};
+	};
+
+   sd_data1_up: sd_data1_up {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO127__FUNC_MSDC1_DAT1>;
+			bias-pull-up = <MTK_PUPD_SET_R1R0_11>;
+			drive-strength = <3>;
+		};
+	};
+
+   sd_data1_np: sd_data1_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO127__FUNC_GPIO127>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_00>;
+			drive-strength = <3>;
+		};
+	};
+
+	sd_data2_up: sd_data2_up {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO129__FUNC_MSDC1_DAT2>;
+			bias-pull-up = <MTK_PUPD_SET_R1R0_11>;
+			drive-strength = <3>;
+		};
+	};
+
+	sd_data2_np: sd_data2_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO129__FUNC_GPIO129>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_00>;
+			drive-strength = <3>;
+		};
+	};
+
+	sd_data3_up: sd_data3_up {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO130__FUNC_MSDC1_DAT3>;
+			bias-pull-up = <MTK_PUPD_SET_R1R0_11>;
+			drive-strength = <3>;
+		};
+	};
+
+	sd_data3_np: sd_data3_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO130__FUNC_GPIO130>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_00>;
+			drive-strength = <3>;
+		};
+	};
+	sim_clk_function0_np: sim_clk_function0_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO119__FUNC_GPIO119>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_00>;
+			drive-strength = <2>;
+		};
+	};
+
+	sim_clk_function1_pd: sim_clk_function1_pd {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO119__FUNC_MD1_SIM2_SCLK>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
+			drive-strength = <2>;
+		};
+	};
+
+	sim_rst_function0_np: sim_rst_function0_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO120__FUNC_GPIO120>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_00>;
+			drive-strength = <2>;
+		};
+	};
+
+	sim_rst_function1_pd: sim_rst_function1_pd {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO120__FUNC_MD1_SIM2_SRST>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_10>;
+			drive-strength = <2>;
+		};
+	};
+
+	sim_data_function0_np: sim_data_function0_np {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO121__FUNC_GPIO121>;
+			bias-pull-down = <MTK_PUPD_SET_R1R0_00>;
+			drive-strength = <2>;
+		};
+	};
+
+	sim_data_function1_pu: sim_data_function1_pu {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO121__FUNC_MD1_SIM2_SIO>;
+			bias-pull-up = <MTK_PUPD_SET_R1R0_10>;
+			drive-strength = <2>;
+		};
+	};
+};

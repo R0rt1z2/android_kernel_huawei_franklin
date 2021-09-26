@@ -1,0 +1,6 @@
+&huawei_wifi_info {
+	compatible = "huawei,huawei_wifi_info";
+	status = "okay";
+	ini_type = "MRR";
+	wifi_chiptype = "MT6635X";
+};

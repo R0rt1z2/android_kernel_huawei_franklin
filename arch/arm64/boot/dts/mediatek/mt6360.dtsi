@@ -1,0 +1,497 @@
+/*
+ * Copyright (c) 2017 MediaTek Inc.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ */
+
+/ {
+	mt6360_pmu: mt6360_pmu_dts {
+		status = "ok";
+		mt6360,intr_gpio_num = <3>; /* direct defined GPIO num */
+		mt6360,intr_gpio = <&pio 3 0x0>; /* GPIO */
+		interrupt-controller;
+		#interrupt-cells = <2>;
+		adc: adc {
+			compatible = "mediatek,mt6360_pmu_adc";
+			interrupt-parent = <&mt6360_pmu>;
+			interrupts = <41 0>, <43 0>, <44 0>;
+			interrupt-names = "bat_ovp_adc_evt",
+					  "adc_wakeup_evt",
+					  "adc_donei";
+			#io-channel-cells = <1>;
+		};
+		chg {
+			compatible = "mediatek,mt6360_pmu_chg";
+			interrupt-parent = <&mt6360_pmu>;
+			interrupts = <4 0>, <6 0>, <7 0>, <9 0>,
+				     <12 0>, <13 0>, <14 0>, <15 0>,
+				     <27 0>, <29 0>, <32 0>, <35 0>,
+				     <40 0>, <48 0>, <60 0>;
+			interrupt-names = "chg_treg_evt", "chg_mivr_evt",
+					  "pwr_rdy_evt", "chg_batsysuv_evt",
+					  "chg_vsysuv_evt", "chg_vsysov_evt",
+					  "chg_vbatov_evt", "chg_vbusov_evt",
+					  "chg_tmri", "chg_adpbadi",
+					  "chg_aiccmeasl", "wdtmri",
+					  "pumpx_donei", "attachi",
+					  "chrdet_ext_evt";
+			io-channels = <&adc 0>, <&adc 1>, <&adc 3>, <&adc 4>,
+				      <&adc 5>, <&adc 6>, <&adc 8>, <&adc 10>;
+			io-channel-names = "USBID", "VBUSDIV5", "VSYS", "VBAT",
+					   "IBUS", "IBAT", "TEMP_JC", "TS";
+			chg_name = "primary_chg";
+			ichg = <2000000>;		/* uA */
+			aicr = <500000>;		/* uA */
+			mivr = <4400000>;		/* uV */
+			cv = <4350000>;			/* uA */
+			ieoc = <150000>;		/* uA */
+			safety_timer = <20>;		/* hour */
+			ircmp_resistor = <25000>;	/* uohm */
+			ircmp_vclamp = <32000>;		/* uV */
+			en_te = <1>;
+			en_wdt = <1>;
+			aicc_once = <1>;
+			post_aicc = <1>;
+			batoc_notify = <0>;
+		};
+		mt6360_fled: fled {
+			compatible = "mediatek,mt6360_pmu_fled";
+			interrupt-parent = <&mt6360_pmu>;
+			interrupts = <11 0>, <74 0>, <75 0>, <78 0>,
+				     <79 0>;
+			interrupt-names = "fled_chg_vinovp_evt", "fled_tx_evt",
+					  "fled_lvf_evt", "fled2_short_evt",
+					  "fled1_short_evt";
+			/* 0: fixed mode, 1: tracking mode */
+			fled_vmid_track = <0>;
+			/* 64~2432ms, 32ms/step */
+			fled_strb_tout = <1248>;
+			/* 25000~400000uA, 12500uA/step */
+			fled1_tor_cur = <37500>;
+			/*
+			 * 25000~750000uA, 6250uA/step
+			 * 750000~1500000uA, 12500uA/step
+			 */
+			/*fled1_strb_cur = <800000>; */
+			fled1_strb_cur = <750000>;
+			/* 25000~400000uA, 12500uA/step */
+			fled2_tor_cur = <37500>;
+			/*
+			 * 25000~750000uA, 6250uA/step
+			 * 750000~1500000uA, 12500uA/step
+			 */
+			fled2_strb_cur = <800000>;
+		};
+		rgbled {
+			compatible = "mediatek,mt6360_pmu_rgbled";
+			mt,led_name = "mt6360_pmu_led1", "mt6360_pmu_led2",
+				      "mt6360_pmu_led3", "mt6360_pmu_led4";
+			mt,led_default_trigger = "cc_mode", "cc_mode",
+						 "cc_mode", "none";
+		};
+		core {
+			compatible = "mediatek,mt6360_pmu_core";
+			interrupt-parent = <&mt6360_pmu>;
+			interrupts = <65 0>, <66 0>, <67 0>,
+				     <68 0>, <69 0>, <70 0>,
+				     <71 0>;
+			interrupt-names = "ap_wdtrst_evt",
+					  "en_evt",
+					  "qonb_rst_evt",
+					  "mrstb_evt",
+					  "otp_evt",
+					  "vddaov_evt",
+					  "sysuv_evt";
+			mren = <1>;
+			apwdtrst_en = <1>;
+			cc_open_sel = <3>;
+			i2c_cc_open_tsel = <1>;
+			ldo5_otp_en = <0>;
+		};
+	};
+
+	mt6360_pmic: mt6360_pmic_dts {
+		status = "ok";
+		interrupt-parent = <&mt6360_pmu>;
+		interrupts = <96 0>, <100 0>, <101 0>, <102 0>,
+			     <104 0>, <108 0>, <109 0>, <110 0>,
+			     <118 0>, <119 0>, <126 0>, <127 0>;
+		interrupt-names = "buck1_pgb_evt", "buck1_oc_evt",
+				  "buck1_ov_evt", "buck1_uv_evt",
+				  "buck2_pgb_evt", "buck2_oc_evt",
+				  "buck2_ov_evt", "buck2_uv_evt",
+				  "ldo6_oc_evt", "ldo7_oc_evt",
+				  "ldo6_pgb_evt", "ldo7_pgb_evt";
+		pwr_off_seq = [06 04 00 02];
+		buck1 {
+			regulator-compatible = "BUCK1";
+			regulator-name = "VMDLA";
+			regulator-min-microvolt = <300000>;
+			regulator-max-microvolt = <1300000>;
+			regulator-always-on;
+		};
+		buck2 {
+			regulator-compatible = "BUCK2";
+			regulator-name = "VDRAM1";
+			regulator-min-microvolt = <300000>;
+			regulator-max-microvolt = <1300000>;
+			regulator-always-on;
+		};
+		mt_pmic_iovcc_ldo_reg: ldo6 {
+			regulator-compatible = "LDO6";
+			regulator-name = "VMDDR";
+			regulator-min-microvolt = <500000>;
+			regulator-max-microvolt = <2100000>;
+			regulator-always-on;
+		};
+		ldo7 {
+			regulator-compatible = "LDO7";
+			regulator-name = "VDRAM2";
+			regulator-min-microvolt = <500000>;
+			regulator-max-microvolt = <2100000>;
+			regulator-always-on;
+		};
+	};
+
+	mt6360_ldo: mt6360_ldo_dts {
+		status = "ok";
+		interrupt-parent = <&mt6360_pmu>;
+		interrupts = <113 0>, <114 0>, <115 0>, <117 0>,
+			     <121 0>, <122 0>, <123 0>, <125 0>;
+		interrupt-names = "ldo1_oc_evt", "ldo2_oc_evt",
+				  "ldo3_oc_evt", "ldo5_oc_evt",
+				  "ldo1_pgb_evt", "ldo2_pgb_evt",
+				  "ldo3_pgb_evt", "ldo5_pgb_evt";
+		mt_pmic_vfp_ldo_reg: ldo1 {
+			regulator-compatible = "LDO1";
+			regulator-name = "VFP";
+			regulator-min-microvolt = <1200000>;
+			regulator-max-microvolt = <3600000>;
+		};
+		mt_pmic_vtp_ldo_reg: ldo2 {
+			regulator-compatible = "LDO2";
+			regulator-name = "VTP";
+			regulator-min-microvolt = <1200000>;
+			regulator-max-microvolt = <3600000>;
+		};
+		mt_pmic_vmc_ldo_reg: ldo3 {
+			regulator-compatible = "LDO3";
+			regulator-name = "VMC";
+			regulator-min-microvolt = <1200000>;
+			regulator-max-microvolt = <3600000>;
+		};
+		mt_pmic_vmch_ldo_reg: ldo5 {
+			regulator-compatible = "LDO5";
+			regulator-name = "VMCH";
+			regulator-min-microvolt = <2700000>;
+			regulator-max-microvolt = <3600000>;
+		};
+	};
+	huawei_charger:huawei_charger {
+		compatible = "huawei,charger";
+		status = "okay";
+	};
+	vbus_channel_boost_gpio: vbus_channel_boost_gpio {
+		compatible = "huawei,vbus_channel_boost_gpio";
+		status = "disabled";
+	};
+
+	vbus_channel_charger: vbus_channel_charger {
+		compatible = "huawei,vbus_channel_charger";
+		status = "disabled";
+	};
+	huawei_fuelguage {
+		compatible = "huawei,fuelguage";
+		status = "okay";
+	};
+	huawei_battery: huawei_battery {
+		compatible = "huawei,battery";
+		product_charger_support_powerpath;
+		huawei,icl_current = <2000>;
+		status = "okay";
+	};
+
+	huawei_power_proxy: huawei_power_proxy  {
+		compatible = "huawei,power_proxy";
+		battery_proxy = <1>;
+		event_proxy = <1>;
+		status = "disabled";
+	};
+	huawei_power_supply: huawei_power_supply {
+		compatible = "huawei,power_supply";
+		support_bat = <1>;
+		support_raw_bat = <1>;
+		support_assist_bat = <1>;
+		bat_mode = <1>;
+		status = "disabled";
+	};
+	battery_core: battery_core {
+		compatible = "huawei,battery_core";
+		work_interval_para =
+			"0","10","5000",
+			"10","90","10000",
+			"90","100","30000";
+		voltage_now_scale = <1000>;
+		voltage_max_scale = <1000>;
+		charge_fcc_scale = <1000>;
+		status = "disabled";
+	};
+	battery_fault: battery_fault {
+		compatible = "huawei,battery_fault";
+		vol_cutoff_normal = <3000>;
+		vol_cutoff_sleep = <3350>;
+		vol_cutoff_low_temp = <3000>;
+		vol_cutoff_filter_cnt = <6>;
+		status = "okay";
+	};
+	battery_model: battery_model {
+		compatible = "huawei,battery_model";
+		status = "disabled";
+	};
+	battery_ui_capacity: battery_ui_capacity {
+		compatible = "huawei,battery_ui_capacity";
+		soc_at_term = <97>;
+		ui_cap_zero_offset = <0>;
+		status = "disabled";
+	};
+
+	huawei_batt_soh: huawei_batt_soh {
+		compatible = "huawei,battery-soh";
+		basp = <1>;
+		status = "ok";
+	};
+
+	huawei_usb: huawei_usb {
+		maximum-speed = "unknown-speed";
+	};
+	hw_pmucurr_test: hw_pmucurr_test {
+		power_address = "1AB0 1AC4 1AD8 1AEC 1A44 1A9C 1A88 1A6C"; /* add this item to each config.dts if needed */
+		/* power_ops_delay_time_us = <100000>; */
+	};
+
+	huawei_ptst: huawei_ptst {
+		compatible = "huawei,power_test";
+		dc_mmi = <1>;
+		dc_mmi_para = <45 0x01 0 800 1>;
+		status = "disabled";
+	};
+
+	water_check: water_check {
+		compatible = "huawei,water_check";
+		status = "disabled";
+	};
+
+	direct_charge_ps:direct_charge_ps {
+		compatible = "huawei,direct_charge_ps";
+		status = "ok";
+	};
+	direct_charge_ic:direct_charge_ic {
+		compatible = "huawei,direct_charge_ic";
+		/* The IC_PARA table is used to find the relationship between chip and path */
+		/* the chip's current passing capacity */
+		/* and the sampling points of battery voltage and current */
+		/* ic_index path_index max_ibat ibat_sample_point vbat_sample_point */
+		status = "disabled";
+	};
+	direct_charger: direct_charger{
+		need_wired_sw_off = <0>;
+		compensate_r = <0>;
+		dc_volt_ratio = <1>;
+		use_5A = <0>;
+		scp_cable_detect_enable = <0>;
+		max_adaptor_vset = <5500>;
+		max_tadapt = <115>;
+		max_tls = <115>;
+		ibat_abnormal_th = <200>;
+		first_cc_stage_timer_in_min = <0>;
+		max_dc_bat_vol = <4350>;
+		min_dc_bat_vol = <3550>;
+		charge_control_interval = <5>;
+		threshold_caculation_interval = <5>;
+		safety_monitor_interval = <5>;
+		scp_work_on_charger = <0>;
+		init_adapter_vset = <4400>;
+		init_delt_vset = <300>;
+		vstep = <10>;
+		delta_err = <200>;
+		vol_err_th = <150>;
+		full_path_res_max = <120>;
+		standard_cable_full_path_res_max = <160>;
+		max_current_for_none_standard_cable = <3000>;
+		adaptor_leakage_current_th = <300>;
+		stage_need_to_jump = "-1";
+		temp_para =
+			"-32767", "10", "0",
+			"10", "45", "4750",
+			"45", "32767", "0";
+		compatible = "direct_charger";
+		status = "ok";
+	};
+	direct_charger_sc: direct_charger_sc{
+		compatible = "direct_charger_sc";
+		need_wired_sw_off = <0>;
+		dc_volt_ratio = <2>;
+		compensate_r = <0>;
+		max_adaptor_vset = <11000>;
+		max_tadapt = <115>;
+		max_tls = <115>;
+		ibat_abnormal_th = <200>;
+		first_cc_stage_timer_in_min = <0>;
+		max_dc_bat_vol = <4380>;
+		min_dc_bat_vol = <3550>;
+		charge_control_interval = <5>;
+		threshold_caculation_interval = <5>;
+		safety_monitor_interval = <5>;
+		scp_work_on_charger = <0>;
+		init_adapter_vset = <8800>;
+		init_delt_vset = <600>;
+		vstep = <20>;
+		delta_err = <300>;
+		vol_err_th = <150>;
+		full_path_res_max = <120>;
+		standard_cable_full_path_res_max = <160>;
+		max_current_for_none_standard_cable = <6000>;
+		adaptor_leakage_current_th = <300>;
+		stage_need_to_jump = "-1";
+		temp_para =
+			"-32767", "10", "0",
+			"10", "45", "4750",
+			"45", "32767", "0";
+		status = "ok";
+	};
+
+	ffc_control: ffc_control {
+		compatible = "huawei,ffc_control";
+		status = "disabled";
+	};
+
+	pd_dpm: pd_dpm {
+		compatible = "huawei,pd_dpm";
+		tcp_name = "type_c_port0";
+		support_dp = <0>;
+		switch_manual_enable = <0>;
+		abnormal_cc_detection = <1>;
+		status = "ok";
+	};
+	soc_decimal: soc_decimal {
+	compatible = "huawei,soc_decimal";
+	para = <
+		0 14000 40000  100 85  180
+		0 40000 100000 100 120 100
+		1 20000 27000  100 85  140
+		1 27000 100000 100 85  140
+	>;
+	status = "ok";
+	};
+
+	btb_check: btb_check {
+		compatible = "huawei,btb_check";
+		status = "disabled";
+	};
+	wired_channel_switch: wired_channel_switch {
+		compatible = "huawei,wired_channel_switch";
+		use_ovp_cutoff_wired_channel = <1>;
+		use_super_switch_cutoff_wired_channel = <0>;
+		use_wireless_switch_cutoff_wired_channel = <0>;
+		status = "disabled";
+	};
+	ovp_channel_switch: ovp_channel_switch {
+		compatible = "huawei,ovp_channel_switch";
+		gpio_low_by_set_input = <0>;
+		status = "disabled";
+	};
+	charge_pump: charge_pump {
+		compatible = "huawei,charge_pump";
+		status = "disabled";
+	};
+	wireless_ps: wireless_ps {
+		compatible = "huawei,wireless_ps";
+		tx_ps_ctrl_src = <0>; /* 0:NA 1:tx_chip 2:AP */
+		status = "disabled";
+	};
+	wireless_charger: wireless_charger {
+		compatible = "huawei,wireless_charger";
+		standard_tx_adaptor = <5>;/*fcp*/
+		antifake_key_index = <1>;
+		bst5v_ignore_vbus_only = <0>;
+		hvc_need_5vbst = <0>;
+		ui_max_pwr = <27000>;
+		segment_para = <
+			99 100 5000 5500 475
+		>;
+		rx_vout_err_ratio = <81>; /*percent*/
+		rx_iout_min = <150>;
+		rx_iout_step = <100>;
+		rx_iout_ctrl_para = <
+			0   100  200
+			100 200  300
+			200 300  400
+			300 400  500
+			400 500  600
+			500 600  700
+			600 700  800
+			700 800  900
+			800 9999 1100
+		>;
+		product_para = <
+			15000 18000 1600
+		>;
+		tx_prop =
+			"0x01", "SDP",     "0", "0", "5000", "475",
+			"0x02", "CDP",     "0", "0", "5000", "1000",
+			"0x03", "NON_STD", "0", "0", "5000", "1000",
+			"0x04", "DCP",     "0", "0", "5000", "1000",
+			"0x05", "FCP",     "0", "1", "9000", "2000",
+			"0x06", "SCP",     "0", "1", "5000", "1000",
+			"0x07", "PD",      "0", "1", "5000", "1000",
+			"0x08", "QC",      "0", "1", "5000", "1000",
+			"0x09", "OTG_A",   "0", "0", "5000", "475",
+			"0x0A", "OTG_B",   "0", "0", "5000", "475",
+			"0xff", "ERR",     "0", "0", "5000", "1000";
+		volt_mode = <
+			0 5000
+			1 9000
+			2 12000
+			3 15000
+		>;
+		status = "disabled";
+	};
+	wireless_sc: wireless_sc {
+		compatible = "huawei,wireless_sc";
+		need_wired_sw_on = <0>;
+		cp_iout_err_hth = <150>;
+		volt_ratio = <2>;
+		ctrl_interval = <300>;
+		calc_interval = <100>;
+		vstep = <50>;
+		status = "disabled";
+	};
+	wireless_tx: wireless_tx {
+		compatible = "huawei,wireless_tx";
+		pwr_type = <2>; //0:VBUS_OTG 1:5VBST_OTG 2:SP-BST
+		/* rx_vmin rx_vmax tx_vset tx_lvset tx_hvset tx_pl_th tx_pl_cnt ext_hdl */
+		tx_vset_para = <
+			6200 7700 6800 6300 7600 0 0 0
+			4900 6400 5500 5000 6300 0 0 0
+			8500 10900 10000 9500 10800 0 0 0
+		>;
+		/* power_supply ping handshake default */
+		tx_stage_vset = <5500 5500 5500 6800>;
+		/* type vout iout extra */
+		tx_cap = <
+			0x9 5000 1000 0
+			0x9 9000 1400 0
+		>;
+		tx_vset_tbat_high = <45>;
+		tx_vset_tbat_low = <40>;
+		status = "disabled";
+	};
+};
+

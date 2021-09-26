@@ -1,0 +1,5 @@
+#include "../huawei_charger/mt6853_kon_huawei_charger.dtsi"
+
+&power_thermalzone {
+	status = "ok";
+};

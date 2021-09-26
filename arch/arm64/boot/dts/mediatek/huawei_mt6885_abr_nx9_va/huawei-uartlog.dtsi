@@ -1,0 +1,13 @@
+&pio {
+	uart_output_low: uart_output_low {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO93__FUNC_GPIO93>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+};
+&apuart0 {
+	pinctrl-names = "uart_output_low";
+	pinctrl-0 = <&uart_output_low>;
+};

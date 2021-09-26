@@ -1,0 +1,42 @@
+
+&pio {
+        /* IRTX GPIO Settings -Start */
+        /* default: GPIO0, output, high */
+        irtx_gpio_led_default:irtx_gpio_led_def@gpio107 {
+                pins_cmd_dat {
+                        pinmux = <PINMUX_GPIO107__FUNC_GPIO107>;
+                        slew-rate = <1>;
+                        bias-disable;
+                        output-low;
+                        input-schmitt-enable = <0>;
+                };
+        };
+
+        irtx_gpio_led_set:irtx_gpio_led_set@gpio107 {
+                pins_cmd_dat {
+                        pinmux = <PINMUX_GPIO107__FUNC_PWM_0>;
+                        slew-rate = <1>;
+                        output-high;
+                };
+        };
+}; /* IRTX GPIO Settings -End */
+
+&mt6360_ldo {
+        sdcard_det_en = <0>;
+};
+
+&mt_pmic_vmch_ldo_reg {
+        regulator-default-on = <2>; /* 0:skip 1:off 2:on */
+        regulator-boot-on;
+};
+
+&irtx_pwm {
+        compatible = "mediatek,irtx-pwm";
+        pwm_ch = <0>;
+        pwm_data_invert = <0>;
+        pinctrl-names = "irtx_gpio_led_default", "irtx_gpio_led_set";
+        pinctrl-0 = <&irtx_gpio_led_default>;
+        pinctrl-1 = <&irtx_gpio_led_set>;
+        irtx_ldo-supply = <&mt_pmic_vmch_ldo_reg>;
+        status = "okay";
+};

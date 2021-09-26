@@ -1,0 +1,28 @@
+#include "../huawei_charger/mt6885_abr_huawei_charger.dtsi"
+
+&i2c7 {
+	bq25970@65 {
+		ic_role = <1>;
+	};
+
+	sm5450@6F {
+		status = "disabled";
+	};
+
+	hi6526_charger@6B{
+		status = "ok";
+	};
+};
+
+&direct_charge_ic {
+	ic_para1 =
+		"0", "0", "0", "0", "0";
+};
+
+&direct_charger_sc {
+	single_ic_ibat_th = <8000>;
+	current_ratio =
+		"3", "5", "20", "2", "-1",
+		"3", "5", "20", "1", "8000",
+		"0", "5", "20", "0", "0";
+};

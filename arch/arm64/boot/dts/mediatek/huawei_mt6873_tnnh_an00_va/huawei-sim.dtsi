@@ -1,0 +1,5 @@
+&pio {
+    md1_sim1_hot_plug_eint:md1_sim1_hot_plug_eint {
+        muxsdsim = <0>;
+    };
+};

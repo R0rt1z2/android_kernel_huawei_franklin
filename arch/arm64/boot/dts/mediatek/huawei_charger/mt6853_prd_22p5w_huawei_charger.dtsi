@@ -1,0 +1,199 @@
+&charger {
+	ac_charger_current = <2500000>;
+	ac_charger_input_current = <2100000>;
+	fcp_charger_current = <2500000>;
+	fcp_charger_input_current = <1400000>;
+	non_std_ac_charger_current = <1200000>;
+	pd_vbus_upper_bound = <10000000>;
+	max_charger_voltage = <12000000>;
+	dpm_enable;
+	battery_cv = <4430000>;
+	iterm = <150000>;
+	vbus_max_limit = <11500>;
+	jeita_temp_above_t4_cv = <4100000>;
+	jeita_temp_t3_to_t4_cv = <4100000>;
+	jeita_temp_t2_to_t3_cv = <4430000>;
+	jeita_temp_t1_to_t2_cv = <4430000>;
+	jeita_temp_t0_to_t1_cv = <4430000>;
+	jeita_temp_below_t0_cv = <4100000>;
+	jeita_temp_t3_to_t4_cur = <1365000>;
+	jeita_temp_t2_to_t3_cur = <2870000>;
+	jeita_temp_t1_to_t2_cur = <1150000>;
+	jeita_temp_t0_to_t1_cur = <400000>;
+	vdpm_buf_limit = <100>;
+	vdpm_para =
+			"-32767", "4000", "4240", "50",
+			"4000", "4200", "4400", "50",
+			"4200", "32767", "4600", "50";
+	charge_full_design = <4000000>;
+};
+
+&huawei_charger {
+	compatible = "huawei,charger";
+	status = "okay";
+};
+
+&huawei_battery {
+	compatible = "huawei,battery";
+	voltage_max_design = <4430000>;
+	status = "okay";
+};
+
+&lk_charger{
+	ac_charger_current = <1050000>;
+	ac_charger_input_current = <1050000>;
+	non_std_ac_charger_current = <1050000>;
+	max_charger_voltage = <12000000>;
+	is_power_path;
+	poweron_charger_enable = <1>;
+};
+
+&direct_charge_ps {
+	status = "ok";
+};
+
+&direct_charger {
+	use_5A = <1>;
+	volt_para =
+		"4420", "2800", "1200";
+	compensate_r = <20>;
+	cc_cable_detect_enable = <1>;
+	high_temp_hysteresis = <1>;
+	full_path_res_max = <500>;
+	super_ico_current = <2400>;
+	scp_work_on_charger = <1>;
+	standard_cable_full_path_res_max = <500>;
+	first_cc_stage_timer_in_min = <0>;
+	stage_need_to_jump = "1";
+	is_show_ico_first = <1>;
+	is_send_cable_type = <0>;
+	temp_para =
+		"-32767", "10", "0",
+		"10", "45", "2800",
+		"45", "32767", "0";
+	status = "disable";
+};
+
+&huawei_ptst {
+	compatible = "huawei,power_test";
+	dc_mmi = <1>;
+	dc_mmi_para = <45 0x01 0 1000 1>;
+	status = "ok";
+};
+
+&direct_charger_sc {
+	use_5A = <1>;
+	dc_volt_ratio = <2>;
+	max_adaptor_vset = <11000>;
+	init_adapter_vset = <8800>;
+	delta_err_10v2p25a = <150>;
+	vol_err_th = <500>;
+	adaptor_leakage_current_th = <600>;
+	vstep = <20>;
+	high_temp_hysteresis = <1>;
+	gain_curr_10v2a = <300>;
+	gain_curr_10v2p25a = <500>;
+	init_delt_vset = <450>;
+	max_dc_bat_vol = <4380>;
+	max_current_for_none_standard_cable = <5000>;
+	volt_para =
+		"4250", "5200", "4800",
+		"4350", "4800", "2800",
+		"4430", "2800", "1200";
+	compensate_r = <20>;
+	cc_cable_detect_enable = <1>;
+	full_path_res_max = <500>;
+	scp_work_on_charger = <1>;
+	standard_cable_full_path_res_max = <500>;
+	first_cc_stage_timer_in_min = <10>;
+	stage_need_to_jump = "-1";
+	is_show_ico_first = <1>;
+	is_send_cable_type = <0>;
+	temp_para =
+		"-32767", "10", "0",
+		"10", "45", "5200",
+		"45", "32767", "0";
+	resist_para =
+		"0", "300", "5200",
+		"300", "500", "5200";
+	std_resist_para =
+		"0", "300", "5200",
+		"300", "500", "5200";
+	10v2p25a_cur_para =
+		"-32767", "5500",  "2000",
+		"5500",   "9000",  "2500",
+		"9000",   "10000", "2250",
+		"10000",  "10500", "2000",
+		"10500",  "32767", "1500";
+	status = "ok";
+};
+
+&bat_gm30 {
+	bat_para =
+		"BNT_CAE", "250000", "330000",
+		"BCY_CBL", "830000", "940000",
+		"BIT_CAE", "405000", "500000",
+		"BYT_CGL", "140000", "210000",
+		"BYT_CGL_NC", "1100000", "1270000",
+		"BNT_CAE_NC", "580000", "680000";
+	ntc_compensation_is = <1>;
+	ntc_temp_compensation_para =
+		"4000", "10",
+		"3000", "10",
+		"2000", "10",
+		"1000", "10";
+	min_fcc = <2800000>;
+	max_fcc = <4000000>;
+	g_FG_PSEUDO100_T0 = <(97)>;
+	g_FG_PSEUDO100_T1 = <(97)>;
+	g_FG_PSEUDO100_T2 = <(97)>;
+	g_FG_PSEUDO100_T3 = <(97)>;
+	g_FG_PSEUDO100_T4 = <(97)>;
+	dlpt_optimization;
+	CAR_TUNE_VALUE = <(250)>;
+	#include "BNT_CAE_4V45_4000mah_22P5W_ext.dtsi"
+	#include "BCY_CBL_4V45_4000mah_22P5W_ext.dtsi"
+	#include "BIT_CAE_4V45_4000mah_22P5W_ext.dtsi"
+	#include "BYT_CGL_4V45_4000mah_22P5W_ext.dtsi"
+	#include "BYT_CGL_NC_4V45_4000mah_22P5W_ext.dtsi"
+	#include "BNT_CAE_NC_4V45_4000mah_22P5W_ext.dtsi"
+};
+
+&usb_c_pinctrl {
+	status = "disabled";
+};
+
+&mt6360_pmu {
+	mt6360,intr_gpio_num = <10>; /* direct defined GPIO num */
+	mt6360,intr_gpio = <&pio 10 0x0>;
+	chg {
+		ircmp_resistor = <25000>;
+	};
+};
+
+&mt6360_typec {
+	mt6360pd,intr_gpio_num = <9>; /* direct defined GPIO num */
+	mt6360pd,intr_gpio = <&pio 9 0x0>;
+};
+
+&power_thermalzone {
+	status = "ok";
+};
+
+&mtk_usb_temp {
+	status = "ok";
+};
+
+&usb_short_circuit_protect {
+	status = "ok";
+};
+
+&usb_phy_tuning {
+	h_u2_vrt_ref = <6>;
+	h_u2_term_ref = <2>;
+	h_u2_enhance = <2>;
+	d_u2_vrt_ref = <6>;
+	d_u2_term_ref = <4>;
+	d_u2_enhance = <1>;
+	status = "ok";
+};

@@ -1,0 +1,57 @@
+&pio {
+	pmic_intr: pmic_intr {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO134__FUNC_GPIO134>;
+			input-enable;
+			bias-pull-up;
+		};
+	};
+};
+
+&i2c3 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	fan53880@35 {
+		compatible = "mtk,fan53880";
+		reg = <0x35>;
+		mtk,pmic_name = "fan53880";
+		mtk,pmic_index = <0>;
+		mtk,slave_address = <0x35>;
+		pmic-pin = <&pio 137 0x0>;
+		mtk,pmic_buck_pwm_mode = <1>;
+		mtk,pmic_ldo2_ctrl = <1>;
+		mtk,pmic_reset = <0>;
+		mtk,fault_check = <1>;
+		fastboot_i2c_bus = <3>;
+		fastboot_support = <1>;
+		pmic-intr = <&pio 134 0x0>;
+		pinctrl-names = "pmic_intr";
+		pinctrl-0 = <&pmic_intr>;
+		pmic-en = <137>;
+		boost_shield_dmd = <1>;
+		boost_shield_irq = <1>;
+		status = "ok";
+	};
+
+	rt5112@20 {
+		compatible = "mtk,rt5112";
+		reg = <0x20>;
+		mtk,pmic_name = "rt5112";
+		mtk,pmic_index = <0>;
+		mtk,slave_address = <0x20>;
+		pmic-pin = <&pio 137 0x0>;
+		mtk,pmic_buck_pwm_mode = <1>;
+		mtk,pmic_ldo2_ctrl = <1>;
+		mtk,pmic_reset = <0>;
+		mtk,fault_check = <1>;
+		fastboot_i2c_bus = <3>;
+		fastboot_support = <1>;
+		pmic-intr = <&pio 134 0x0>;
+		pinctrl-names = "pmic_intr";
+		pinctrl-0 = <&pmic_intr>;
+		pmic-en = <137>;
+		boost_shield_dmd = <1>;
+		boost_shield_irq = <1>;
+		status = "ok";
+	};
+};

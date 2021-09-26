@@ -1,0 +1,7 @@
+#include "../huawei_charger/mt6885_oce_huawei_charger.dtsi"
+
+&i2c0 {
+	pca9488@55 {
+		status = "ok";
+	};
+};

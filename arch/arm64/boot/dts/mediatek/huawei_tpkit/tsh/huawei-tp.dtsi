@@ -1,0 +1,356 @@
+&pio {
+	ctp_pins_default: eint0default {
+	};
+	ctp_pins_eint_as_int: eint@0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO14__FUNC_GPIO14>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+	ctp_pins_eint_output0: eintoutput0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO14__FUNC_GPIO14>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	ctp_pins_eint_output1: eintoutput1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO14__FUNC_GPIO14>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+	ctp_pins_rst_output0: rstoutput0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO15__FUNC_GPIO15>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	ctp_pins_rst_output1: rstoutput1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO15__FUNC_GPIO15>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+
+	ctp_pins_cs_output0: csoutput0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO21__FUNC_SPI1_CSB>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	ctp_pins_cs_output1: csoutput1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO21__FUNC_SPI1_CSB>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+};
+/*ts kit*/
+&ts_kit {
+	status = "okay";
+	compatible = "huawei,ts_kit";	/* Do not change value*/
+	bus_type = "spi";
+	product = "tsh";
+	bus_id = <1>;
+	has_virtualkey = <0>;
+	debounce = <6 0>;
+	aft_enable = <0>;	/* aft algo switch. 1 - enabel, 0 - disable*/
+	drv_stop_width = <0>;	/* always 0, can not config */
+	lcd_width = <0>;	/* always 0, can not config */
+	lcd_height = <0>;	/* always 0, can not config */
+	need_i2c_hwlock = <0>;	/* for i2c both used by ap and sensorhub */
+	register_charger_notifier = <1>;
+	hide_plain_id = <1>;
+	interrupt-parent = <&pio>;
+	interrupts = <14 2 0 0>;
+	cs_gpio = <&pio 21 0>;
+	pl022,com-mode = <1>;
+	pl022,interface = <0>;
+	pl022,rx-level-trig = <3>;
+	pl022,tx-level-trig = <3>;
+	pl022,ctrl-len = <7>;
+	pl022,wait-state = <0>;
+	pl022,duplex = <0>;
+	pl022,slave-tx-disable = <0>;
+	spi-max-frequency = <8000000>;
+	spi-mode = <0>;
+	cs_reset_low_delay = <10>;
+	cs_reset_high_delay = <200>;
+	mtk_spi_mlsb_config = <1>;
+	mtk_rx_mlsb = <1>;
+	mtk_tx_mlsb = <1>;
+	mtk_cs_pol = <0>;
+	mtk_sample_sel = <0>;
+	mtk_cs_setuptime = <28>;
+	recovery_update_fw = <1>;
+	touchscreen@0 {
+		compatible = "fts";
+		reg = <0>;
+
+		/* ts chip common config, parsed by paltform */
+		/* hardware config part */
+		irq_config = <3>;/* 0 - LOW LEVEL  1 - HIGH LEVEL  2 - RAISE EDGE  3 - FALL EDGE*/
+		spi-mode = <0>;
+		spi-max-frequency = <8000000>;
+
+		/* base config */
+		projectid_len = <10>; /* default 10 */
+		ic_type = <6>;
+		is_in_cell = <1>;
+
+		/* power config part */
+		power_self_ctrl = <0>;
+
+		/* pinctl config part */
+		pinctrl-names = "default", "idle", "state_eint_as_int", "state_eint_output0",
+						"state_eint_output1","state_rst_output0","state_rst_output1",
+						"state_cs_output0", "state_cs_output1";
+		pinctrl-0 = <&ctp_pins_rst_output1 &ctp_pins_cs_output1>;
+		pinctrl-1 = <&ctp_pins_rst_output0 &ctp_pins_cs_output0>;
+		pinctrl-2 = <&ctp_pins_eint_as_int>;
+		pinctrl-3 = <&ctp_pins_eint_output0>;
+		pinctrl-4 = <&ctp_pins_eint_output1>;
+		pinctrl-5 = <&ctp_pins_rst_output0>;
+		pinctrl-6 = <&ctp_pins_rst_output1>;
+		pinctrl-7 = <&ctp_pins_cs_output0>;
+		pinctrl-8 = <&ctp_pins_cs_output1>;
+
+		/* input config part */
+		x_max = <1080>;
+		y_max = <2400>;
+		x_max_mt = <1080>;
+		y_max_mt = <2400>;
+		flip_x = <1>;
+		flip_y = <1>;
+
+		/* feature config part */
+		parade,is_parade_solution = <0>;
+		parade,direct_proc_cmd = <0>;
+		parade,sleep_in_mode = <0>;
+		roi_supported = <1>;
+		roi_control_addr = <0x9B>;
+		glove_supported = <0>;
+		holster_supported = <0>;
+		pen_support = <0>;
+		support_3d_func = <0>;
+		charger_supported = <1>;
+		charger_switch_addr = <0x8B>;
+		check_bulcked = <0>;
+		support_aft = <0>;
+		use_lcdkit_power_notify = <1>;
+		fp_tp_report_touch_minor_event = <0>;
+		algo_id = <1>; /* 0 - not use driver algo 1 - algo t1 */
+		need_wd_check_status = <1>;
+		check_status_watchdog_timeout = <0>;
+		touch_switch_flag = <2>;
+		touch_switch_game_reg = <0x8C>;
+		get_brightness_info_flag = <0>;
+		has_virtualkey = <0>;
+		lcd_full = <0>;
+		provide_panel_id_support = <1>;
+		chip_id = <0x87>;
+		hard_reset_delay = <200>;
+		erase_min_delay = <1350>;
+		calc_crc_delay = <300>;
+		reboot_delay = <300>;
+		erase_query_delay = <50>;
+		write_flash_query_times = <30>;
+		read_ecc_query_times = <100>;
+		erase_flash_query_times = <100>;
+		upgrade_loop_times = <5>;
+		rawdata_newformatflag = <0>;
+		fts,fw_only_depend_on_lcd = <0>;
+		fts,need_distinguish_lcd = <0>;
+		only_open_once_captest_threshold = <0>;
+		read_debug_reg_and_differ = <0>;
+		is_ic_rawdata_proc_printf = <1>;
+		gesture_supported = <1>;
+		tp_test_type = "Normalize_type:judge_last_result";
+		hide_fw_name = <1>;
+		TSHB9W250{
+			producer = "txd";
+			ic_type = <6>;
+			compatible = "fts-TSHB9W250";
+			row_column_delta_test = <0>;
+			lcd_noise_data_test = <0>;
+			threshold,point_by_point_judge = <1>;
+			row_column_delta_test_point_by_point = <1>;
+			open_test_cb_point_by_point = <1>;
+			short_test_point_by_point = <1>;
+			cb_test_point_by_point = <1>;
+			threshold,in_csv_file = <1>;
+			threshold,raw_data_min = <8322>;
+			threshold,raw_data_max = <17282>;
+			threshold,scap_raw_data_min = <8322>;
+			threshold,scap_raw_data_max = <17282>;
+			threshold,cb_test_min = <1>;
+			threshold,cb_test_max = <202>;
+			threshold,short_circuit_min = <1002>;
+			threshold,lcd_noise_max = <102>;
+		};
+	};
+	touchscreen@1{
+		compatible = "novatek";
+		/* ts chip common config, parsed by paltform */
+		/* hardware config part */
+		irq_config = <3>;/* 0 - LOW LEVEL  1 - HIGH LEVEL  2 - RAISE EDGE  3 - FALL EDGE*/
+		spi-mode = <0>;
+		spi-max-frequency = <10000000>;
+		ic_type = <3>;
+		roi_supported = <1>;
+		x_max = <1080>;
+		y_max = <2400>;
+		x_max_mt = <1080>;
+		y_max_mt = <2400>;
+		tp_test_type = "Normalize_type:judge_last_result";
+
+		/* pinctl config part */
+		pinctrl-names = "default", "idle", "state_eint_as_int", "state_eint_output0",
+						"state_eint_output1","state_rst_output0","state_rst_output1",
+						"state_cs_output0", "state_cs_output1";
+		pinctrl-0 = <&ctp_pins_rst_output1 &ctp_pins_cs_output1>;
+		pinctrl-1 = <&ctp_pins_rst_output0 &ctp_pins_cs_output0>;
+		pinctrl-2 = <&ctp_pins_eint_as_int>;
+		pinctrl-3 = <&ctp_pins_eint_output0>;
+		pinctrl-4 = <&ctp_pins_eint_output1>;
+		pinctrl-5 = <&ctp_pins_rst_output0>;
+		pinctrl-6 = <&ctp_pins_rst_output1>;
+		pinctrl-7 = <&ctp_pins_cs_output0>;
+		pinctrl-8 = <&ctp_pins_cs_output1>;
+
+		algo_id = <1>;
+		noise_test_frame = <30>;
+		open_test_by_fw = <1>;
+		support_aft = <0>;
+		glove_mode_supported = <0>;
+		default_projectid = "TSHB9V020";
+		use_dma_download_firmware = <0>;
+		use_pinctrl=<1>;
+		charger_supported = <1>;
+		tp_status_report_support = <0>;
+		is_ic_rawdata_proc_printf = <0>;
+		gesture_supported = <1>;
+		gesture_module = <1>;
+		power_sleep_mode = <1>;
+		scene_type_mode = <2>; /* 0-normal, 1-power genius, 2-iTouch */
+		TSHB9V020 {
+			producer = "truly";
+			compatible = "TSHB9V020";
+			roi_supported = <1>;
+			esd_vdd_tp_recovery = <1>;
+			glove_mode_supported = <0>;
+			touch_switch_flag = <2>;
+			criteria_threshold_flag = <1>;
+			IC_X_CFG_SIZE = <18>;
+			IC_Y_CFG_SIZE = <36>;
+			NvtTddi_X_Channel = <18>;
+			NvtTddi_Y_Channel = <36>;
+			huawei,csvfile_use_system = <2>;
+			huawei,test_capacitance_via_csvfile = <1>;
+			mADCOper_Cnt = <2>;
+			NVT_TDDI_AIN_X = <0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17>;
+			NVT_TDDI_AIN_Y = <0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35>;
+			hide_fw_name = <1>;
+		};
+	};
+	touchscreen@2{
+		use_default_configuration = <1>;
+		compatible = "tp_synaptics";
+		/* ts chip common config, parsed by paltform */
+		/* hardware config part */
+		irq_config = <3>;/* 0 - LOW LEVEL  1 - HIGH LEVEL  2 - RAISE EDGE  3 - FALL EDGE*/
+		spi-mode = <0>;
+		spi-max-frequency = <10000000>;
+		ic_type = <3>;
+		roi_supported = <1>;
+		x_max = <1080>;
+		y_max = <2400>;
+		x_max_mt = <1080>;
+		y_max_mt = <2400>;
+		tp_test_type = "Normalize_type:judge_last_result";
+		algo_id = <1>;
+		noise_test_frame = <30>;
+		open_test_by_fw = <1>;
+		support_aft = <0>;
+		glove_mode_supported = <0>;
+		default_projectid = "TSHB9V020";
+		use_dma_download_firmware = <0>;
+		use_pinctrl=<1>;
+		charger_supported = <1>;
+		tp_status_report_support = <0>;
+		is_ic_rawdata_proc_printf = <0>;
+		gesture_supported = <1>;
+		gesture_module = <1>;
+		power_sleep_mode = <1>;
+		scene_type_mode = <2>; /* 0-normal, 1-power genius, 2-iTouch */
+	};
+	touchscreen@3{
+		use_default_configuration = <1>;
+		compatible = "tp_goodix";
+		/* ts chip common config, parsed by paltform */
+		/* hardware config part */
+		irq_config = <3>;/* 0 - LOW LEVEL  1 - HIGH LEVEL  2 - RAISE EDGE  3 - FALL EDGE*/
+		spi-mode = <0>;
+		spi-max-frequency = <10000000>;
+		ic_type = <3>;
+		roi_supported = <1>;
+		x_max = <1080>;
+		y_max = <2400>;
+		x_max_mt = <1080>;
+		y_max_mt = <2400>;
+		tp_test_type = "Normalize_type:judge_last_result";
+		algo_id = <1>;
+		noise_test_frame = <30>;
+		open_test_by_fw = <1>;
+		support_aft = <0>;
+		glove_mode_supported = <0>;
+		default_projectid = "TSHB9V020";
+		use_dma_download_firmware = <0>;
+		use_pinctrl=<1>;
+		charger_supported = <1>;
+		tp_status_report_support = <0>;
+		is_ic_rawdata_proc_printf = <0>;
+		gesture_supported = <1>;
+		gesture_module = <1>;
+		power_sleep_mode = <1>;
+		scene_type_mode = <2>; /* 0-normal, 1-power genius, 2-iTouch */
+	};
+	touchscreen@4{
+		use_default_configuration = <1>;
+		compatible = "tp_ilitek";
+		/* ts chip common config, parsed by paltform */
+		/* hardware config part */
+		irq_config = <3>;/* 0 - LOW LEVEL  1 - HIGH LEVEL  2 - RAISE EDGE  3 - FALL EDGE*/
+		spi-mode = <0>;
+		spi-max-frequency = <10000000>;
+		ic_type = <3>;
+		roi_supported = <1>;
+		x_max = <1080>;
+		y_max = <2400>;
+		x_max_mt = <1080>;
+		y_max_mt = <2400>;
+		tp_test_type = "Normalize_type:judge_last_result";
+		algo_id = <1>;
+		noise_test_frame = <30>;
+		open_test_by_fw = <1>;
+		support_aft = <0>;
+		glove_mode_supported = <0>;
+		default_projectid = "TSHB9V020";
+		use_dma_download_firmware = <0>;
+		use_pinctrl=<1>;
+		charger_supported = <1>;
+		tp_status_report_support = <0>;
+		is_ic_rawdata_proc_printf = <0>;
+		gesture_supported = <1>;
+		gesture_module = <1>;
+		power_sleep_mode = <1>;
+		scene_type_mode = <2>; /* 0-normal, 1-power genius, 2-iTouch */
+	};
+};

@@ -1,0 +1,10 @@
+#
+# adsp_chr report configuration
+#
+
+config ADSP_CHR
+    tristate "adsp_chr"
+    default n
+    help
+      add this to support adsp_chr
+

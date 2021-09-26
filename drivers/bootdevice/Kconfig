@@ -1,0 +1,9 @@
+menu "Mas Bootdevice"
+
+config MAS_BOOTDEVICE
+	bool "Support multiple bootdevice, eMMC or UFS"
+	default n
+	help
+	  Used to dynamic select boot device from eMMC or UFS
+
+endmenu

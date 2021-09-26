@@ -1,0 +1,21 @@
+#
+# FLP driver configuration
+#
+
+menu "HUAWEI AR configuration"
+
+config HUAWEI_AR
+	bool "HUAWEI AR support"
+	depends on HUAWEI_SOFTTIMER
+	default n
+	---help---
+	  Enable support for AR driver
+
+config CONTEXTHUB_UNIFORM_INTERVAL
+	bool "HUAWEI CONTEXTHUB_UNIFORM_INTERVAL support"
+	depends on HUAWEI_AR
+	default n
+	---help---
+	  Enable support for CONTEXTHUB_UNIFORM_INTERVAL driver
+
+endmenu

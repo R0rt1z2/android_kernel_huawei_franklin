@@ -1,0 +1,6 @@
+&keypad {
+  /* 0:powerkey; 1:volumedown&powerkey; */
+  powerkey-restart-type = <1>;
+  /* 0:8s; 1:11s; 2:14s; 3:5s */
+  powerkey-restart-time = <1>;
+};

@@ -1,0 +1,29 @@
+menuconfig MM_TRACK
+    bool "MM Track support"
+    default y
+    ---help---
+      This option add some mm track codes, needed by following modules.
+
+if MM_TRACK
+
+config MM_PAGE_TRACE
+    bool "MM page trace"
+    default n
+    ---help---
+      This option enables mm page trace, needed by memleak check modules.
+
+config MM_PAGE_TRACE_TEST
+    bool "MM page trace test"
+        default n
+    depends on MM_PAGE_TRACE
+    ---help---
+      This option enables mm page trace test, needed by mm page trace modules.
+
+config MEMORY_STATIC_FOOTPRINT
+    bool "dt reserved memory show"
+    default n
+    depends on DEBUG_FS
+    ---help---
+      This option enables of_reserved_memory show.
+
+endif

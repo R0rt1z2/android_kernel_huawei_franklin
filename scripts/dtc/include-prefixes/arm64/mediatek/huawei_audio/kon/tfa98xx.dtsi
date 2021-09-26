@@ -1,0 +1,10 @@
+&i2c6 {
+    tfa98xx_smartpa@34 {
+        compatible = "nxp,tfa98xx";
+        reg = <0x34>;
+        reset-gpio = <&pio 139 0>;
+        irq-gpio = <&pio 32 0>;
+        status = "okay";
+    };
+};
+

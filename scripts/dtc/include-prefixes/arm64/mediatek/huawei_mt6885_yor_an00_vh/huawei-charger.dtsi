@@ -1,0 +1,97 @@
+#include "../huawei_charger/mt6885_yor_huawei_charger.dtsi"
+&charger {
+	bc12_charger = <0>; /* usb switch do bc12 */
+};
+
+&i2c0 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	bq25970@65 {
+		status = "disabled";
+	};
+
+	hi6526_charger_i2c0@6B{
+		compatible = "huawei,hi6526_charger";
+		reg = <0x6B>;
+		dbg_check_en = <1>;
+		intr_gpio_num = <79>; /* direct defined GPIO num */
+		intr_gpio = <&pio 79 0x0>;
+		bat_comp = <60>;
+		vclamp = <192>;
+		fcp_support = <1>;
+		scp_support = <1>;
+		lvc_ibat_regulator = <12200>;
+		lvc_vbat_regulator = <4500>;
+		lvc_vout_regulator = <4550>;
+		lvc_ibus_regulator = <5600>;
+		sc_ibat_regulator = <12200>;
+		sc_vbat_regulator = <4500>;
+		sc_vout_regulator = <4550>;
+		sc_ibus_regulator = <5000>;
+		lvc_vusb2vbus_drop_en = <1>;
+		sc_vusb2vbus_drop_en = <1>;
+		/* loop mode must be turned off, if temperature channels need to be acquired */
+		adc_single_mode_en = <0>;
+		adc_tsbat_support = <0>;
+		vusb_uv_flag = <1>;
+		r_coul_mohm = <1>;
+		ic_role = <1>;
+		status = "ok";
+	};
+};
+
+&i2c7 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+	fairchild_fsa9685@25 {
+		status = "disabled";
+	};
+	bq25970@65 {
+		status = "disabled";
+	};
+	hi6526_charger_i2c7@6B{
+		compatible = "huawei,hi6526_charger";
+		reg = <0x6B>;
+		dbg_check_en = <1>;
+		bat_comp = <60>;
+		vclamp = <192>;
+		fcp_support = <1>;
+		scp_support = <1>;
+		lvc_ibat_regulator = <12200>;
+		lvc_vbat_regulator = <4500>;
+		lvc_vout_regulator = <4550>;
+		lvc_ibus_regulator = <5600>;
+		sc_ibat_regulator = <12200>;
+		sc_vbat_regulator = <4500>;
+		sc_vout_regulator = <4550>;
+		sc_ibus_regulator = <5600>;
+		lvc_vusb2vbus_drop_en = <1>;
+		sc_vusb2vbus_drop_en = <1>;
+		/* loop mode must be turned off, if temperature channels need to be acquired */
+		adc_single_mode_en = <0>;
+		adc_tsbat_support = <0>;
+		vusb_uv_flag = <1>;
+		intr_gpio_num = <72>; /* direct defined GPIO num */
+		intr_gpio = <&pio 72 0x0>;
+		r_coul_mohm = <1>;
+		ic_role = <0>;
+		status = "ok";
+	};
+	rt9426_battery@55{
+		status = "ok";
+	};
+};
+
+
+&direct_charger {
+	status = "ok";
+};
+
+&huawei_batt_info {
+	shield_ct_sign = <1>;
+};
+
+&boost_5v {
+	boost_5v_use_common_pmic = <1>;
+	status = "ok";
+};

@@ -1,0 +1,8 @@
+&msdc1 {
+	status = "disabled";
+};
+
+&ufshci {
+	ufs-tw;
+	no-inline;
+};

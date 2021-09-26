@@ -1,0 +1,147 @@
+&pio {
+	ctp_pins_default: eint0default {
+	};
+	ctp_pins_eint_as_int: eint@0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO21__FUNC_GPIO21>;
+			slew-rate = <0>;
+			bias-disable;
+		};
+	};
+	ctp_pins_eint_output0: eintoutput0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO21__FUNC_GPIO21>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	ctp_pins_eint_output1: eintoutput1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO21__FUNC_GPIO21>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+	ctp_pins_rst_output0: rstoutput0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO20__FUNC_GPIO20>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	ctp_pins_rst_output1: rstoutput1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO20__FUNC_GPIO20>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+	ctp_pins_iovdd_output0: iovddoutput0 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO188__FUNC_GPIO188>;
+			slew-rate = <1>;
+			output-low;
+		};
+	};
+	ctp_pins_iovdd_output1: iovddoutput1 {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO188__FUNC_GPIO188>;
+			slew-rate = <1>;
+			output-high;
+		};
+	};
+};
+
+/*ts kit*/
+&ts_kit {
+	status = "okay";
+	compatible = "huawei,ts_kit";	/* Do not change value*/
+	bus_type = "i2c";
+	product = "mrr";
+	bus_id = <0>;
+	has_virtualkey = <0>;
+	debounce = <6 0>;
+	interrupt-parent = <&pio>;
+	interrupts = <21 2 0 0>;
+	pen_aft_enable = <1>;
+	aft_enable = <2>;	/* aft algo switch. 1 - enabel, 0 - disable*/
+	drv_stop_width = <0>;	/* always 0, can not config */
+	lcd_width = <0>;	/* always 0, can not config */
+	lcd_height = <0>;	/* always 0, can not config */
+	need_i2c_hwlock = <0>;	/* for i2c both used by ap and sensorhub */
+	register_charger_notifier = <0>;
+	hide_plain_id = <0>;
+	gtx8: touchscreen@5d {
+		compatible = "gtx8";
+
+		/* ts chip common config, parsed by paltform */
+		/* hardware config part */
+		slave_address = <0x5d>;
+		irq_config = <3>;/* 0 - LOW LEVEL  1 - HIGH LEVEL  2 - RAISE EDGE  3 - FALL EDGE*/
+
+		/* base config */
+		projectid_len = <10>; /* default 10 */
+		ic_type = <5>;
+
+		/* power config part */
+		ts-kit-vcc-type = <1>;
+		ts-kit-vcc-value = <3300000>;
+		ts-kit-vcc-supply = <&mt_pmic_vtp_ldo_reg>; /* TODO:need parse by platform */
+
+		/* pinctl config part */
+		pinctrl-names = "default", "state_eint_as_int", "state_eint_output0",
+			"state_eint_output1", "state_rst_output0", "state_rst_output1",
+			"state_iovdd_output0", "state_iovdd_output1";
+		pinctrl-0 = <&ctp_pins_default>;
+		pinctrl-1 = <&ctp_pins_eint_as_int>;
+		pinctrl-2 = <&ctp_pins_eint_output0>;
+		pinctrl-3 = <&ctp_pins_eint_output1>;
+		pinctrl-4 = <&ctp_pins_rst_output0>;
+		pinctrl-5 = <&ctp_pins_rst_output1>;
+		pinctrl-6 = <&ctp_pins_iovdd_output0>;
+		pinctrl-7 = <&ctp_pins_iovdd_output1>;
+
+		/* input config part */
+		x_max_mt = <1599>;
+		y_max_mt = <2559>;
+
+		/* feature config part */
+		rawdata_arrange_type = <1>;
+		project_id = "MARX99180";
+		chip_name = "7382";
+		module_vendor = "toptouch";
+		tools_support = <1>;
+		gtx8_static_pid_support = <1>; /*1->0*/
+		roi_supported = <0>;
+		holster_supported = <0>;
+		glove_supported = <0>;
+		easy_wakeup_supported = <0>;
+		charger_supported = <0>;
+		supported_pen_alg = <0>;
+		supported_pen_mmitest = <0>;
+		pen_support = <1>;
+		need_wd_check_status = <1>;
+		send_stylus_gesture_switch = <1>;
+		rawdata_get_timeout = <20>;
+		touch_switch_flag = <2>;
+		support_get_tp_color = <0>;/*0 - no need, 1 - need */
+		support_read_projectid = <1>;
+		support_wake_lock_suspend = <1>;
+		support_deleted_insignificant_info = <1>;
+		support_filename_contain_projectid = <1>;
+		support_filename_contain_lcd_module = <1>;
+		support_checked_esd_reset_chip = <1>;
+		support_read_more_debug_msg = <1>;
+		support_read_gesture_without_checksum = <1>;
+		SENSORID0 {
+			compatible = "gtx8-sensorid-0";
+			module_vendor = "ofilm";
+			project_id = "MARX99000";
+		};
+		SENSORID1 {
+			compatible = "gtx8-sensorid-1";
+			module_vendor = "toptouch";
+			project_id = "MARX99180";
+		};
+	};
+};

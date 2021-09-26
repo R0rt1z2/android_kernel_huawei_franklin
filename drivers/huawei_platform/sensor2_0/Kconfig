@@ -1,0 +1,14 @@
+#
+# Sensors info
+#
+
+menuconfig HUAWEI_SENSORS_2_0
+    bool "Huawei sensors2_0 info"
+    default n
+    help
+      Say yes if you want device detect driver.
+      This is for device connected version. If unsure, say N here.
+
+source "drivers/huawei_platform/sensor2_0/sar/a96t346/Kconfig"
+source "drivers/huawei_platform/sensor2_0/pos_hall/Kconfig"
+source "drivers/huawei_platform/sensor2_0/step_motor/Kconfig"

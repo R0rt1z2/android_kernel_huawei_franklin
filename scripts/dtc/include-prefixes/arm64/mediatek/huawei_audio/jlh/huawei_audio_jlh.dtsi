@@ -1,0 +1,75 @@
+#include "device_boxid.dtsi"
+#include "smartpa.dtsi"
+
+&audio_hw_config {
+	product_name = "mt6853";
+	mic_silence_continuous_check_times = "5";
+	speaker_test_content = "speaker";
+	audio_param_path = "odm/etc/audio/audio_param";
+	audio_param_ce_path = "odm/etc/audio/audio_param_ce";
+	record_algo_version = "record5_0";
+
+	hardware_info {
+		mic_num = "2";
+		mic_type = "0003"; /* 0001 sub mic   0002 main mic   0004 sub mic2   0008 main mic2 */
+	};
+};
+
+&ana_hs {
+	compatible = "huawei,ana_hs";
+	status = "ok";
+	ana_hs_core@0 {
+		compatible = "huawei,ana_hs_core";
+		bus_type = <0>; /* 0: gpio,  1: i2c */
+
+		/* if use gpio */
+		gpio_num = <2>;
+		gpio_type = <0>; /* 0: SOC,  1: codec */
+		gpios = <&pio 57 0>,<&pio 66 0>;
+		gpio_init_val = <0 0>;  /* 0: output low, 1: output high */
+
+		/* plug_in sequence */
+		plug_in_seq = <
+			0 1 0 0
+		>;
+		/* plug_out sequence */
+		plug_out_seq = <
+			0 0 0 0
+			1 0 0 0
+		>;
+		/* mic_gnd_switch used gpio */
+		mic_gnd_sequence = <
+			1 0 0 150
+		>;
+		status = "ok";
+	};
+};
+
+&sound {
+		mtk_spk_i2s_out = <3>;
+		mtk_spk_i2s_in = <9>; //9 means 32bit, 0 means 24bit.
+};
+
+/* feature : $enable $dl_mem $ul_mem $ref_mem $size */
+&snd_audio_dsp {
+	mtk_dsp_voip = <0x5 0x1 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_primary = <0x5 0x0 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_offload = <0x0 0x6 0xffffffff 0xffffffff 0x400000>;
+	mtk_dsp_deep = <0x5 0x3 0xffffffff 0xffffffff 0x30000>;
+	mtk_dsp_playback = <0x1 0x4 0x10 0x14 0x30000>;
+	mtk_dsp_music = <0x1 0xffffffff 0xffffffff 0xffffffff 0x0>;
+	mtk_dsp_capture1 = <0x0 0xffffffff 0xd 0x13 0x20000>;
+	mtk_dsp_a2dp = <0x0 0xffffffff 0xffffffff 0xffffffff 0x40000>;
+	mtk_dsp_dataprovider = <0x0 0xffffffff 0xf 0xffffffff 0x30000>;
+	mtk_dsp_call_final = <0x5 0x0 0x10 0x14 0x18000>;
+	mtk_dsp_fast = <0x5 0x2 0xffffffff 0xffffffff 0x5000>;
+	mtk_dsp_ktv = <0x0 0x8 0x12 0xffffffff 0x10000>;
+	mtk_dsp_ver = <0x1>;
+	swdsp_smartpa_process_enable = <0x5>;
+	mtk_dsp_mem_afe = <0x1 0x40000>; /* always enable */
+};
+
+&lk_smartpa_vendor {
+	compatible = "mt_adsp,smartpa_vendor";
+	smartpakit_state = <1>; // 0-not support, 1-support
+};

@@ -1,0 +1,25 @@
+&dp_aux_switch {
+	compatible = "huawei,dp_aux_switch";
+	register_usb_dp_notifier;
+	aux_switch_with_uart;
+	uart-gpio = <&pio 130 0x0>;
+	aux_switch_from_fsa44xx;
+	dp_switch_and_polarity_inverse;
+	dp-switch-gpio = <&pio 111 0x0>;
+	need_dp_power_control;
+	dp-power-control-gpio = <&pio 22 0x0>;
+	status = "ok";
+};
+
+&hw_display_port {
+	compatible = "huawei,display_port";
+	/* 0:diff mode 1:same mode */
+	dp_default_source_mode = <1>;
+
+	// for MMIE test in factory version
+	check_lanes_rate;
+	check_display_4k;
+	need_report_event;
+	check_max_lanes = <2>;
+	check_max_rate = <0x14>;
+};

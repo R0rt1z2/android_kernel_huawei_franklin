@@ -1,0 +1,13 @@
+#=============================================================================
+#  add new config for devices check
+#  add new config for factory cmdline parse
+#  add new config for antenna board gpio match
+#=============================================================================
+menu "Huawei Platform UNI Drivers"
+source "drivers/uni_drivers/file_encry/Kconfig"
+source "drivers/uni_drivers/secmem/Kconfig"
+source "drivers/uni_drivers/hkip/Kconfig"
+source "drivers/uni_drivers/kdump/Kconfig"
+source "drivers/uni_drivers/contexthub/Kconfig"
+source "drivers/uni_drivers/power/Kconfig"
+endmenu

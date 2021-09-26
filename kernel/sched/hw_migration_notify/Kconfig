@@ -1,0 +1,6 @@
+config HW_MIGRATION_NOTIFY
+	bool "Huawei task migration notify freq change"
+	depends on HW_EAS_SCHED
+	default n
+	help
+	  tasks migration notify frequency change.

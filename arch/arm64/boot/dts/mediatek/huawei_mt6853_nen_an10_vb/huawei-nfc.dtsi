@@ -1,0 +1,87 @@
+&i2c3 {
+	secure_mode = <1>;
+	secure_reg = <0x28>;
+	nfc@28 {
+		compatible = "mediatek,nq-pn544";
+		status = "okay";
+		reg = <0x28>;
+		nxp,nfc_int = <&pio 8 0x00>;
+		nxp,nfc_ven = <&pio 92 0x00>;
+		nxp,nfc_firm = <&pio 40 0x00>;
+		nfc_nxp_conf_name = "libnfc-nxp.conf";
+		nfc_brcm_conf_name = "libnfc-brcm.conf";
+		nfc_card_num = <0x2>;
+		nfc_chip_type = "nfc_dg";
+		nfc_ese_type = "p61";
+		nfc_single_channel = "false";
+		nfc_ese_num = <0x1>;
+		nfc_dev_name_type = <0x1>;
+
+		pinctrl-names = "nfc_default","srclkenai","esespics","esespiclk","esespimo","esespimi","esepwrreq";
+		pinctrl-0 = <&nfc_default>;
+		pinctrl-1 = <&srclkenai>;
+		pinctrl-2 = <&esespics>;
+		pinctrl-3 = <&esespiclk>;
+		pinctrl-4 = <&esespimo>;
+		pinctrl-5 = <&esespimi>;
+		pinctrl-6 = <&esepwrreq>;
+	};
+};
+
+&pio {
+	nfc_default: nfc_default {
+	};
+
+	srclkenai: srclkenai {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO81__FUNC_SRCLKENAI0>;
+			slew-rate = <0>;
+		};
+	};
+	esespics: esespics {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO29__FUNC_SPI5_CSB>;
+		};
+	};
+	esespiclk: esespiclk {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO28__FUNC_SPI5_CLK>;
+		};
+	};
+	esespimo: esespimo {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO30__FUNC_SPI5_MO>;
+		};
+	};
+	esespimi: esespimi {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO31__FUNC_SPI5_MI>;
+		};
+	};
+	esepwrreq: esepwrreq {
+		pins_cmd_dat {
+			pinmux = <PINMUX_GPIO69__FUNC_GPIO69>;
+			slew_rate = <1>;
+			output-low;
+		};
+	};
+};
+
+&nfc_exist {
+	nfc_exist_flag = "1";
+	nfc_ese_spi_det = "1";
+	status = "ok";
+};
+
+&ese_config {
+	nfc_ese_num_dts = <2>;
+	ese_config_spi_bus = <5>;
+	gpio_spi_cs = <29>;
+	gpio_ese_irq = <0>;
+	gpio_ese_reset = <0>;
+	svdd_pwr_req_need = <1>;
+	gpio_svdd_pwr_req = <69>;
+	spi_switch_need = <0>;
+	gpio_spi_switch = <0>;
+	status = "ok";
+};

@@ -1,0 +1,12 @@
+#
+# popup driver configuration
+#
+
+menuconfig HUAWEI_POPUP
+	bool "Huawei popup driver"
+	default n
+	help
+	Say yes here to support for popup.
+
+source "drivers/huawei_platform/popup/pos_hall/Kconfig"
+source "drivers/huawei_platform/popup/step_motor/Kconfig"

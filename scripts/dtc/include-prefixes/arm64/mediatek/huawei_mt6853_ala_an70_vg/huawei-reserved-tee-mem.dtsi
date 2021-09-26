@@ -1,0 +1,5 @@
+&tee_os_reserved_info {
+    compatible = "mediatek,tee_os_reserved_info";
+    supersonic-size = <0 0x1400000>;
+    secos-ex-size = <0 0x600000>;
+};

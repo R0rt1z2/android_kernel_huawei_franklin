@@ -1,0 +1,8 @@
+#
+# high volt driver configuration
+#
+config HUAWEI_HIGH_VOLT_VIBRATOR
+	bool "huawei high volt vibrator driver"
+	default n
+	help
+	Say yes here to support for high volt vibrator.

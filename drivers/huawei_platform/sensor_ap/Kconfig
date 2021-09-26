@@ -1,0 +1,10 @@
+#sensor unification for differ platform
+menuconfig HUAWEI_SENSORS_AP
+	bool "huawei sensor ap"
+	default n
+	help
+	Say yes here to support the huawei sensor input information.
+
+source "drivers/huawei_platform/sensor_ap/hall/Kconfig"
+source "drivers/huawei_platform/sensor_ap/color_sensor/Kconfig"
+source "drivers/huawei_platform/sensor_ap/pmic/Kconfig"

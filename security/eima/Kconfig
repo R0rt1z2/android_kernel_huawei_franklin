@@ -1,0 +1,34 @@
+# Copyright (c) Huawei Technologies Co., Ltd. 2017-2020. All rights reserved.
+#
+# EMUI Integrity Measurement Architecture(EIMA) configuration
+#
+
+config HUAWEI_EIMA
+	bool "enables HUAWEI EMUI Integrity Measurement Architecture"
+	default n
+	help
+	  The EMUI Integrity Measurement Architecture (EIMA)
+	  framework is composed of a set of subsystems that
+	  are needed to measure the integrity of the platform
+	  and inform the decision on platform integrity to
+	  clients who seek such services.
+config HUAWEI_ENG_EIMA
+	bool "Huawei EIMA for engineering mode debug"
+	depends on HUAWEI_EIMA
+	default n
+	help
+	  This option should only be enabled for engineering mode & debug test.
+	  In engineering mode, EIMA will be turnoff(default) after init,
+	  tester can use supported interface to turn it on, and do debug test.
+config HUAWEI_EIMA_ACCESS_CONTROL
+	bool "enables one process access control by verifying the integrity of other processes"
+	depends on HUAWEI_EIMA
+	default n
+	help
+	  If the option is on, one process can request EIMA
+	  to verify the integrity of other processes by including libeima.
+	  The signature of the RE segment of the other process is generated on
+	  the Signature Center of Huawei CBG and sent to EIMA as an input.
+	  The signature is verified through libeima with the corresponding public
+	  key. After successful verification, the hash is compared with the hash
+	  data computed by EIMA. Then EIMA returns the result to the process.

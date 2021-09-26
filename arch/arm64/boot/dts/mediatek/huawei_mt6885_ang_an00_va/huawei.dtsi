@@ -1,0 +1,3 @@
+#include "huawei-charger.dtsi"
+#include "huawei-led.dtsi"
+#include "huawei-lcd.dtsi"

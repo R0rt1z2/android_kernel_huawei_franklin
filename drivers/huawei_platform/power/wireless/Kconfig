@@ -1,0 +1,8 @@
+config WIRELESS_CHARGER
+       bool "wireless charger"
+       default n
+       help
+         Say Y here to enable wireless charge driver.
+         This driver provides a unified logic to the wireless charge.
+         Currently supported wireless protocols as below:
+         QI/WPC protocol.

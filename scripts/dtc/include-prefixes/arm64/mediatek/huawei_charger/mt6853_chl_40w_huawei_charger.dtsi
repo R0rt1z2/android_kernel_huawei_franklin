@@ -1,0 +1,218 @@
+&charger {
+	ac_charger_current = <2600000>;
+	ac_charger_input_current = <2100000>;
+	fcp_charger_current = <2600000>;
+	fcp_charger_input_current = <1600000>;
+	non_std_ac_charger_current = <1200000>;
+	pd_vbus_upper_bound = <10000000>;
+	max_charger_voltage = <12000000>;
+	dpm_enable;
+	battery_cv = <4470000>;
+	iterm = <650000>;
+	vbus_max_limit = <11500>;
+	jeita_temp_above_t4_cv = <4080000>;
+	jeita_temp_t3_to_t4_cv = <4100000>;
+	jeita_temp_t2_to_t3_cv = <4470000>;
+	jeita_temp_t1_to_t2_cv = <4432000>;
+	jeita_temp_t0_to_t1_cv = <4432000>;
+	jeita_temp_below_t0_cv = <4100000>;
+	jeita_temp_t3_to_t4_cur = <1400000>;
+	jeita_temp_t2_to_t3_cur = <2870000>;
+	jeita_temp_t1_to_t2_cur = <1200000>;
+	jeita_temp_t0_to_t1_cur = <400000>;
+	vdpm_buf_limit = <100>;
+	vdpm_para =
+			"-32767", "4000", "4300", "50",
+			"4000", "4200", "4500", "50",
+			"4200", "32767", "4600", "50";
+	charge_full_design = <4000000>;
+};
+
+&huawei_charger {
+	compatible = "huawei,charger";
+	en_eoc_max_delay = <6>;
+	status = "okay";
+};
+
+&huawei_battery {
+	compatible = "huawei,battery";
+	voltage_max_design = <4430000>;
+	status = "okay";
+};
+
+&lk_charger{
+	ac_charger_current = <1050000>;
+	ac_charger_input_current = <1050000>;
+	non_std_ac_charger_current = <1050000>;
+	max_charger_voltage = <12000000>;
+	is_power_path;
+	poweron_charger_enable = <1>;
+};
+
+&direct_charge_ps {
+	status = "ok";
+};
+
+&direct_charger {
+	use_5A = <1>;
+	volt_para =
+		"4420", "2800", "1200";
+	compensate_r = <20>;
+	cc_cable_detect_enable = <1>;
+	high_temp_hysteresis = <1>;
+	full_path_res_max = <500>;
+	super_ico_current = <2400>;
+	scp_work_on_charger = <1>;
+	standard_cable_full_path_res_max = <500>;
+	first_cc_stage_timer_in_min = <0>;
+	stage_need_to_jump = "1";
+	is_show_ico_first = <1>;
+	is_send_cable_type = <0>;
+	temp_para =
+		"-32767", "10", "0",
+		"10", "45", "2800",
+		"45", "32767", "0";
+	status = "disable";
+};
+
+&huawei_ptst {
+	compatible = "huawei,power_test";
+	dc_mmi = <1>;
+	dc_mmi_para = <45 0x01 0 1000 1>;
+	status = "ok";
+};
+
+&direct_charger_sc {
+	use_8A = <1>;
+	dc_volt_ratio = <2>;
+	max_adaptor_vset = <10000>;
+	init_adapter_vset = <8800>;
+	delta_err_10v2p25a = <150>;
+	delta_err_10v4a = <300>;
+	vol_err_th = <300>;
+	adaptor_leakage_current_th = <600>;
+	vstep = <20>;
+	high_temp_hysteresis = <1>;
+	gain_curr_10v2a = <300>;
+	gain_curr_10v2p25a = <500>;
+	init_delt_vset = <450>;
+	max_dc_bat_vol = <4380>;
+	max_current_for_none_standard_cable = <6000>;
+	adaptor_antifake_check_enable = <0>;
+	adaptor_antifake_key_index = <2>;
+	ui_max_pwr = <40000>;
+	volt_para =
+		"4150", "7840", "5880",
+		"4250", "5880", "3920",
+		"4300", "3920", "2740",
+		"4450", "2740", "1960",
+		"4480", "1960", "1200";
+	volt_para1 =
+		"4250", "8000", "5880",
+		"4350", "5880", "5090",
+		"4380", "5090", "3920",
+		"4450", "3920", "2740",
+		"4480", "2740", "1200";
+	bat_para =
+		"BIT_CAE", "10", "20", "volt_para",
+		"BIT_CAE", "20", "45", "volt_para1",
+		"BCY_CGL", "10", "20", "volt_para",
+		"BCY_CGL", "20", "45", "volt_para1",
+		"BYT_CBL", "10", "20", "volt_para",
+		"BYT_CBL", "20", "45", "volt_para1",
+		"default", "10", "20", "volt_para",
+		"default", "20", "45", "volt_para1";
+	compensate_r = <4>;
+	cc_cable_detect_enable = <1>;
+	full_path_res_max = <500>;
+	scp_work_on_charger = <1>;
+	standard_cable_full_path_res_max = <500>;
+	first_cc_stage_timer_in_min = <10>;
+	stage_need_to_jump = "-1";
+	is_show_ico_first = <1>;
+	is_send_cable_type = <0>;
+	temp_para =
+		"-32767", "10", "0",
+		"10", "45", "8000",
+		"45", "32767", "0";
+	resist_para =
+		"0", "300", "6000",
+		"300", "500", "4000";
+	std_resist_para =
+		"0", "300", "8000",
+		"300", "500", "4000";
+	10v2p25a_cur_para =
+		"-32767", "5500",  "2000",
+		"5500",   "9000",  "2500",
+		"9000",   "10000", "2250",
+		"10000",  "10500", "2000",
+		"10500",  "32767", "1500";
+	status = "ok";
+};
+
+&bat_gm30 {
+	bat_para =
+		"BIT_CAE", "1310000", "1440000",
+		"BCY_CGL", "710000", "810000",
+		"BYT_CBL", "55000", "110000";
+	ntc_compensation_is = <1>;
+	ntc_temp_compensation_para =
+		"7000", "55",
+		"6000", "40",
+		"5000", "30",
+		"4000", "20",
+		"2000", "10",
+		"1000", "10";
+	min_fcc = <2800000>;
+	max_fcc = <4000000>;
+	g_FG_PSEUDO100_T0 = <(97)>;
+	g_FG_PSEUDO100_T1 = <(97)>;
+	g_FG_PSEUDO100_T2 = <(97)>;
+	g_FG_PSEUDO100_T3 = <(97)>;
+	g_FG_PSEUDO100_T4 = <(97)>;
+	dlpt_optimization;
+	CAR_TUNE_VALUE = <(250)>;
+	#include "BIT_CAE_4V45_4000mah_40W_ext.dtsi"
+	#include "BCY_CGL_4V45_4000mah_40W_ext.dtsi"
+	#include "BYT_CBL_4V45_4000mah_40W_ext.dtsi"
+
+};
+
+&usb_c_pinctrl {
+	status = "disabled";
+};
+
+&mt6360_pmu {
+	mt6360,intr_gpio_num = <10>; /* direct defined GPIO num */
+	mt6360,intr_gpio = <&pio 10 0x0>;
+	chg {
+		ircmp_resistor = <25000>;
+	};
+};
+
+&mt6360_typec {
+	mt6360pd,intr_gpio_num = <9>; /* direct defined GPIO num */
+	mt6360pd,intr_gpio = <&pio 9 0x0>;
+};
+
+&power_thermalzone {
+	status = "ok";
+};
+
+&mtk_usb_temp {
+	status = "ok";
+};
+
+&usb_short_circuit_protect {
+	status = "ok";
+};
+
+&usb_phy_tuning {
+	h_u2_vrt_ref = <6>;
+	h_u2_term_ref = <2>;
+	h_u2_enhance = <2>;
+	d_u2_vrt_ref = <6>;
+	d_u2_term_ref = <4>;
+	d_u2_enhance = <1>;
+	status = "ok";
+};

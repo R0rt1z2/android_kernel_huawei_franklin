@@ -1,0 +1,38 @@
+&audio_hw_config {
+	third_platform_name = "mt6885";
+	third_audio_hal_name = "audio.primary.mt6885.so";
+
+	audio_capability {
+		asr_vibrate_support = "true";
+		/*
+		sound trigger feature.
+		false: this product doesn't support soundtrigger feature.
+		2.0: this product supports the twice wakeup feature.
+		*/
+		soundtrigger_version = "2.0";
+		soundtrigger_enhance_enable = "false";
+		soundtrigger_mic_info = "3";
+		/*
+		bit0: node 900 optimization,  1:enab1e
+		bit1:
+			0: e2e disable
+			1: e2e enable, must use hifi_6405_virtual_btn_devkit.img
+		*/
+		soundtrigger_kws1_feature = "2";
+		/*
+		max stream volume to replace Android default volume.
+		*/
+		/*
+		use hisilicon wakeup engine.
+		true: use hisilicon wakeup engine.
+		false: DO NOT use hisilicon wakeup engine.
+		*/
+		wakeup_hisiengine = "true";
+		asr_enhance_mic_choose = "1";
+	};
+};
+
+&adsp_chr {
+	compatible = "huawei,adsp_chr";
+	status = "ok";
+};
